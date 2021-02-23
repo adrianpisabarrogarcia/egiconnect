@@ -14,33 +14,20 @@
         <main>
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-5">
+                    <div class="col-lg-7">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
-                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Recupera tu contraseña</h3></div>
                             <div class="card-body">
-                                <form>
+                                <form class="user" method="POST" id="formulario" action="{{route("recuperarContrasena")}}">
                                     <div class="form-group">
-                                        <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                        <input class="form-control py-4" id="inputEmailAddress" type="email" placeholder="Enter email address" />
+                                        <label class="small mb-1" for="inputEmailAddress">Correo</label>
+                                        <input class="form-control py-4" id="inputEmailAddress" type="email" aria-describedby="emailHelp" placeholder="Enter email address" />
                                     </div>
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="inputPassword">Password</label>
-                                        <input class="form-control py-4" id="inputPassword" type="password" placeholder="Enter password" />
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" />
-                                            <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                        <a class="small" href="{{route('solicitarContrasena')}}">Forgot Password?</a>
-                                        <a class="btn btn-primary" href="index.html">Login</a>
-                                    </div>
+                                    <div class="form-group mt-4 mb-0"><a class="btn btn-primary btn-block" id="botonRecuperarContrasena">Recuperar contraseña</a></div>
                                 </form>
                             </div>
                             <div class="card-footer text-center">
-                                <div class="small"><a href="{{route('registro')}}">Need an account? Sign up!</a></div>
+                                <div class="small"><a href="{{route('inicioSesion')}}">Have an account? Go to login</a></div>
                             </div>
                         </div>
                     </div>
@@ -66,5 +53,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="js/scripts.js"></script>
+<script src="js/recuperarContrasena.js"></script>
 </body>
 </html>

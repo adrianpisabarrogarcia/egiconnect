@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view("/", "login")->name('inicioSesion');
 Route::view("/register", "register")->name('registro');
+
+//PASS
+Route::view("/solicitarContrasena", "cambiarContrasena")->name("solicitarContrasena");
+Route::post("/recuperarContrasena", "perfilUsuarioController@recuperarContrasena")->name("recuperarContrasena");
