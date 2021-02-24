@@ -12,7 +12,6 @@
     <link href="css/styles.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/login.css">
     <!-- contenido -->
     @yield('content')
     <!-- footer -->

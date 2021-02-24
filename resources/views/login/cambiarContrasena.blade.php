@@ -1,5 +1,6 @@
 @extends('layout.layout-principal')
 @section('content')
+    <link rel="stylesheet" href="/css/login.css">
 </head>
 <body class="bg-primary">
 <div id="layoutAuthentication">
