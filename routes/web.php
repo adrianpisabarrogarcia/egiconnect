@@ -13,10 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//LOGIN, REGISTRO Y RECUPERACIÓN DE PASSWORD
+//LOGIN
+    //muestro
+Route::get('/','ControladorLogin@index')->name('login.home');
+    //accedo
+Route::post('/','ControladorLogin@show')->name('login.enter');
+//Route::post('/','ControladorLogin@show')->name('login.auth');
 
-Route::view("/", "login")->name('inicioSesion');
-Route::view("/register", "register")->name('registro');
+Route::view("/register", "/login/register")->name('registro');
 
 //PASS
-Route::view("/solicitarContrasena", "cambiarContrasena")->name("solicitarContrasena");
+Route::view("/solicitarContrasena", "/login/cambiarContrasena")->name("solicitarContrasena");
 Route::post("/recuperarContrasena", "perfilUsuarioController@recuperarContrasena")->name("recuperarContrasena");
+
