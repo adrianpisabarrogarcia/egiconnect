@@ -31,3 +31,7 @@ Route::view("/solicitarContrasena", "/login/cambiarContrasena")->name("solicitar
     //envío datos
 Route::post("/recuperarContrasena", "perfilUsuarioController@recuperarContrasena")->name("recuperarContrasena");
 
+//VISTAS
+Route::view("/index", "index")->name('index');
+Route::view("/proyecto", "proyects")->name('proyecto');
+

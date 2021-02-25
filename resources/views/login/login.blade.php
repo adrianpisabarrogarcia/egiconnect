@@ -1,5 +1,6 @@
 @extends('layout.layout-principal')
 @section('content')
+    <link rel="stylesheet" href="/css/login.css">
 </head>
 <body class="bg-primary">
 <div id="layoutAuthentication">
@@ -7,7 +8,7 @@
         <main>
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-5">
+                    <div class="col-lg-7">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header d-flex justify-content-center"><img id="logo-login"
                                                                                         src="/img/logo-login.png"></div>
@@ -15,25 +16,16 @@
                                 <form method="POST" action="{{route('login.enter')}}">
                                     @csrf
                                     <div class="form-group">
-                                        <label class="small mb-1" for="inputEmailAddress">Usuario</label>
+                                        <label class="small mb-1" for="inputEmailAddress">Usuario / Email</label>
                                         <input class="form-control py-4" id="inputEmailAddress" name="user" type="text"
-                                               placeholder="Escribe aquí tu correo electrónico o usuario" required/>
+                                               placeholder="Escribe tu usuario o email" required/>
                                     </div>
                                     <div class="form-group">
                                         <label class="small mb-1" for="inputPassword">Contraseña</label>
                                         <input class="form-control py-4" id="inputPassword" name="password"
                                                type="password"
-                                               placeholder="Escribe aquí tu contraseña" required/>
+                                               placeholder="Escribe tu contraseña" required/>
                                     </div>
-                                    <!--
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" />
-                                            <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>
-                                        </div>
-
-                                    </div>
-                                    -->
                                     @if(isset($error))
                                         <div class='alert alert-danger text-center' role='alert'>{{ $error }}</div>
                                     @endif
