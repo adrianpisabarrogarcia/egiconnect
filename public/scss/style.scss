@@ -1,0 +1,52 @@
+:root {
+    --morado: #682e88;
+    --morado2: #37104C;
+    --gris: #C1BFB5;
+    --gris2: #484848;
+    --blanco: #FFFFFF;
+
+}
+
+.navbar-nav {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dark-mode {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.index-buttons {
+    display: flex;
+    justify-content: center;
+    outline: none;
+}
+
+.btn-primary {
+    background-color: var(--morado) !important;
+    border-color: var(--morado) !important;
+}
+.sb-sidenav-menu .nav-link.active {
+    color: #ffffff !important;
+    border: none !important;
+}
+.nav-link.active {
+    color: var(--morado) !important;
+    border-color: var(--morado) var(--morado)  #ffffff var(--morado) !important;
+
+}
+
+.nav-tabs {
+    border-bottom: 1px solid var(--morado) !important;
+}
+
