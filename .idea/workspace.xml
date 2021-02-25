@@ -20,18 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd8903a9-0bc8-46bf-9ac1-2458e59d42ee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/js/registro.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/scss/login.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/layout/layout-principal.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/email/register.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/cambiarContrasena.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/login/cambiarContrasena.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/login/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/login/register.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ControladorLogin.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ControladorLogin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/login/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/login/register.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -214,7 +207,8 @@
       <option name="presentableId" value="Default" />
       <updated>1614080192726</updated>
       <workItem from="1614080193886" duration="5190000" />
-      <workItem from="1614151586927" duration="9952000" />
+      <workItem from="1614151586927" duration="15847000" />
+      <workItem from="1614235537707" duration="1430000" />
     </task>
     <servers />
   </component>

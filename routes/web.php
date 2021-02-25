@@ -20,10 +20,14 @@ Route::get('/','ControladorLogin@index')->name('login.home');
     //accedo
 Route::post('/','ControladorLogin@show')->name('login.enter');
 //Route::post('/','ControladorLogin@show')->name('login.auth');
-
+// REGISTRO
+    //muestro
 Route::view("/register", "/login/register")->name('registro');
-
+    //envío datos
+Route::post("/register", "ControladorLogin@store")->name('registro.enter');
 //PASS
+    //muestro
 Route::view("/solicitarContrasena", "/login/cambiarContrasena")->name("solicitarContrasena");
+    //envío datos
 Route::post("/recuperarContrasena", "perfilUsuarioController@recuperarContrasena")->name("recuperarContrasena");
 
