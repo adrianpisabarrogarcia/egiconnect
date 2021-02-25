@@ -25,7 +25,35 @@ class ControladorLogin extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //guardo lo datos del registro
+        $usuario = $request->get('usuario');
+        $email = $request->get('email');
+        $datosUsuario = DB::select('select dni from usuario where dni = ?',[$usuario]);
+        $datosEmail = DB::select('select email from usuario where email = ?',[$email]);
+        $errores = '';
+        if (count($datosUsuario)>0){
+            $errores = $errores . 'El usuario no es válido. Escribe otro.<br>';
+        }
+        if (count($datosEmail)>0){
+            $errores = $errores . 'El correo no es válido. Escribe otro.';
+        }
+
+        if (empty($errores)){
+            //utilizar este método para guardar la info recibida por parámetro
+            DB::table('usuario')->insert([
+                'usuario' => $request->get('usuario'),
+                'nombre' => $request->get('nombre'),
+                'apellidos' => $request->get('apellidos'),
+                'password' => Hash::make($request->get('password')),
+                'email' => $request->get('email')
+            ]);
+
+            $this->contacto($request);
+
+            return redirect()->route('login.home');
+        }
+        return view("registro", ['errores' => $errores]);
+
     }
 
     /**
@@ -91,5 +119,17 @@ class ControladorLogin extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function contacto(Request $request){
+        $subject = "Bienvenido/a ". $request['nombre']; //asunto
+        $for = $request['email']; //a quien se lo voy a enviar
+        //vista          //le paso los datos del request
+        Mail::send('email.register',$request->all(), function($msj) use($subject,$for){
+            $msj->from("developersweapp@gmail.com","EgiConnect"); //de quien
+            $msj->subject($subject);
+            $msj->to($for);
+        });
     }
 }

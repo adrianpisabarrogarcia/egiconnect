@@ -18,7 +18,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="small mb-1" for="inputFirstName">Nombre</label>
-                                                <input class="form-control py-4" id="inputFirstName" type="text"
+                                                <input class="form-control py-4" id="inputFirstName" type="text" name="nombre"
                                                        placeholder="Escribe tu nombre"
                                                        pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,48}"
                                                        required/>
@@ -27,7 +27,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="small mb-1" for="inputLastName">Apellidos</label>
-                                                <input class="form-control py-4" id="inputLastName" type="text"
+                                                <input class="form-control py-4" id="inputLastName" type="text" name="apellidos"
                                                        placeholder="Escribe tus apellidos"
                                                        pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}"
                                                        required/>
@@ -36,13 +36,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="small mb-1" for="inputEmailAddress">Usuario</label>
-                                        <input class="form-control py-4" id="inputEmailAddress" type="text"
+                                        <input class="form-control py-4" id="inputEmailAddress" type="text" name="usuario"
                                                placeholder="Escribe tu nickname o apodo. Mínimo 5 carácteres, máximo 12."
                                                pattern="^([a-z]+[0-9]{0,2}){5,12}$" required/>
                                     </div>
                                     <div class="form-group">
                                         <label class="small mb-1" for="inputEmailAddress">Correo electrónico</label>
-                                        <input class="form-control py-4" id="inputEmailAddress" type="email"
+                                        <input class="form-control py-4" id="inputEmailAddress" type="email" name="email"
                                                aria-describedby="emailHelp"
                                                placeholder="Escribe tu correo electrónico"
                                                pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
@@ -54,7 +54,7 @@
                                             <div class="form-group">
                                                 <label class="small mb-1" for="inputPassword">Contraseña</label>
                                                 <input class="form-control py-4" id="inputPassword" type="password"
-                                                       placeholder="Mínimo 8 carácteres, máximo 12"
+                                                       placeholder="Mínimo 8 carácteres, máximo 12" name="password"
                                                        pattern="[A-Za-z0-9!?-_]{8,12}" required/>
                                             </div>
                                         </div>
