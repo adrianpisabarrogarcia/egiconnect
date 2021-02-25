@@ -4,17 +4,17 @@
 function registro() {
 
     //recojo las contraseñas
-    let password: string = $("#inputPassword").val().toString()
-    let passwordRep: string = $("#inputConfirmPassword").val().toString()
+    let password: string = $("#inputPassword").val().toString();
+    let passwordRep: string = $("#inputConfirmPassword").val().toString();
     //cuando de errores
-    let errores: boolean = false
-    let textoErrores: string = "Las contraseñas no coinciden<br>"
+    let errores: boolean = false;
+    let textoErrores: string = "Las contraseñas no coinciden<br>";
 
     try {
         //compruebo password
         if (password != passwordRep) {
-            errores = true
-            throw textoErrores
+            errores = true;
+            throw textoErrores;
         }
 
     } catch (err) {

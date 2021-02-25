@@ -14,3 +14,7 @@ $color-principal: #682E88 !important;
 a, .text-primary{
     color: $color-principal;
 }
+
+.btn-primary:active:focus {
+    box-shadow: none !important;
+}

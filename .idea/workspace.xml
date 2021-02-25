@@ -20,18 +20,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd8903a9-0bc8-46bf-9ac1-2458e59d42ee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/perfil.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/proyectos.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/egiconnect.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/egiconnect.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/perfilUsuarioController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/perfilUsuarioController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/chat.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/chat.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/chat.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/scss/chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/scss/chat.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/scss/chat.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/scss/chat.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/scss/chat.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/scss/chat.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layout/layout-menus.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layout/layout-menus.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/proyects.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/proyects.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/login.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/login.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/style.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/recuperarContrasena.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/recuperarContrasena.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/recuperarContrasena.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/recuperarContrasena.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/registro.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/registro.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/scss/login.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/scss/login.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/scss/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/scss/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,7 +45,9 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable />
+    </execution>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -203,13 +211,25 @@
       <recent name="C:\Users\2gdaw08\Desktop\laravel\egiconnect\resources\views\login" />
     </key>
   </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -224,17 +244,19 @@
       <workItem from="1614151586927" duration="9952000" />
       <workItem from="1614164056711" duration="6007000" />
       <workItem from="1614238276716" duration="16582000" />
+      <workItem from="1614288169338" duration="4881000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="1" />
     <option name="exactExcludedFiles">
       <list>
-        <option value="$PROJECT_DIR$/public/js/recuperarContrasena.js" />
         <option value="$PROJECT_DIR$/public/js/registro.js" />
+        <option value="$PROJECT_DIR$/public/js/recuperarContrasena.js" />
         <option value="$PROJECT_DIR$/public/js/dark-mode-switch.min.js" />
         <option value="$PROJECT_DIR$/public/js/chat.js" />
+        <option value="$PROJECT_DIR$/public/js/proyectos.js" />
       </list>
     </option>
   </component>
@@ -243,12 +265,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1267" y="314" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1614241772224">
