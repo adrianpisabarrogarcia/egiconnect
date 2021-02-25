@@ -14,6 +14,7 @@
             crossorigin="anonymous"></script>
     <!-- contenido -->
     <link rel="stylesheet" href="/css/style.css">
+    @yield('head')
 </head>
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">

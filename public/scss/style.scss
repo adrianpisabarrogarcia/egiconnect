@@ -13,6 +13,11 @@
     justify-content: flex-end;
 }
 
+#userDropdown {
+    display: flex;
+    align-items: center;
+}
+
 .dark-mode {
     display: flex;
     flex-direction: row;
@@ -40,10 +45,31 @@
     color: #ffffff !important;
     border: none !important;
 }
+
+.nav-link {
+    display: flex;
+}
+
+.nav-link:hover {
+    border-color: #ffffff #ffffff var(--morado) #ffffff !important;
+}
+
 .nav-link.active {
     color: var(--morado) !important;
     border-color: var(--morado) var(--morado)  #ffffff var(--morado) !important;
 
+}
+
+main {
+    height: 100%;
+}
+
+.tab-content {
+    height: 100%;
+}
+
+.tab-pane {
+    height: 100%;
 }
 
 .nav-tabs {
