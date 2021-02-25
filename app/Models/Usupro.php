@@ -11,5 +11,5 @@ class Usupro extends Model
 
     public $timestamps = false;
     protected $table = 'usupro';
-    protected $fillable = ["idproy", "idusu"];
+    protected $fillable = ["id","idproy", "idusu"];
 }

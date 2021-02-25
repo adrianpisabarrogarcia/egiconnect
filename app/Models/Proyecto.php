@@ -11,5 +11,5 @@ class Proyecto extends Model
 
     public $timestamps = false;
     protected $table = 'proyecto';
-    protected $fillable = ["nombre", "descripcion", "codigo", "idcreador"];
+    protected $fillable = ["id","nombre", "descripcion", "codigo", "idcreador"];
 }

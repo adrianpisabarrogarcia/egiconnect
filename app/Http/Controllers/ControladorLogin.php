@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Hash;
+use Mail;
+use Session;
 
 class ControladorLogin extends Controller
 {
@@ -28,7 +31,7 @@ class ControladorLogin extends Controller
         //guardo lo datos del registro
         $usuario = $request->get('usuario');
         $email = $request->get('email');
-        $datosUsuario = DB::select('select dni from usuario where dni = ?',[$usuario]);
+        $datosUsuario = DB::select('select usuario from usuario where usuario = ?',[$usuario]);
         $datosEmail = DB::select('select email from usuario where email = ?',[$email]);
         $errores = '';
         if (count($datosUsuario)>0){
@@ -52,7 +55,7 @@ class ControladorLogin extends Controller
 
             return redirect()->route('login.home');
         }
-        return view("registro", ['errores' => $errores]);
+        return view("login/register", ['errores' => $errores]);
 
     }
 
@@ -70,7 +73,7 @@ class ControladorLogin extends Controller
 
         //Consultamos a la bd
         $datosUsuario = DB::select('select * from usuario where usuario= ?', [$user]);
-        $datosEmail = DB::select('select * from usuario where usuario= ?', [$user]);
+        $datosEmail = DB::select('select * from usuario where email= ?', [$user]);
         //En caso de que encuentre un objeto guardaremos el dni
         if ($datosUsuario != null || $datosEmail != null) {
             if ($datosUsuario != null){
@@ -79,7 +82,7 @@ class ControladorLogin extends Controller
                     Session::put('usuario', $user);
                     Session::put('nombre', $datosUsuario[0]->nombre);
                     Session::put('correo', $datosUsuario[0]->email);
-                    return redirect()->route('login.home');
+                    return redirect()->route('index');
                 }
             }else{
                 if (Hash::check($password, $datosEmail[0]->password)) {
@@ -87,7 +90,7 @@ class ControladorLogin extends Controller
                     Session::put('usuario', $datosEmail[0]->usuario);
                     Session::put('nombre', $datosEmail[0]->nombre);
                     Session::put('correo', $user);
-                    return redirect()->route('login.home');
+                    return redirect()->route('index');
                 }
             }
         }

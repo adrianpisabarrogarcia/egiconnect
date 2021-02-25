@@ -3,12 +3,22 @@
 
 <div id="layoutSidenav_content">
     <main>
-        <div class="row">
+        <!--<div class="row">
             <div class="index-buttons mb-3 col-12 mb-sm-0 col-sm-5 offset-sm-1 col-md-4 offset-md-2">
                 <button type="button" class="btn btn-primary btn-lg">CREAR SALA</button>
             </div>
             <div class="index-buttons col-12 col-sm-5 col-md-4">
                 <button type="button" class="btn btn-primary btn-lg">UNIRSE A SALA</button>
+            </div>
+        </div>
+        -->
+
+        <div class="row d-flex justify-content-center align-center">
+            <div class="col-6 d-flex justify-content-center p-5">
+                <button type="button" class="btn btn-outline-primary btn-lg w-100">CREAR SALA</button>
+            </div>
+            <div class="col-6 d-flex justify-content-center p-5">
+                <button type="button" class="btn btn-outline-primary btn-lg w-100">UNIRTE A LA SALA</button>
             </div>
         </div>
 
