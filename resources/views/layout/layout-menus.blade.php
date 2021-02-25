@@ -13,7 +13,57 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
             crossorigin="anonymous"></script>
     <!-- contenido -->
-    @yield('content')
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="sb-nav-fixed">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <button class="btn btn-link btn-sm d-lg-none ml-2" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+    <a class="navbar-brand" href="index.html">Egiconnect</a>
+    <!-- Navbar Dark-Mode-->
+    <ul class="navbar-nav ml-auto ml-md-0">
+        <li class="dark-mode nav-item dropdown mr-2">
+            <label class="mb-0" for="darkSwitch"><i style="color: rgba(255,255,255,0.5);" class="fas fa-fw fa-sun mr-2"></i></label>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="darkSwitch"/>
+                <label class="custom-control-label" for="darkSwitch"><i style="color: rgba(255,255,255,0.5);" class="fas fa-fw fa-moon"></i></label>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">Ajustes</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{route("login.home")}}">Logout</a>
+            </div>
+        </li>
+    </ul>
+</nav>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Principal</div>
+                    <a class="nav-link" href="{{route('index')}}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                        Inicio
+                    </a>
+                    <div class="sb-sidenav-menu-heading">Proyectos</div>
+                    <a class="nav-link" href="{{route('proyecto')}}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-hashtag"></i></div>
+                        Proyecto 1
+                    </a>
+                    <a class="nav-link" href="#">
+                        <div class="sb-nav-link-icon"><i class="fas fa-hashtag"></i></div>
+                        General
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+@yield('content')
     <!-- footer -->
     <div id="layoutAuthentication_footer">
         <footer class="py-4 bg-light mt-auto">

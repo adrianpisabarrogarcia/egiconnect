@@ -26,5 +26,8 @@ Route::view("/register", "/login/register")->name('registro');
 //PASS
 Route::view("/solicitarContrasena", "/login/cambiarContrasena")->name("solicitarContrasena");
 Route::post("/recuperarContrasena", "perfilUsuarioController@recuperarContrasena")->name("recuperarContrasena");
+
+//VISTAS
 Route::view("/index", "index")->name('index');
+Route::view("/proyecto", "proyects")->name('proyecto');
 
