@@ -13,6 +13,8 @@
             <button class="nav-link" id="nav-files-tab" data-bs-toggle="tab" data-bs-target="#nav-files" type="button" role="tab" aria-controls="nav-files" aria-selected="false"><div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>Archivos</button>
             <button class="nav-link" id="nav-tareas-tab" data-bs-toggle="tab" data-bs-target="#nav-tareas" type="button" role="tab" aria-controls="nav-tareas" aria-selected="false"><div class="sb-nav-link-icon"><i class="fas fa-tasks"></i></div>Tareas</button>
             <button class="nav-link" id="nav-usuarios-tab" data-bs-toggle="tab" data-bs-target="#nav-users" type="button" role="tab" aria-controls="nav-users" aria-selected="false"><div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>Usuarios</button>
+            <button class="nav-link" id="nav-edit-tab" data-bs-toggle="tab" data-bs-target="#nav-edit" type="button" role="tab" aria-controls="nav-edit" aria-selected="false"><div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>Modificar</button>
+
         </div>
     </nav>
     <main>
@@ -33,7 +35,7 @@
                 <div class="message_template">
                     <li class="message">
                         <div class="text_wrapper">
-                            <small>Victor Saiz</small>
+                            <p>Victor Saiz</p>
                             <div class="text"></div>
                         </div>
                     </li>
@@ -42,6 +44,7 @@
             <div class="tab-pane fade" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">...</div>
             <div class="tab-pane fade" id="nav-tareas" role="tabpanel" aria-labelledby="nav-tareas-tab">...</div>
             <div class="tab-pane fade" id="nav-usuarios" role="tabpanel" aria-labelledby="nav-usuarios-tab">...</div>
+            <div class="tab-pane fade" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab">...</div>
 
         </div>
 

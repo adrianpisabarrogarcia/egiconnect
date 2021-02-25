@@ -31,7 +31,7 @@ class perfilUsuarioController extends Controller
                 $subject = "Recuperación de contraseña";
 
                 Mail::send('email.email', request()->all(), function($msj) use($subject,$email){
-                    $msj->from("egiconnect.info@gmail.com","Egiconnect");
+                    $msj->from("developersweapp@gmail.com","EgiConnect");
                     $msj->subject($subject);
                     $msj->to($email);
                 });
