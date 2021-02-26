@@ -58,11 +58,34 @@ class proyectoController extends Controller
         return redirect()->route('index');
     }
 
+
     public function show($id)
     {
 
         return view('proyects');
 
+    }
+  
+    public function unirseProyecto()
+    {
+
+        //Verificamos si el codigo existe.
+        $idproy = Proyecto::get()->where('codigo', request("codigoProyecto"));
+        if(count($idproy)==0){
+            return back()->with('error', 'El codigo del proyecto no existe.');
+        }
+
+        $idproy = Proyecto::get()->where('codigo', request("codigoProyecto"))->first();
+        $usuPro  = new Usupro(
+            [
+                "idproy" => $idproy->id,
+                "idusu" => request("idusu"),
+            ]
+        );
+
+        $usuPro->save();
+
+        return redirect()->route('index');
     }
 
 }
