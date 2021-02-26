@@ -5,15 +5,10 @@
         main {
             overflow: hidden;
         }
-
-        .toast {
-            autohide: false;
-            display: flex;
-        }
     </style>
     </head>
     <div id="layoutSidenav_content">
-        <main>
+        <main class="p-2">
             <h3 class="ms-4 p-2"><i class="fas fa-tools"></i>&nbsp;Gestión de proyectos:</h3>
             <div class="row d-flex justify-content-center align-center">
                 <div class="col-6 d-flex justify-content-center p-5">

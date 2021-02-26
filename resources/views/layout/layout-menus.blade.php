@@ -12,6 +12,8 @@
     <link href="css/styles.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/portal.css">
+
     <!-- contenido -->
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -28,8 +30,8 @@
                 <label class="custom-control-label" for="darkSwitch"><i style="color: rgba(255,255,255,0.5);" class="fas fa-fw fa-moon"></i></label>
             </div>
         </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+        <li class="nav-item dropdown ml-3">
+            <a class="nav-link dropdown-toggle text-white" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>&nbsp;&nbsp;{{session()->get('nombre')}} <span style="color: rgba(255,255,255,0.5)">({{session()->get('usuario')}})</span>&nbsp;&nbsp;</a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">Ajustes</a>
                 <div class="dropdown-divider"></div>
