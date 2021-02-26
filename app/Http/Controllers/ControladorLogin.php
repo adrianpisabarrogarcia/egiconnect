@@ -82,6 +82,14 @@ class ControladorLogin extends Controller
                     Session::put('usuario', $user);
                     Session::put('nombre', $datosUsuario[0]->nombre);
                     Session::put('correo', $datosUsuario[0]->email);
+                    $proyectosIDs = DB::select('select * from usupro where idusu= ?', [$datosUsuario[0]->id]);
+                    $proyectos = [];
+                    foreach ($proyectosIDs as $datosProyectos){
+                        $project = DB::select('select * from proyecto where id= ?', [$datosProyectos->idproy]);
+                        array_push($proyectos, $project);
+                    }
+                    Session::put('proyectos', $proyectos);
+                    //return $proyectos;
                     return redirect()->route('index');
                 }
             }else{
