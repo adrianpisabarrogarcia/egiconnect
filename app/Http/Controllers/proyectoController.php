@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Proyecto;
 use App\Models\Usupro;
 use Illuminate\Http\Request;
+use DB;
+use Session;
 
 class proyectoController extends Controller
 {
@@ -58,14 +60,6 @@ class proyectoController extends Controller
         return redirect()->route('index');
     }
 
-
-    public function show($id)
-    {
-
-        return view('proyects');
-
-    }
-  
     public function unirseProyecto()
     {
 
@@ -86,6 +80,27 @@ class proyectoController extends Controller
         $usuPro->save();
 
         return redirect()->route('index');
+    }
+
+    public function show($id)
+    {
+        Session::put('proyectoid', $id);
+        $mensajes = DB::select('SELECT * FROM chat WHERE idproy = ? ',[$id]);
+        return view('proyects')->with(["mensajes" => $mensajes]);
+
+    }
+    //método para guardar los mensajes del chat
+    public function chat(Request $request)
+    {
+        DB::table('chat')->insert([
+            'descripcion' => $request->mensaje,
+            'fecha' => now(),
+            'idusu' => session()->get('id'),
+            'idproy' => session()->get('proyectoid'),
+        ]);
+
+        return $this->show(session()->get('proyectoid'));
+
     }
 
 }
