@@ -11,7 +11,7 @@ class proyectoController extends Controller
     public function crearProyecto()
     {
         $codigoRepetido = 0;
-        do{
+        do {
             $permitted_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             $codigo = substr(str_shuffle($permitted_chars), 0, 5);
             $lista = Proyecto::get();
@@ -20,9 +20,9 @@ class proyectoController extends Controller
                     $codigoRepetido = 1;
                 }
             }
-        }while($codigoRepetido == 1);
+        } while ($codigoRepetido == 1);
 
-        $proyecto  = new Proyecto(
+        $proyecto = new Proyecto(
             [
                 "nombre" => request("nombre"),
                 "descripcion" => request("descripcion"),
@@ -32,11 +32,10 @@ class proyectoController extends Controller
         );
 
 
-
         //Verificamos si el codigo está en uso.
         $lista = Proyecto::get();
-        foreach ($lista as $elemento){
-            if($elemento->nombre == request("nombre")){
+        foreach ($lista as $elemento) {
+            if ($elemento->nombre == request("nombre")) {
                 return back()->with('error', 'El nombre del proyecto ya está en uso.');
             }
         }
@@ -46,7 +45,7 @@ class proyectoController extends Controller
         $idproyecto = $proyecto->id;
 
 
-        $usuPro  = new Usupro(
+        $usuPro = new Usupro(
             [
                 "idproy" => $idproyecto,
                 "idusu" => request("idcreador"),
@@ -58,4 +57,12 @@ class proyectoController extends Controller
 
         return redirect()->route('index');
     }
+
+    public function show($id)
+    {
+
+        return view('proyects');
+
+    }
+
 }

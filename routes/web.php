@@ -33,7 +33,7 @@ Route::post("/recuperarContrasena", "perfilUsuarioController@recuperarContrasena
 
 //VISTAS
 Route::view("/index", "index")->name('index');
-Route::view("/proyecto", "proyects")->name('proyecto');
+Route::get("/proyecto/{id}", "proyectoController@show")->name('proyecto');
 Route::view("/perfil", "perfil")->name('perfil');
 
 //PROYECTO
