@@ -11,5 +11,5 @@ class Tarea extends Model
 
     public $timestamps = false;
     protected $table = 'tarea';
-    protected $fillable = ["fecha_vencimiento", "realizado", "nombre", "idusu", "idpry"];
+    protected $fillable = ["id","fecha_vencimiento", "realizado", "nombre", "idusu", "idpry"];
 }
