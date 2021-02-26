@@ -31,6 +31,8 @@ class proyectoController extends Controller
             ]
         );
 
+
+
         //Verificamos si el codigo está en uso.
         $lista = Proyecto::get();
         foreach ($lista as $elemento){
@@ -40,6 +42,20 @@ class proyectoController extends Controller
         }
 
         $proyecto->save();
+
+        $idproyecto = $proyecto->id;
+
+
+        $usuPro  = new Usupro(
+            [
+                "idproy" => $idproyecto,
+                "idusu" => request("idcreador"),
+            ]
+        );
+
+
+        $usuPro->save();
+
         return redirect()->route('index');
     }
 }

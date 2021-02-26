@@ -10,7 +10,7 @@ $(document).ready(function () {
 function validarProyecto() {
     try {
         // @ts-ignore
-        var textoErrores = ["Debes añadir un nombre al proyecto", "Debes añadir una descripcion al proyecto"];
+        var textoErrores = ["Debes añadir un nombre al proyecto", "Debes añadir una descripción al proyecto"];
         // @ts-ignore
         var cod = generarCodigo();
         // @ts-ignore

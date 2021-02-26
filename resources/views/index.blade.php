@@ -36,7 +36,6 @@
                                 <input type="hidden" name="codigo" id="codigo">
                                 <input type="hidden" name="idcreador" id="creador" value="31">
                                 <div id="erroresTypescript">
-                                    <span  id="mensajeErrorSpan">{!! session()->get('error') !!}</span>
                                 </div>
                             </form>
                         </div>

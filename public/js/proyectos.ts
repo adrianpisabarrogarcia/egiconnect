@@ -13,7 +13,7 @@ function validarProyecto():void {
 
     try {
         // @ts-ignore
-        let textoErrores:Array<string> = ["Debes añadir un nombre al proyecto", "Debes añadir una descripcion al proyecto"];
+        let textoErrores:Array<string> = ["Debes añadir un nombre al proyecto", "Debes añadir una descripción al proyecto"];
 
         // @ts-ignore
         var cod: string = generarCodigo();
