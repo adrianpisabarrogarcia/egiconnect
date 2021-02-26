@@ -24,7 +24,6 @@ function  generarContrasena():String {
     var numeroAleatorio:number = 3;
     var pass:String = "";
 
-    // paso 2 - escribir x caracteres
 
     for(var i = 0; i<8; i++){
         numeroAleatorio = parseInt(String(Math.random() * caracteres.length));

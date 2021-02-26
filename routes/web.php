@@ -36,3 +36,6 @@ Route::view("/index", "index")->name('index');
 Route::view("/proyecto", "proyects")->name('proyecto');
 Route::view("/perfil", "perfil")->name('perfil');
 
+//PROYECTO
+Route::post("/crearProyecto", "proyectoController@crearProyecto")->name("crearProyecto");
+
