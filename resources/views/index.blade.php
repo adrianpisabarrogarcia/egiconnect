@@ -22,7 +22,7 @@
                             <form class="proyecto" method="POST" id="formulario" action="{{route('crearProyecto')}}">
                                 @csrf
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">CREA TU PROPIA SALA</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">CREA TU PROPIO PROYECTO</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -58,31 +58,26 @@
                 <div style="width: 100vw" class="modal fade" id="unirse" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form class="proyecto" method="POST" id="formulario" action="{{route('crearProyecto')}}">
+                            <form class="proyecto" method="POST" id="formulario2" action="{{route('unirseProyecto')}}">
                                 @csrf
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">CREA TU PROPIA SALA</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">UNETE A UN PROYECTO</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <form>
                                         <div class="mb-3">
-                                            <label for="recipient-name" class="col-form-label">Nombre de la sala:</label>
-                                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Escribe el nombre del proyecto">
+                                            <label for="recipient-name" class="col-form-label">Codigo del proyecto:</label>
+                                            <input  style="text-transform: uppercase;" maxlength="5" minlength="5" type="text" class="form-control" id="codigoProyecto" name="codigoProyecto" placeholder="Escribe el codigo del proyecto para unirte">
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="message-text" class="col-form-label">Descripción:</label>
-                                            <textarea style="resize: none" rows="5" class="form-control" id="descripcion" name="descripcion" placeholder="Escribe una breve descripcion del proyecto"></textarea>
-                                        </div>
-                                        <input type="hidden" name="codigo" id="codigo">
-                                        <input type="hidden" name="idcreador" id="creador" value="{{ session()->get('id') }}">
-                                        <div id="erroresTypescript">
+                                        <input type="hidden" name="idusu" id="idusu" value="{{ session()->get('id') }}">
+                                        <div id="erroresTypescript2">
                                         </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                    <button type="button" id="botonCrearProyecto" class="btn btn-primary">Crear</button>
+                                    <button type="button" id="botonUnirseProyecto" class="btn btn-primary">Unirse</button>
                                 </div>
                             </form>
                         </div>

@@ -2,6 +2,7 @@ $(document).ready(function (){
     //Asignamos la función correspondiente al formulario.
     try {
         $("#botonCrearProyecto").click(validarProyecto);
+        $("#botonUnirseProyecto").click(validarCodigoProyecto);
     }catch (error){
         console.log(error)
     }
@@ -14,11 +15,6 @@ function validarProyecto():void {
     try {
         // @ts-ignore
         let textoErrores:Array<string> = ["Debes añadir un nombre al proyecto", "Debes añadir una descripción al proyecto"];
-
-        // @ts-ignore
-        var cod: string = generarCodigo();
-        // @ts-ignore
-        $("#codigo").val(cod);
         // @ts-ignore
         var nombre: string = $("#nombre").val();
         // @ts-ignore
@@ -47,16 +43,29 @@ function validarProyecto():void {
 
 }
 
-function  generarCodigo():String {
-    var caracteres:Array<string> = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-    var numeroAleatorio:number = 3;
-    var cod:String = "";
 
+function validarCodigoProyecto():void {
 
-    for(var i = 0; i<8; i++){
-        numeroAleatorio = parseInt(String(Math.random() * caracteres.length));
-        cod += caracteres[numeroAleatorio];
+    try {
+        // @ts-ignore
+        let textoErrores:string = "El codígo debe tener 5 carácteres";
+
+        // @ts-ignore
+        var cod: string = $("#codigoProyecto").val();
+        var codUpper :string = cod.toUpperCase();
+        $("#codigoProyecto").val(codUpper);
+
+        if (cod.length == 5) {
+            $("#formulario2").submit();
+        }else {
+            throw textoErrores;
+        }
+
+    }catch (e) {
+        $("#erroresTypescript2").html("<div class='alert alert-danger text-center' role='alert'>" + e + " </div>")
+        event.preventDefault()
     }
-    return cod;
+
 }
+
 

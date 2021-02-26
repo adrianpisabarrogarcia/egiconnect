@@ -34,8 +34,9 @@ Route::post("/recuperarContrasena", "perfilUsuarioController@recuperarContrasena
 //VISTAS
 Route::view("/index", "index")->name('index');
 Route::view("/proyecto", "proyects")->name('proyecto');
-Route::view("/perfil", "perfil")->name('perfil');
+Route::view("/perfil", "usuarioController@listarusuario")->name('perfil');
 
 //PROYECTO
 Route::post("/crearProyecto", "proyectoController@crearProyecto")->name("crearProyecto");
+Route::post("/unirseProyecto", "proyectoController@unirseProyecto")->name("unirseProyecto");
 
