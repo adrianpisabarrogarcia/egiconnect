@@ -11,5 +11,5 @@ class Chat extends Model
 
     public $timestamps = false;
     protected $table = 'chat';
-    protected $fillable = ["descripcion", "fecha", "idusu", "idproy"];
+    protected $fillable = ["id","descripcion", "fecha", "idusu", "idproy"];
 }
