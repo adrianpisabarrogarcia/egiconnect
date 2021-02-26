@@ -30,6 +30,10 @@ Route::post("/register", "ControladorLogin@store")->name('registro.enter');
 Route::view("/solicitarContrasena", "/login/cambiarContrasena")->name("solicitarContrasena");
     //envío datos
 Route::post("/recuperarContrasena", "perfilUsuarioController@recuperarContrasena")->name("recuperarContrasena");
+// CHAT ENVÍO MENSAJES AJAX
+Route::post("/proyecto/chat", "proyectoController@chat")->name("insertarMensaje");
+
+
 
 //VISTAS
 Route::view("/index", "index")->name('index');

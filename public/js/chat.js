@@ -1,3 +1,6 @@
+//variable global con el mensaje que escriba el usuario conectado
+var mensaje = "";
+//código de una api
 (function () {
     var Message;
     Message = function (arg) {
@@ -21,6 +24,8 @@
         getMessageText = function () {
             var $message_input;
             $message_input = $('.message_input');
+            //varible global con el mensaje - @author: adrian
+            mensaje = $(".message_input").val().toString();
             return $message_input.val();
         };
         sendMessage = function (text) {
@@ -30,12 +35,23 @@
             }
             $('.message_input').val('');
             $messages = $('.messages');
-            message_side = message_side === 'left' ? 'right' : 'left';
+            /***
+             * @author: adrian y victor
+             * comentarios para deshabilitar funcionalidades de la api
+             */
+            //no queremos que los mensajes que nosotros escribimos salgan a la izquierda
+            //message_side = message_side === 'left' ? 'right' : 'left';
             message = new Message({
                 text: text,
                 message_side: message_side
             });
             message.draw();
+            /**
+             * @author: adrian y victor
+             * de estas 2 líneas de código
+             */
+            //el texto para que cada vez que pongo el texto vaya para abajo
+            scroll();
         };
         $('.send_message').click(function (e) {
             return sendMessage(getMessageText());
@@ -45,5 +61,30 @@
                 return sendMessage(getMessageText());
             }
         });
+        envioDatosServidor();
     });
 }.call(this));
+/***
+ * @author adrian y víctor a partir de aquí
+ */
+$(document).ready(function () {
+    imprimirMensajes();
+    scroll();
+});
+function scroll() {
+    //el texto para que cada vez que pongo el texto vaya para abajo
+    $('.messages').scrollTop($('.messages').prop('scrollHeight'));
+}
+function envioDatosServidor() {
+    $.ajax({
+        url: "/proyecto/chat",
+        method: "POST",
+        data: mensaje
+    }).done(function (res) {
+        console.log(res);
+    }).fail(function () {
+        console.log("todo mal, nada bien");
+    });
+}
+function imprimirMensajes() {
+}
