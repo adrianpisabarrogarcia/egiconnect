@@ -16,6 +16,8 @@ a, .text-primary {
   color: #682E88 !important;
 }
 
-/*# sourceMappingURL=login.css.map */
+.btn-primary:active:focus {
+  box-shadow: none !important;
+}
 
 /*# sourceMappingURL=login.css.map */

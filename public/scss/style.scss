@@ -76,3 +76,7 @@ main {
     border-bottom: 1px solid var(--morado) !important;
 }
 
+.btn-primary:focus {
+    box-shadow: none !important;
+}
+
