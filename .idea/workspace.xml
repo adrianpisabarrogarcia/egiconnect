@@ -230,6 +230,7 @@
         <option value="$PROJECT_DIR$/public/js/recuperarContrasena.js" />
         <option value="$PROJECT_DIR$/public/js/registro.js" />
         <option value="$PROJECT_DIR$/public/js/dark-mode-switch.min.js" />
+        <option value="$PROJECT_DIR$/public/js/chat.js" />
       </list>
     </option>
   </component>
@@ -244,6 +245,28 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1267" y="314" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1614241772224">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="1267" y="314" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.2048.1112@0.0.2048.1112" timestamp="1614241772224" />
+    <state x="1317" y="314" key="FileChooserDialogImpl" timestamp="1614254950259">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="1317" y="314" key="FileChooserDialogImpl/0.0.2048.1112@0.0.2048.1112" timestamp="1614254950259" />
+    <state x="1038" y="204" key="SettingsEditor" timestamp="1614168728053">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="1038" y="204" key="SettingsEditor/0.0.2048.1112@0.0.2048.1112" timestamp="1614168728053" />
+    <state x="-6" y="0" width="1035" height="1117" key="dock-window-1" timestamp="1614247204940">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="-6" y="0" width="1035" height="1117" key="dock-window-1/0.0.2048.1112@0.0.2048.1112" timestamp="1614247204940" />
+    <state x="1247" y="275" width="577" height="566" key="find.popup" timestamp="1614249684961">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="1247" y="275" width="577" height="566" key="find.popup/0.0.2048.1112@0.0.2048.1112" timestamp="1614249684961" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

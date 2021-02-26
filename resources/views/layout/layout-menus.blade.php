@@ -16,6 +16,7 @@
 
     <!-- contenido -->
     <link rel="stylesheet" href="/css/style.css">
+    @yield('head')
 </head>
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand bg-primary">
@@ -33,7 +34,7 @@
         <li class="nav-item dropdown ml-3">
             <a class="nav-link dropdown-toggle text-white" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>&nbsp;&nbsp;{{session()->get('nombre')}} <span style="color: rgba(255,255,255,0.5)">({{session()->get('usuario')}})</span>&nbsp;&nbsp;</a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">Ajustes</a>
+                <a class="dropdown-item" href="{{route('perfil')}}">Ajustes</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{route("login.home")}}">Logout</a>
             </div>

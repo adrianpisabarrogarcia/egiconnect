@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -22,15 +23,15 @@ class perfilUsuarioController extends Controller
 
 
         foreach ($solicitantes as $usuario){
-            if($email == $usuario->EMAIL ){
-                $usuario = DB::table("Solicitantes")->where('ID', $usuario->ID)->update([
-                    "PASSWORD" => $encriptada,
+            if($email == $usuario->email ){
+                $usuario = DB::table("usuario")->where('id', $usuario->id)->update([
+                    "password" => $encriptada,
                 ]);
 
                 $subject = "Recuperación de contraseña";
 
                 Mail::send('email.email', request()->all(), function($msj) use($subject,$email){
-                    $msj->from("egiconnect.info@gmail.com","Egiconnect");
+                    $msj->from("developersweapp@gmail.com","EgiConnect");
                     $msj->subject($subject);
                     $msj->to($email);
                 });
