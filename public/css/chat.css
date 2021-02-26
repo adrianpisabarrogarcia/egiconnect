@@ -5,14 +5,14 @@
 body {
   background-color: #edeff2;
   font-family: "Calibri", "Roboto", sans-serif;
-
+  overflow: hidden;
 }
 
 .chat_window {
   position: relative;
-  height: 100% !important;
+  height: 100%;
   background-color: #fff;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .messages {
@@ -20,7 +20,6 @@ body {
   list-style: none;
   padding: 20px 10px 0 10px;
   margin: 0;
-  height: 347px;
   overflow: scroll;
 }
 
@@ -176,6 +175,14 @@ body {
   margin: 0;
 }
 
-/*# sourceMappingURL=chat.css.map */
+.messages {
+  height: calc(100% - 16%) !important;
+  width: 100% !important;
+  position: absolute !important;
+}
+
+.bottom_wrapper {
+  position: absolute !important;
+}
 
 /*# sourceMappingURL=chat.css.map */

@@ -5,6 +5,7 @@
 body {
     background-color: #edeff2;
     font-family: "Calibri", "Roboto", sans-serif;
+    overflow: hidden;
 }
 
 .chat_window {
@@ -12,13 +13,13 @@ body {
     height: 100%;
     background-color: #fff;
     overflow: hidden;
+
 }
 .messages {
     position: relative;
     list-style: none;
     padding: 20px 10px 0 10px;
     margin: 0;
-    height: 347px;
     overflow: scroll;
 }
 .messages .message {
@@ -148,9 +149,16 @@ body {
     height: 100%;
 }
 .messages {
-    height: 100%;
     overflow-x: hidden;
 }
 .text_wrapper p {
     margin: 0;
+}
+.messages{
+    height: calc(100% - 16%) !important;
+    width: 100% !important;
+    position: absolute !important;
+}
+.bottom_wrapper{
+    position: absolute !important;
 }

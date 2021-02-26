@@ -30,12 +30,15 @@
             }
             $('.message_input').val('');
             $messages = $('.messages');
-            message_side = message_side === 'left' ? 'right' : 'left';
+            //no queremos que los mensajes que nosotros escribimos salgan a la izquierda
+            //message_side = message_side === 'left' ? 'right' : 'left';
             message = new Message({
                 text: text,
                 message_side: message_side
             });
             message.draw();
+            //el texto para que cada vez que pongo el texto vaya para abajo
+            scroll();
         };
         $('.send_message').click(function (e) {
             return sendMessage(getMessageText());
@@ -47,3 +50,10 @@
         });
     });
 }.call(this));
+$(document).ready(function () {
+    scroll();
+});
+function scroll() {
+    //el texto para que cada vez que pongo el texto vaya para abajo
+    $('.messages').scrollTop($('.messages').prop('scrollHeight'));
+}
