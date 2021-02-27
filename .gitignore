@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /storage/*.key
+.idea/workspace.xml
 /vendor
 .env.backup
 .phpunit.result.cache
@@ -216,3 +217,4 @@ Temporary Items
 # https://plugins.jetbrains.com/plugin/12206-codestream
 
 # End of https://www.toptal.com/developers/gitignore/api/jetbrains,phpstorm,macos
+.idea/workspace.xml

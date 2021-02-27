@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Proyecto;
 use App\Models\Usupro;
 use Illuminate\Http\Request;
+use DB;
+use Session;
 
 class proyectoController extends Controller
 {
     public function crearProyecto()
     {
         $codigoRepetido = 0;
-        do{
+        do {
             $permitted_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             $codigo = substr(str_shuffle($permitted_chars), 0, 5);
             $lista = Proyecto::get();
@@ -20,9 +22,9 @@ class proyectoController extends Controller
                     $codigoRepetido = 1;
                 }
             }
-        }while($codigoRepetido == 1);
+        } while ($codigoRepetido == 1);
 
-        $proyecto  = new Proyecto(
+        $proyecto = new Proyecto(
             [
                 "nombre" => request("nombre"),
                 "descripcion" => request("descripcion"),
@@ -31,10 +33,11 @@ class proyectoController extends Controller
             ]
         );
 
+
         //Verificamos si el codigo está en uso.
         $lista = Proyecto::get();
-        foreach ($lista as $elemento){
-            if($elemento->nombre == request("nombre")){
+        foreach ($lista as $elemento) {
+            if ($elemento->nombre == request("nombre")) {
                 return back()->with('error', 'El nombre del proyecto ya está en uso.');
             }
         }
@@ -44,7 +47,7 @@ class proyectoController extends Controller
         $idproyecto = $proyecto->id;
 
 
-        $usuPro  = new Usupro(
+        $usuPro = new Usupro(
             [
                 "idproy" => $idproyecto,
                 "idusu" => request("idcreador"),
@@ -77,6 +80,27 @@ class proyectoController extends Controller
         $usuPro->save();
 
         return redirect()->route('index');
+    }
+
+    public function show($id)
+    {
+        Session::put('proyectoid', $id);
+        $mensajes = DB::select('SELECT * FROM chat WHERE idproy = ? ',[$id]);
+        return view('proyects')->with(["mensajes" => $mensajes]);
+
+    }
+    //método para guardar los mensajes del chat
+    public function chat(Request $request)
+    {
+        DB::table('chat')->insert([
+            'descripcion' => $request->mensaje,
+            'fecha' => now(),
+            'idusu' => session()->get('id'),
+            'idproy' => session()->get('proyectoid'),
+        ]);
+
+        return $this->show(session()->get('proyectoid'));
+
     }
 
 }
