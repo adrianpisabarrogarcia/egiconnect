@@ -57,6 +57,14 @@ class proyectoController extends Controller
 
         $usuPro->save();
 
+        $proyectosIDs = Usupro::get()->where('idusu', request("idcreador"));
+        $proyectos = [];
+        foreach ($proyectosIDs as $datosProyectos){
+            $project = DB::select('select * from proyecto where id= ?', [$datosProyectos->idproy]);
+            array_push($proyectos, $project);
+        }
+        Session::put('proyectos', $proyectos);
+
         return redirect()->route('index');
     }
 
@@ -77,7 +85,22 @@ class proyectoController extends Controller
             ]
         );
 
+        $proyectoExistente = Usupro::get()->where('idusu', request("idusu"))->where('idproy', $idproy->id)->first();
+
+        if($proyectoExistente!=""){
+            return back()->with('error', 'Ya estás unido a ese proyecto.');
+        }
+
         $usuPro->save();
+
+
+        $proyectosIDs = Usupro::get()->where('idusu', request("idusu"));
+        $proyectos = [];
+        foreach ($proyectosIDs as $datosProyectos){
+            $project = DB::select('select * from proyecto where id= ?', [$datosProyectos->idproy]);
+            array_push($proyectos, $project);
+        }
+        Session::put('proyectos', $proyectos);
 
         return redirect()->route('index');
     }
@@ -86,7 +109,11 @@ class proyectoController extends Controller
     {
         Session::put('proyectoid', $id);
         $mensajes = DB::select('SELECT * FROM chat WHERE idproy = ? ',[$id]);
-        return view('proyects')->with(["mensajes" => $mensajes]);
+        $proyecto = Proyecto::get()->where('id', $id)->first();
+        return view('proyects')->with([
+            "mensajes" => $mensajes,
+            "proyecto" => $proyecto,
+        ]);
 
     }
     //método para guardar los mensajes del chat
@@ -103,4 +130,74 @@ class proyectoController extends Controller
 
     }
 
+    public function actualizar(Request $request)
+    {
+
+
+        $nombreProyecto = request('nombre');
+        $descripcion = request('descripcion');
+        $idproy = request('idproy');
+        $idusu = Session::get('id');
+
+
+        $nombreExistente = Proyecto::get()->where('nombre', $nombreProyecto)->first();
+
+        if( $nombreProyecto != request('currentName') ){
+            if( $nombreExistente!=''){
+            return back()->with('errores', 'El nombre del proyecto no está disponible.');
+            }
+        }
+
+        $pro = DB::table('proyecto')->where('id',$idproy)->update([
+            "nombre" => $nombreProyecto,
+            "descripcion" => $descripcion
+        ]);
+
+
+
+        $proyectosIDs = Usupro::get()->where('idusu', $idusu);
+        $proyectos = [];
+        foreach ($proyectosIDs as $datosProyectos){
+            $project = DB::select('select * from proyecto where id= ?', [$datosProyectos->idproy]);
+            array_push($proyectos, $project);
+        }
+        Session::put('proyectos', $proyectos);
+
+        return back();
+
+    }
+
+
+    public function generarNuevoCodigo(Request $request)
+    {
+        $idproy = request('idproy');
+
+        $codigoRepetido = 0;
+        do {
+            $permitted_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $codigo = substr(str_shuffle($permitted_chars), 0, 5);
+            $lista = Proyecto::get();
+            foreach ($lista as $elemento) {
+                if ($elemento->codigo == $codigo) {
+                    $codigoRepetido = 1;
+                }
+            }
+        } while ($codigoRepetido == 1);
+
+        $proyecto = DB::table('proyecto')->where('id',$idproy)->update([
+            "codigo" => $codigo,
+        ]);
+
+        return back();
+
+    }
+
 }
+
+
+
+
+
+
+
+

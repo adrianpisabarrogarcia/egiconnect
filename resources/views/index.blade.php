@@ -9,7 +9,7 @@
     </head>
     <div id="layoutSidenav_content">
         <main class="p-2">
-            <h3 class="ms-4 p-2"><i class="fas fa-tools"></i>&nbsp;Gestión de proyectos:</h3>
+            <h3 class="mt-3 ms-4 p-2"><i class="fas fa-tools"></i>&nbsp;Gestión de proyectos:</h3>
             <div class="row d-flex justify-content-center align-center">
                 <div class="col-12 col-sm-6 d-flex justify-content-center p-2 p-sm-5">
                     <button type="button" class="btn btn-outline-primary btn-lg w-100" data-bs-toggle="modal" data-bs-target="#crear" data-bs-whatever="@getbootstrap"><i
@@ -28,11 +28,11 @@
                                 <div class="modal-body">
                                     <form>
                                         <div class="mb-3">
-                                            <label for="recipient-name" class="col-form-label">Nombre de la sala:</label>
+                                            <label for="nombre" class="col-form-label">Nombre de la sala:</label>
                                             <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Escribe el nombre del proyecto">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="message-text" class="col-form-label">Descripción:</label>
+                                            <label for="descripcion" class="col-form-label">Descripción:</label>
                                             <textarea style="resize: none" rows="5" class="form-control" id="descripcion" name="descripcion" placeholder="Escribe una breve descripcion del proyecto"></textarea>
                                         </div>
                                         <input type="hidden" name="codigo" id="codigo">
@@ -67,7 +67,7 @@
                                 <div class="modal-body">
                                     <form>
                                         <div class="mb-3">
-                                            <label for="recipient-name" class="col-form-label">Codigo del proyecto:</label>
+                                            <label for="codigoProyecto" class="col-form-label">Codigo del proyecto:</label>
                                             <input  style="text-transform: uppercase;" maxlength="5" minlength="5" type="text" class="form-control" id="codigoProyecto" name="codigoProyecto" placeholder="Escribe el codigo del proyecto para unirte">
                                         </div>
                                         <input type="hidden" name="idusu" id="idusu" value="{{ session()->get('id') }}">
@@ -84,6 +84,15 @@
                     </div>
                 </div>
             </div>
+
+            @if((session()->get('error')!=""))
+                <div class="mt-5 ml-4 mr-4 alert alert-danger alert-dismissible fade show text-center" role="alert">
+                    {!! session()->get('error')  !!}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <h3 class="ms-4 p-2"><i class="fas fa-comment-dots"></i>&nbsp;Útimos mensajes:</h3>
             <div class="row d-flex justify-content-evenly p-4">
                 <div class="col-12 col-sm-3">
@@ -97,6 +106,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
         </main>
         @endsection
         @section('scripts')
