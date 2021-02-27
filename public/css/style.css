@@ -74,6 +74,8 @@ main {
   border-bottom: 1px solid var(--morado) !important;
 }
 
-/*# sourceMappingURL=style.css.map */
+.btn-primary:focus {
+  box-shadow: none !important;
+}
 
 /*# sourceMappingURL=style.css.map */
