@@ -168,7 +168,7 @@ class proyectoController extends Controller
         }
         Session::put('proyectos', $proyectos);
 
-        return back();
+        return back()->with('green', 'El proyecto ha sido actualizado correctamente.');
 
     }
 
@@ -193,7 +193,46 @@ class proyectoController extends Controller
             "codigo" => $codigo,
         ]);
 
-        return back();
+        return back()->with('green', 'El código del proyecto ha sido actualizado.');
+
+    }
+
+    public function borrarProyecto()
+    {
+        $idproy = request('idproy');
+        $idusu = Session::get('id');
+
+        $proyecto = Proyecto::where('id', $idproy)->delete();
+
+        $proyectosIDs = Usupro::get()->where('idusu', $idusu);
+        $proyectos = [];
+        foreach ($proyectosIDs as $datosProyectos) {
+            $project = DB::select('select * from proyecto where id= ?', [$datosProyectos->idproy]);
+            array_push($proyectos, $project);
+        }
+        Session::put('proyectos', $proyectos);
+
+        return redirect()->route('index');
+    }
+
+
+
+    public function salirProyecto()
+    {
+        $idproy = request('idproy');
+        $idusu = Session::get('id');
+
+        $proyecto = Usupro::where('idproy', $idproy)->where('idusu',$idusu)->delete();
+
+        $proyectosIDs = Usupro::get()->where('idusu', $idusu);
+        $proyectos = [];
+        foreach ($proyectosIDs as $datosProyectos){
+            $project = DB::select('select * from proyecto where id= ?', [$datosProyectos->idproy]);
+            array_push($proyectos, $project);
+        }
+        Session::put('proyectos', $proyectos);
+
+        return redirect()->route('index');
 
     }
 
