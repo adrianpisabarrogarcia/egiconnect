@@ -1,18 +1,54 @@
-$(document).ready(function (){
-    //Asignamos la función correspondiente al formulario.
-    try {
-        $("#botonActualizarPerfil").click(actualizar);
-        $("#botonActualizarContrasena").click(actualizarPass);
-    }catch (error){
-        console.log(error)
-    }
-
-});
 
 function actualizar():void {
-    $("#formulario").submit();
+
+
+    let user: string = $("#usuario").val().toString();
+    let nombre: string = $("#nombre").val().toString();
+    let ape: string = $("#apellidos").val().toString();
+    let email: string = $("#email").val().toString();
+
+    let textoErrores: string = "No puedes dejar campos vacios";
+
+    try {
+    if(user!="" && nombre!="" && ape!=" "&& email!=""){
+          $("#formulario").submit();
+    } else{
+        throw textoErrores;
+    }
+
+    } catch (err) {
+        $("#errorTypescript").html("<div class='alert alert-danger text-center' role='alert'>" + textoErrores + " </div>")
+        event.preventDefault()
+    }
 }
 
 function actualizarPass():void {
-    $("#formulario2").submit();
+
+    let pass: string = $("#pass").val().toString();
+    let pass2: string = $("#pass2").val().toString();
+
+    let textoErrores: string = "";
+
+    try {
+
+    if(pass!="" && pass2!=""){
+        if(pass!=pass2){
+            textoErrores= "Las contraseñas no coinciden";
+            throw textoErrores;
+        } else{
+            $("#formulario2").submit();
+        }
+    } else{
+        textoErrores= "No puedes dejar campos vacios";
+        throw textoErrores;
+    }
+
+
+
+} catch (err) {
+    $("#erroresTypescript").html("<div class='alert alert-danger text-center' role='alert'>" + textoErrores + " </div>")
+    event.preventDefault()
 }
+
+}
+
