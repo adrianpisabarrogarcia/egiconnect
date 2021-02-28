@@ -46,6 +46,8 @@ Route::post("/crearProyecto", "proyectoController@crearProyecto")->name("crearPr
 Route::post("/unirseProyecto", "proyectoController@unirseProyecto")->name("unirseProyecto");
 Route::post("/actualizarProyecto", "proyectoController@actualizar")->name("actualizarProyecto");
 Route::post("/generarNuevoCodigo", "proyectoController@generarNuevoCodigo")->name("generarNuevoCodigo");
+Route::post("/borrarProyecto", "proyectoController@borrarProyecto")->name("borrarProyecto");
+Route::post("/salirProyecto", "proyectoController@salirProyecto")->name("salirProyecto");
 
 //PERFIL
 Route::post("/actualizarPerfil", "perfilUsuarioController@actualizar")->name("actualizarPerfil");
