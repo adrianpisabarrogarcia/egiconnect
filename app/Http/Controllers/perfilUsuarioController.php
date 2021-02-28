@@ -83,9 +83,6 @@ class perfilUsuarioController extends Controller
             }
         }
 
-
-
-
         if (empty($errores)){
             $usu = DB::table('usuario')->where('id',$currentId)->update([
                 "usuario" => $usuario,
