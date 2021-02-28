@@ -4,6 +4,7 @@ $(document).ready(function () {
         $("#botonCrearProyecto").click(validarProyecto);
         $("#botonGenerarCodigo").click(generarNuevoCodigo);
         $("#borrarProyecto").click(borrarProyecto);
+        $("#botonUnirseProyecto").click(validarCodigoProyecto);
     }
     catch (error) {
         console.log(error);
@@ -36,6 +37,26 @@ function validarProyecto() {
     }
     catch (e) {
         $("#erroresTypescript").html("<div class='alert alert-danger text-center' role='alert'>" + e + " </div>");
+        event.preventDefault();
+    }
+}
+function validarCodigoProyecto() {
+    try {
+        // @ts-ignore
+        var textoErrores = "El codígo debe tener 5 carácteres";
+        // @ts-ignore
+        var cod = $("#codigoProyecto").val();
+        var codUpper = cod.toUpperCase();
+        $("#codigoProyecto").val(codUpper);
+        if (cod.length == 5) {
+            $("#formulario2").submit();
+        }
+        else {
+            throw textoErrores;
+        }
+    }
+    catch (e) {
+        $("#erroresTypescript2").html("<div class='alert alert-danger text-center' role='alert'>" + e + " </div>");
         event.preventDefault();
     }
 }
