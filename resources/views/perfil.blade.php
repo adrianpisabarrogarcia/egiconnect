@@ -17,7 +17,7 @@
 
                     <div class="mt-4 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
                         <div class="form-group row">
-                            <label for="dniMostrar" class="col-4"> Usuario:</label>
+                            <label for="userMostrar" class="col-4"> Usuario:</label>
                             <div class="col-8">
                                 <input type="text" class="form-control text-muted" id="userMostrar" value="{{$usuario->usuario}}" disabled>
                             </div>
@@ -45,7 +45,7 @@
             <div class="tab-pane fade  @if((session()->get('errores')!="") || (session()->get('perfilOK')!="")) show active @endif" id="nav-edit" role="tabpanel" aria-labelledby="profile-tab">
                 <form class="user" method="POST" id="formulario" action="{{route('actualizarPerfil')}}">
                     @csrf
-                        <div class="mt-2 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
+                        <div class="mt-4 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
                         <div class="form-group row">
                             <label for="nombre" class="col-4"> Usuario:</label>
                             <div class="col-8">

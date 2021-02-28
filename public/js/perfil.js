@@ -1,15 +1,26 @@
 function actualizar() {
+    var currentUser = $("#userMostrar").val().toString();
+    var currentNombre = $("#nombreMostrar").val().toString();
+    var currentApe = $("#apellidosMostrar").val().toString();
+    var currentEmail = $("#emailMostrar").val().toString();
     var user = $("#usuario").val().toString();
     var nombre = $("#nombre").val().toString();
     var ape = $("#apellidos").val().toString();
     var email = $("#email").val().toString();
-    var textoErrores = "No puedes dejar campos vacios";
+    var textoErrores = "";
     try {
-        if (user != "" && nombre != "" && ape != " " && email != "") {
-            $("#formulario").submit();
+        if (currentUser == user && currentNombre == nombre && currentApe == ape && currentEmail == email) {
+            textoErrores = "Debes modificar alguno de los campos";
+            throw textoErrores;
         }
         else {
-            throw textoErrores;
+            if (user != "" && nombre != "" && ape != " " && email != "") {
+                $("#formulario").submit();
+            }
+            else {
+                textoErrores = "No puedes dejar campos vacios";
+                throw textoErrores;
+            }
         }
     }
     catch (err) {

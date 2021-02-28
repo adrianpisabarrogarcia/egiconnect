@@ -2,9 +2,8 @@ $(document).ready(function () {
     //Asignamos la función correspondiente al formulario.
     try {
         $("#botonCrearProyecto").click(validarProyecto);
-        $("#botonUnirseProyecto").click(validarCodigoProyecto);
         $("#botonGenerarCodigo").click(generarNuevoCodigo);
-        $("#botonBorrarProyecto").click(borrarProyecto);
+        $("#borrarProyecto").click(borrarProyecto);
     }
     catch (error) {
         console.log(error);
@@ -40,47 +39,36 @@ function validarProyecto() {
         event.preventDefault();
     }
 }
-function validarCodigoProyecto() {
-    try {
-        // @ts-ignore
-        var textoErrores = "El codígo debe tener 5 carácteres";
-        // @ts-ignore
-        var cod = $("#codigoProyecto").val();
-        var codUpper = cod.toUpperCase();
-        $("#codigoProyecto").val(codUpper);
-        if (cod.length == 5) {
-            $("#formulario2").submit();
-        }
-        else {
-            throw textoErrores;
-        }
-    }
-    catch (e) {
-        $("#erroresTypescript2").html("<div class='alert alert-danger text-center' role='alert'>" + e + " </div>");
-        event.preventDefault();
-    }
-}
 function actualizarProyecto() {
     try {
         // @ts-ignore
-        var textoErrores = ["Debes añadir un nombre al proyecto", "Debes añadir una descripción al proyecto"];
+        var textoErrores = ["No has modificado ningún campo", "Debes añadir un nombre al proyecto", "Debes añadir una descripción al proyecto"];
         // @ts-ignore
         var nombre = $("#nombre").val();
         // @ts-ignore
         var des = $("#descripcion").val();
-        if (nombre.length == 0 && des.length == 0) {
-            throw textoErrores[0] + "<br>" + textoErrores[1];
+        // @ts-ignore
+        var currentDes = $("#currentDes").val();
+        // @ts-ignore
+        var currentName = $("#currentName").val();
+        if (nombre == currentName && des == currentDes) {
+            throw textoErrores[0];
         }
         else {
-            if (nombre.length == 0) {
-                throw textoErrores[0];
+            if (nombre.length == 0 && des.length == 0) {
+                throw textoErrores[1] + "<br>" + textoErrores[2];
             }
             else {
-                if (des.length == 0) {
-                    throw textoErrores[1];
+                if (nombre.length == 0) {
+                    throw textoErrores[0];
                 }
                 else {
-                    $("#formulario").submit();
+                    if (des.length == 0) {
+                        throw textoErrores[1];
+                    }
+                    else {
+                        $("#formulario").submit();
+                    }
                 }
             }
         }

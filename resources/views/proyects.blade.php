@@ -126,7 +126,9 @@
                         </li>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">...</div>
+                <div class="tab-pane fade" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
+                    
+                </div>
                 <div class="tab-pane fade" id="nav-tareas" role="tabpanel" aria-labelledby="nav-tareas-tab">...</div>
                 <div class="tab-pane fade"  id="nav-users" role="tabpanel" aria-labelledby="nav-usuarios-tab">...
                 </div>
@@ -150,10 +152,7 @@
 
                             <input type="hidden" name="idproy" id="idproy" value="{{$proyecto->id}}">
                             <input type="hidden" name="currentName" id="currentName" value="{{$proyecto->nombre}}">
-
-
-                            <div id="erroresTypescript">
-                            </div>
+                            <input type="hidden" name="currentDes" id="currentDes" value="{{$proyecto->descripcion}}">
 
 
                         </div>
@@ -174,33 +173,49 @@
                             </div>
                         </div>
 
-                        @if((session()->get('errores')!=""))
-                            <div class='ml-3 mr-3 alert alert-danger text-center' role='alert'>{!! session()->get('errores')  !!}</div>
-                        @endif
+
+                    </form>
+
+                    <div class="mt-4 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
                         @if((session()->get('green')!=""))
                             <div class='ml-3 mr-3 alert alert-success text-center' role='alert'>{!! session()->get('green')  !!}</div>
                         @endif
+                        @if((session()->get('errores')!=""))
+                            <div class='ml-3 mr-3 alert alert-success text-center' role='alert'>{!! session()->get('errores')  !!}</div>
+                        @endif
+                            <div id="erroresTypescriptActualizar">
+                            </div>
+                    </div>
 
-                        <div id="erroresTypescriptActualizar">
-
-                        </div>
-                        
-
-                    </form>
                     <div class="form-group text-center d-flex justify-content-center">
                         <div class="form-group mt-1 mb-0"><input type="submit"
                                                                  class="btn btn-primary btn-block"
                                                                  onclick="actualizarProyecto()"
                                                                  value="Actualizar"></div>
                     </div>
-                    <form class="user" method="POST" id="formularioBorrar" action="{{route('borrarProyecto')}}">
-                        @csrf
-                        <input type="hidden" name="idproy" id="idproyectoBorrar" value="{{$proyecto->id}}">
-                        <div class="form-group text-center">
-                            <a class="btn btn-danger" id="botonBorrarProyecto">Eliminar proyecto</a>
-                        </div>
-                    </form>
 
+                    <div class="form-group text-center">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#borrar" data-bs-whatever="@getbootstrap">
+                                Eliminar proyecto
+                        </button>
+                    </div>
+                    <div style="width: 100vw" class="modal fade" id="borrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <form class="user" method="POST" id="formularioBorrar" action="{{route('borrarProyecto')}}">
+                                @csrf
+                                    <div class="modal-body">
+                                            <input type="hidden" name="idproy" id="idproyectoBorrar" value="{{$proyecto->id}}">
+                                            <p class="mt-2">¿Estás seguro de que deseas eliminar el proyecto de <b>"{{$proyecto->nombre}}"</b>? </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" id="borrarProyecto" class="btn btn-primary">Borrar proyecto</button>
+                                    </div>
+                            </form>
+                            </div>
+                        </div>
+                </div>
                 </div>
                 @endif
             </div>
@@ -214,6 +229,5 @@
             <script src="/js/dark-mode-switch.min.js"></script>
             <script src="/js/chat.js"></script>
             <script src="/js/proyectos.js"></script>
-            <!--<script src="/js/chat-screen.js"></script>-->
 
 @endsection
