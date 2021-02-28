@@ -86,6 +86,14 @@ class proyectoController extends Controller
     {
         Session::put('proyectoid', $id);
         $mensajes = DB::select('SELECT * FROM chat WHERE idproy = ? ',[$id]);
+
+
+        foreach($mensajes as $datosMensajes){
+            $datoUsuario = DB::select('SELECT nombre FROM usuario WHERE id = ?',[$datosMensajes->idusu]);
+            $datosMensajes->nombre = $datoUsuario[0]->nombre;
+        }
+
+
         return view('proyects')->with(["mensajes" => $mensajes]);
 
     }
