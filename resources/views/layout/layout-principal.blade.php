@@ -15,7 +15,7 @@
     <!-- contenido -->
     @yield('content')
     <!-- footer -->
-    <div id="layoutAuthentication_footer">
+    <div id="layoutAuthentication_footer" class="mt-4">
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid">
                 <div class="d-flex align-items-center justify-content-between small">

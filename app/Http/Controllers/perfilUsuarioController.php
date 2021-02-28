@@ -99,7 +99,7 @@ class perfilUsuarioController extends Controller
             Session::put('correo', $email);
 
 
-            return redirect()->route('perfil');
+            return back()->with('perfilOK', 'El perfil ha sido actualizado.');
         }
         return back()->with(['errores' => $errores]);
 
@@ -115,12 +115,12 @@ class perfilUsuarioController extends Controller
 
         if(!password_verify ( request('currentPass') , $currentUser->password )){
             $error = 'La contraseña actual es erronea.';
-            return back()->with(['errorPass' => $error]);
+            return back()->with('errorPass', $error);
         }
 
         if(request('pass')!=request('pass2')){
             $error = 'Las contraseñas no coinciden.';
-            return back()->with(['errorPass' => $error]);
+            return back()->with('errorPass', $error);
         }
 
         $encriptada = password_hash(request("pass"), PASSWORD_DEFAULT);
@@ -129,7 +129,7 @@ class perfilUsuarioController extends Controller
             "password" => $encriptada,
         ]);
 
-        return redirect()->route('perfil');
+        return back()->with('passOK', 'La contraseña ha sido actualizada.');
 
     }
 

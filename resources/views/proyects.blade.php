@@ -7,8 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <div id="layoutSidenav_content">
         <nav>
-            <div class="mt-2 nav nav-tabs nav-proyecto" id="nav-tab" role="tablist">
-                <div class="nav-menu">
+            <div class="nav-menu">
+                <div class="mt-2 nav nav-tabs nav-proyecto" id="nav-tab" role="tablist">
                     <button class="ml-2 nav-link  @if((session()->get('errores')=="") && (session()->get('green')=="")) active @endif" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
                             type="button" role="tab" aria-controls="nav-home" aria-selected="true">
                         <div class="sb-nav-link-icon"><i class="fas fa-comment"></i></div>
@@ -38,7 +38,7 @@
                     @endif
                 </div>
                 <button style="border: none" type="button" data-bs-toggle="modal" data-bs-target="#info" data-bs-whatever="@getbootstrap">
-                    <div class="mas-info sb-nav-link-icon mr-2"><i class="fas text-primary fa-info-circle h4 mb-0"></i></div>
+                    <div class="mas-info sb-nav-link-icon mr-3 mt-1"><i class="fas text-primary fa-info-circle h4 mb-0"></i></div>
                 </button>
                 <div style="width: 100vw" class="modal fade" id="info" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
