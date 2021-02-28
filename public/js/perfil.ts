@@ -1,6 +1,8 @@
 $(document).ready(function (){
     //Asignamos la función correspondiente al formulario.
     try {
+
+
         $("#botonActualizarPerfil").click(actualizar);
         $("#botonActualizarContrasena").click(actualizarPass);
     }catch (error){
