@@ -28,12 +28,12 @@
                                 <div class="modal-body">
                                     <form>
                                         <div class="mb-3">
-                                            <label for="nombre" class="col-form-label">Nombre de la sala:</label>
-                                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Escribe el nombre del proyecto">
+                                            <label for="nombre" class="col-form-label">Nombre del proyecto:</label>
+                                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Escribe el nombre del proyecto" pattern="^[a-zA-ZÀ-ÿ_.0-9\s]{3,30}$" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="descripcion" class="col-form-label">Descripción:</label>
-                                            <textarea style="resize: none" rows="5" class="form-control" id="descripcion" name="descripcion" placeholder="Escribe una breve descripcion del proyecto"></textarea>
+                                            <textarea style="resize: none" rows="5" class="form-control" id="descripcion" name="descripcion" placeholder="Escribe una breve descripcion del proyecto" required></textarea>
                                         </div>
                                         <input type="hidden" name="codigo" id="codigo">
                                         <input type="hidden" name="idcreador" id="creador" value="{{ session()->get('id') }}">

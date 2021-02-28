@@ -3,7 +3,6 @@ $(document).ready(function () {
     try {
         $("#botonCrearProyecto").click(validarProyecto);
         $("#botonUnirseProyecto").click(validarCodigoProyecto);
-        $("#botonActualizarProyecto").click(actualizarProyecto);
         $("#botonGenerarCodigo").click(generarNuevoCodigo);
         $("#botonBorrarProyecto").click(borrarProyecto);
     }
@@ -87,7 +86,7 @@ function actualizarProyecto() {
         }
     }
     catch (e) {
-        $("#erroresTypescript").html("<div class='alert alert-danger text-center' role='alert'>" + e + " </div>");
+        $("#erroresTypescriptActualizar").html("<div class='alert alert-danger text-center' role='alert'>" + e + " </div>");
         event.preventDefault();
     }
 }

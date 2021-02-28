@@ -145,7 +145,7 @@
                                 <label for="nombreMostrar" class="col-4"> Nombre del proyecto:</label>
                                 <div class="col-8">
                                     <input type="text" class="form-control text-dark"
-                                           id="nombre" name="nombre" value="{{$proyecto->nombre}}" required>
+                                           id="nombre" name="nombre" value="{{$proyecto->nombre}}" pattern="^[a-zA-ZÀ-ÿ_.0-9\s]{3,30}$" required>
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -178,15 +178,25 @@
                                 </div>
                             </div>
                         </div>
+
+                        @if((session()->get('errores')!=""))
+                            <div class='ml-3 mr-3 alert alert-danger text-center' role='alert'>{!! session()->get('errores')  !!}</div>
+                        @endif
+                        @if((session()->get('green')!=""))
+                            <div class='ml-3 mr-3 alert alert-success text-center' role='alert'>{!! session()->get('green')  !!}</div>
+                        @endif
+
+                        <div id="erroresTypescriptActualizar">
+
+                        </div>
+                        
+
                     </form>
-                    @if((session()->get('errores')!=""))
-                        <div class='ml-3 mr-3 alert alert-danger text-center' role='alert'>{!! session()->get('errores')  !!}</div>
-                    @endif
-                    @if((session()->get('green')!=""))
-                        <div class='ml-3 mr-3 alert alert-success text-center' role='alert'>{!! session()->get('green')  !!}</div>
-                    @endif
-                    <div class="form-group text-center">
-                        <a class="btn btn-primary" id="botonActualizarProyecto">Actualizar</a>
+                    <div class="form-group text-center d-flex justify-content-center">
+                        <div class="form-group mt-1 mb-0"><input type="submit"
+                                                                 class="btn btn-primary btn-block"
+                                                                 onclick="actualizarProyecto()"
+                                                                 value="Actualizar"></div>
                     </div>
                     <form class="user" method="POST" id="formularioBorrar" action="{{route('borrarProyecto')}}">
                         @csrf
