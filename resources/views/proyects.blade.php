@@ -7,7 +7,7 @@
     <div id="layoutSidenav_content">
         <nav>
             <div class="mt-2 nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="ml-2 nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                <button class="ml-2 nav-link  @if((session()->get('errores')=="")) active @endif" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
                         type="button" role="tab" aria-controls="nav-home" aria-selected="true">
                     <div class="sb-nav-link-icon"><i class="fas fa-comment"></i></div>
                     Chat
@@ -27,16 +27,18 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
                     Usuarios
                 </button>
-                <button class="nav-link" id="nav-edit-tab" data-bs-toggle="tab" data-bs-target="#nav-edit" type="button"
+                @if(session()->get('id')==$proyecto->idcreador)
+                <button class="nav-link  @if((session()->get('errores')!="")) active @endif" id="nav-edit-tab" data-bs-toggle="tab" data-bs-target="#nav-edit" type="button"
                         role="tab" aria-controls="nav-edit" aria-selected="false">
                     <div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
                     Modificar
                 </button>
+                @endif
             </div>
         </nav>
         <main>
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="tab-pane fade   @if((session()->get('errores')=="")) show active @endif" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div class="chat_window">
 
                         <ul class="messages">
@@ -86,9 +88,56 @@
                 </div>
                 <div class="tab-pane fade" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">...</div>
                 <div class="tab-pane fade" id="nav-tareas" role="tabpanel" aria-labelledby="nav-tareas-tab">...</div>
-                <div class="tab-pane fade" id="nav-usuarios" role="tabpanel" aria-labelledby="nav-usuarios-tab">...
+                <div class="tab-pane fade"  id="nav-usuarios" role="tabpanel" aria-labelledby="nav-usuarios-tab">...
                 </div>
-                <div class="tab-pane fade" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab">...</div>
+
+                @if(session()->get('id')==$proyecto->idcreador)
+                <div class="tab-pane fade  @if((session()->get('errores')!="")) show active @endif" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab">
+                    <form class="user" method="POST" id="formulario" action="{{route('actualizarProyecto')}}">
+                        @csrf
+                        <div class="mt-4 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
+                            <div class="form-group row">
+                                <label for="nombreMostrar" class="col-4"> Nombre del proyecto:</label>
+                                <div class="col-8">
+                                    <input type="text" class="form-control text-dark"
+                                           id="nombre" name="nombre" value="{{$proyecto->nombre}}" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="descripcion" class="col-form-label">Descripción:</label>
+                                <textarea style="resize: none" rows="5" class="form-control" id="descripcion" name="descripcion" >{{$proyecto->descripcion}}</textarea>
+                            </div>
+
+                            <input type="hidden" name="idproy" id="idproy" value="{{$proyecto->id}}">
+                            <input type="hidden" name="currentName" id="currentName" value="{{$proyecto->nombre}}">
+
+                            @if((session()->get('errores')!=""))
+                                <div class='alert alert-danger text-center' role='alert'>{!! session()->get('errores')  !!}</div>
+                            @endif
+                            <div id="erroresTypescript">
+                            </div>
+
+                            <div class="form-group text-center">
+                                <a class="btn btn-primary" id="botonActualizarProyecto">Actualizar</a>
+                            </div>
+                        </div>
+                    </form>
+                    <form class="user" method="POST" id="formularioCodigo" action="{{route('generarNuevoCodigo')}}">
+                        @csrf
+                        <div class="form-group row">
+                            <label for="codigo" class="col-3 col-sm-2 offset-sm-4 offset-md-5 offset-xl-6"> Codigo:</label>
+                            <div class="col-5 col-sm-4 col-md-3">
+                                <input type="text" class="form-control text-muted"
+                                       id="codigo" name="codigo" value="{{$proyecto->codigo}}" disabled>
+                            </div>
+                            <input type="hidden" name="idproy" id="idproyecto" value="{{$proyecto->id}}">
+                            <div class="col-2 col-md-1">
+                                <a class="btn btn-primary" id="botonGenerarCodigo"><i class="fas fa-sync-alt"></i></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                @endif
             </div>
         </main>
         @endsection
@@ -99,6 +148,7 @@
                     crossorigin="anonymous"></script>
             <script src="/js/dark-mode-switch.min.js"></script>
             <script src="/js/chat.js"></script>
+            <script src="/js/proyectos.js"></script>
             <!--<script src="/js/chat-screen.js"></script>-->
 
 @endsection

@@ -44,6 +44,8 @@ Route::get("/perfil", "perfilUsuarioController@listarUsuario")->name('perfil');
 //PROYECTO
 Route::post("/crearProyecto", "proyectoController@crearProyecto")->name("crearProyecto");
 Route::post("/unirseProyecto", "proyectoController@unirseProyecto")->name("unirseProyecto");
+Route::post("/actualizarProyecto", "proyectoController@actualizar")->name("actualizarProyecto");
+Route::post("/generarNuevoCodigo", "proyectoController@generarNuevoCodigo")->name("generarNuevoCodigo");
 
 //PERFIL
 Route::post("/actualizarPerfil", "perfilUsuarioController@actualizar")->name("actualizarPerfil");
