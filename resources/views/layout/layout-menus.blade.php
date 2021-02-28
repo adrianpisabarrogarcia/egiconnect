@@ -42,7 +42,7 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="{{route('perfil')}}">Ajustes</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{route("login.home")}}">Logout</a>
+                <a class="dropdown-item" href="{{route("login.home")}}">Cerrar Sesión</a>
             </div>
         </li>
     </ul>
