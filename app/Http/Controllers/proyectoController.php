@@ -109,11 +109,16 @@ class proyectoController extends Controller
     {
         Session::put('proyectoid', $id);
         $mensajes = DB::select('SELECT * FROM chat WHERE idproy = ? ',[$id]);
+        
         $proyecto = Proyecto::get()->where('id', $id)->first();
-        return view('proyects')->with([
-            "mensajes" => $mensajes,
-            "proyecto" => $proyecto,
-        ]);
+
+        foreach($mensajes as $datosMensajes){
+            $datoUsuario = DB::select('SELECT nombre FROM usuario WHERE id = ?',[$datosMensajes->idusu]);
+            $datosMensajes->nombre = $datoUsuario[0]->nombre;
+        }
+
+
+        return view('proyects')->with(["mensajes" => $mensajes, "proyecto" => $proyecto,]);
 
     }
     //método para guardar los mensajes del chat
