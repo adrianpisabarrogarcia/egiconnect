@@ -87,8 +87,8 @@
                                     @if($datosMensajes->idusu == session()->get('id'))
                                         <li>
                                             <div class="mensajeYo">
-                                                <p class="font-weight-bold">{{ $datosMensajes->nombre }}
-                                                    - {{ $datosMensajes->fecha  }}</p>
+                                                <p class="font-weight-bold">
+                                                    {{ $datosMensajes->fecha  }}</p>
                                                 <div>{{ $datosMensajes->descripcion }}</div>
                                             </div>
                                         </li>
@@ -126,11 +126,13 @@
                         </li>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
-                    
+                <div class="tab-pane fade" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">...</div>
+                <div class="tab-pane fade" id="nav-tareas" role="tabpanel" aria-labelledby="nav-tareas-tab">
+                    <p>tareas</p>
+
                 </div>
-                <div class="tab-pane fade" id="nav-tareas" role="tabpanel" aria-labelledby="nav-tareas-tab">...</div>
-                <div class="tab-pane fade"  id="nav-users" role="tabpanel" aria-labelledby="nav-usuarios-tab">...
+                <div class="tab-pane fade"  id="nav-users" role="tabpanel" aria-labelledby="nav-usuarios-tab">
+                    <p>Usuarios</p>
                 </div>
 
                 @if(session()->get('id')==$proyecto->idcreador)
