@@ -5,6 +5,7 @@ $(document).ready(function (){
         $("#botonUnirseProyecto").click(validarCodigoProyecto);
         $("#botonActualizarProyecto").click(actualizarProyecto);
         $("#botonGenerarCodigo").click(generarNuevoCodigo);
+        $("#botonBorrarProyecto").click(borrarProyecto);
     }catch (error){
         console.log(error)
     }
@@ -107,6 +108,10 @@ function actualizarProyecto():void {
 
 function generarNuevoCodigo():void {
     $("#formularioCodigo").submit();
+}
+
+function borrarProyecto():void {
+    $("#formularioBorrar").submit();
 }
 
 
