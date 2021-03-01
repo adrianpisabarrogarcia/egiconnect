@@ -21,12 +21,12 @@
 
             <div class="nav-menu">
                 <div class="mt-2 nav nav-tabs nav-proyecto" id="nav-tab" role="tablist">
-                    <button class="ml-2 nav-link  @if((session()->get('errores')=="") && (session()->get('green')=="")) active @endif" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                    <button class="ml-2 nav-link  @if((session()->get('errores')=="") && (session()->get('green')=="") && ($file=="")) active @endif" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
                             type="button" role="tab" aria-controls="nav-home" aria-selected="true">
                         <div class="sb-nav-link-icon"><i class="fas fa-comment"></i></div>
                         Chat
                     </button>
-                    <button class="nav-link" id="nav-files-tab" data-bs-toggle="tab" data-bs-target="#nav-files"
+                    <button class="nav-link @if($file!="")) active @endif" id="nav-files-tab" data-bs-toggle="tab" data-bs-target="#nav-files"
                             type="button" role="tab" aria-controls="nav-files" aria-selected="false">
                         <div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>
                         Archivos
@@ -101,7 +101,7 @@
         <main>
             <div class="tab-content" id="nav-tabContent">
                 <div
-                    class="tab-pane fade   @if((session()->get('errores')=="") && (session()->get('green')=="")) show active @endif"
+                    class="tab-pane fade   @if((session()->get('errores')=="") && (session()->get('green')=="")  && ($file=="")) show active @endif"
                     id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div class="chat_window">
 
@@ -153,8 +153,8 @@
                         </li>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
-                    <form class="proyecto" method="POST" id="formularioFile" action="{{route('subirArchivo')}}">
+                <div class="tab-pane fade @if($file!="")) show active @endif" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
+                    <form class="proyecto" method="POST" enctype="multipart/form-data" id="formularioFile" action="{{route('subirArchivo')}}">
                         @csrf
                         <div class="file-upload input-group m2-3">
                             <div class="custom-file">
@@ -179,18 +179,36 @@
                                 <th>Nombre</th>
                                 <th>Tamaño</th>
                                 <th>Fecha</th>
-                                <th>Eliminar del proyecto</th>
+                                <th>Autor</th>
+                                <th>Descargar</th>
+                                <th>Eliminar</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @isset($usuarios)
-                                @foreach ($usuarios as $datosUsuarios)
+                            @isset($archivos)
+                                @foreach ($archivos as $archivo)
                                     <tr class="text-dark">
-                                        <td><b>{{ $datosUsuarios->usuarioUsu}}</b></td>
-                                        <td>{{ $datosUsuarios->nombreUsu}}</td>
-                                        <td>{{ $datosUsuarios->apellidosUsu}}</td>
+                                        <td><b>{{ $archivo->nombre}}</b></td>
+                                        <td>{{ $archivo->size}}</td>
+                                        <td>{{ $archivo->fecha}}</td>
+                                        @foreach ($usuarios as $usuario)
+                                            @if($usuario->id == $archivo->idusu)
+                                                <td>{{ $usuario->usuario }}</td>
+                                            @endif
+                                        @endforeach
                                         <td>
-                                            <center><a href="/salirproyectoadmin/{{$datosUsuarios->idUsu}}">
+                                            <center><a href="/salirproyectoadmin/{{$archivo->id}}">
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                                         fill="red"
+                                                         class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                                    </svg>
+                                                </a></center>
+                                        </td>
+                                        <td>
+                                            <center><a href="/salirproyectoadmin/{{$archivo->id}}">
 
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                                          fill="red"
@@ -227,15 +245,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @isset($usuarios)
-                                @foreach ($usuarios as $datosUsuarios)
+                            @isset($usuariosPro)
+                                @foreach ($usuariosPro as $datosUsuarios)
                                     <tr class="text-dark">
                                         <td><b>{{ $datosUsuarios->usuarioUsu}}</b></td>
                                         <td>{{ $datosUsuarios->nombreUsu}}</td>
                                         <td>{{ $datosUsuarios->apellidosUsu}}</td>
                                         <td>{{ $datosUsuarios->emailUsu}}</td>
                                         @if($proyecto->idcreador == Session::get('id'))
-                                            @if (!($datosUsuarios->idUsu == Session::get('id')))
+                                            @if (!($datosUsuarios->id == Session::get('id')))
                                                 <td>
                                                     <center><a href="/salirproyectoadmin/{{$datosUsuarios->idUsu}}">
 

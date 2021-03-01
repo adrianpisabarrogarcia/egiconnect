@@ -64,6 +64,9 @@ function validarCodigoProyecto() {
 $(".custom-file-input").on("change", function () {
     var fileName = $(this).val().split("\\").pop();
     $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    if (fileName == "") {
+        $(this).siblings(".custom-file-label").addClass("selected").html("Selecciona un archivo");
+    }
 });
 function actualizarProyecto() {
     try {
