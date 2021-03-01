@@ -14,17 +14,18 @@ function actualizar():void {
     let textoErrores: string = "";
 
     try {
-    if(currentUser==user && currentNombre==nombre && currentApe==ape && currentEmail==email ){
-        textoErrores = "Debes modificar alguno de los campos";
-        throw textoErrores;
-    } else {
-        if(user!="" && nombre!="" && ape!=" "&& email!=""){
-            $("#formulario").submit();
-        } else{
-            textoErrores = "No puedes dejar campos vacios";
-            throw textoErrores;
-        }
-    }
+
+      if(currentUser==user && currentNombre==nombre && currentApe==ape && currentEmail==email ){
+          textoErrores = "Debes modificar alguno de los campos";
+          throw textoErrores;
+      } else {
+          if(user!="" && nombre!="" && ape!=" "&& email!=""){
+              $("#formulario").submit();
+          } else{
+              textoErrores = "No puedes dejar campos vacios";
+              throw textoErrores;
+          }
+      }
 
     } catch (err) {
         $("#errorTypescript").html("<div class='alert alert-danger text-center' role='alert'>" + textoErrores + " </div>")

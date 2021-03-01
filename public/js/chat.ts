@@ -1,13 +1,10 @@
 
-(function ():void {
-    $(function ():void {
-        let mensaje = $('.message_input').val('').val().toString();
-        envioDatosServidor(mensaje);
-    });
-}.call(this));
-
-
 $( document ).ready(function():void {
+    $("form").keypress(function(e) {
+        if (e.which == 13) {
+            return false;
+        }
+    });
     scroll()
 })
 
@@ -16,14 +13,29 @@ function scroll():void{
     $('.messages').scrollTop( $('.messages').prop('scrollHeight') );
 }
 
-function envioDatosServidor(mensaje:string):void{
+function envioDatosServidor():void{
     $.ajax({
         url: "/proyecto/chat",
         method: "POST",
-        data: mensaje
-    }).done(function (res) {
-        console.log(res)
-    }).fail(function () {
-        console.log("todo mal, nada bien")
+        data:$('#formulario').serialize()
+    }).done(function(){
+        location.reload();
+        $('input[type="text"]').val('');
+        //console.log("todo bien")
+    }).fail(function(){
+        console.log("todo mal")
     })
 }
+
+$('.send_message').click(function():void {
+    envioDatosServidor()
+})
+
+$('.message_input').keyup(function(e){
+    if(e.keyCode == 13)
+    {
+        envioDatosServidor()
+        e.preventDefault();
+    }
+});
+

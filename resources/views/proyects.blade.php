@@ -2,11 +2,23 @@
 @section('head')
     <link href="/css/chat.css" rel="stylesheet"/>
     <link href="/css/proyecto.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css"> <!-- css de las tablas -->
+    <style>
+        .page-link{
+            background-color: #682E88 !important;
+            color: white !important;
+        }
+        main{
+            overflow: auto;
+        }
+    </style>
 @endsection
 @section('content')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <div id="layoutSidenav_content">
         <nav>
+
             <div class="nav-menu">
                 <div class="mt-2 nav nav-tabs nav-proyecto" id="nav-tab" role="tablist">
                     <button class="ml-2 nav-link  @if((session()->get('errores')=="") && (session()->get('green')=="")) active @endif" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
@@ -30,42 +42,52 @@
                         Usuarios
                     </button>
                     @if(session()->get('id')==$proyecto->idcreador)
-                    <button class="nav-link  @if((session()->get('errores')!="") || (session()->get('green')!="")) active @endif" id="nav-edit-tab" data-bs-toggle="tab" data-bs-target="#nav-edit" type="button"
+                        <button
+                            class="nav-link  @if((session()->get('errores')!="") || (session()->get('green')!="")) active @endif"
+                            id="nav-edit-tab" data-bs-toggle="tab" data-bs-target="#nav-edit" type="button"
                             role="tab" aria-controls="nav-edit" aria-selected="false">
-                        <div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
-                        Modificar
-                    </button>
+                            <div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
+                            Modificar
+                        </button>
                     @endif
                 </div>
+
                 <button style="border: none" type="button" data-bs-toggle="modal" data-bs-target="#info" data-bs-whatever="@getbootstrap">
                     <div class="mas-info sb-nav-link-icon mr-3 mt-1"><i class="fas text-primary fa-info-circle h4 mb-0"></i></div>
                 </button>
-                <div style="width: 100vw" class="modal fade" id="info" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div style="width: 100vw" class="modal fade" id="info" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form class="proyecto" method="POST" id="formularioSalirProyecto" action="{{route('salirProyecto')}}">
+                            <form class="proyecto" method="POST" id="formularioSalirProyecto"
+                                  action="{{route('salirProyecto')}}">
                                 @csrf
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">INFORMACIÓN DEL PROYECTO</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <h1 class="text-center bg-primary text-white rounded" >{{$proyecto->codigo}}</h1>
-                                        <div class="mb-3">
-                                            <label for="nombreProyecto" class="col-form-label">Nombre del proyecto:</label>
-                                            <input type="text" class="form-control text-dark" id="nombreProyecto" name="codigoProyecto" value="{{$proyecto->nombre}}" disabled>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="descripcion" class="col-form-label">Descripción:</label>
-                                            <textarea disabled style="resize: none" rows="5" class="form-control text-dark" id="descripcion" name="descripcion" >{{$proyecto->descripcion}}</textarea>
-                                        </div>
+                                    <h1 class="text-center bg-primary text-white rounded">{{$proyecto->codigo}}</h1>
+                                    <div class="mb-3">
+                                        <label for="nombreProyecto" class="col-form-label">Nombre del proyecto:</label>
+                                        <input type="text" class="form-control text-dark" id="nombreProyecto"
+                                               name="codigoProyecto" value="{{$proyecto->nombre}}" disabled>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="descripcion" class="col-form-label">Descripción:</label>
+                                        <textarea disabled style="resize: none" rows="5" class="form-control text-dark"
+                                                  id="descripcion"
+                                                  name="descripcion">{{$proyecto->descripcion}}</textarea>
+                                    </div>
                                     <input type="hidden" name="idproy" id="idproyectoSalir" value="{{$proyecto->id}}">
                                 </div>
                                 <div class="modal-footer">
                                     @if(session()->get('id')!=$proyecto->idcreador)
-                                    <button type="submit" class="btn btn-danger">Salir del proyecto</button>
+                                        <button type="submit" class="btn btn-danger">Salir del proyecto</button>
                                     @endif
-                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -78,7 +100,9 @@
 
         <main>
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade   @if((session()->get('errores')=="") && (session()->get('green')=="")) show active @endif" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div
+                    class="tab-pane fade   @if((session()->get('errores')=="") && (session()->get('green')=="")) show active @endif"
+                    id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div class="chat_window">
 
                         <ul class="messages">
@@ -105,16 +129,19 @@
                             @endif
                         </ul>
                         <div class="bottom_wrapper clearfix">
-                            <div class="message_input_wrapper">
-                                <form method="POST" action="/proyecto/chat">
-                                    @csrf
-                                    <input class="message_input" name="mensaje" placeholder="Escribe un nuevo mensaje"/>
-                                </form>
-                            </div>
-                            <div class="send_message">
-                                <div class="icon"></div>
-                                <div class="text">Enviar</div>
-                            </div>
+                            <form method="POST" action="/proyecto/chat" enctype="multipart/form-data" id="formulario">
+                                @csrf
+                                <div class="message_input_wrapper">
+
+                                    <input type="text" class="message_input" name="mensaje"
+                                           placeholder="Escribe un nuevo mensaje"/>
+
+                                </div>
+                                <div class="send_message">
+                                    <div class="icon"></div>
+                                    <div class="text">Enviar</div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="message_template">
@@ -131,9 +158,54 @@
                     <p>tareas</p>
 
                 </div>
-                <div class="tab-pane fade"  id="nav-users" role="tabpanel" aria-labelledby="nav-usuarios-tab">
-                    <p>Usuarios</p>
+                <div class="tab-pane fade" id="nav-users" role="tabpanel" aria-labelledby="nav-usuarios-tab">
+                    <div class="tablatodos m-3">
+                        <table class="table_of_users display compact stripe bg-primary" id="tables">
+                            <thead>
+                            <tr class="text-white">
+                                <th>Nickname</th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Email</th>
+                                @if($proyecto->idcreador == Session::get('id'))
+                                    <th><center>Eliminar del proyecto</center></th>
+                                @endif
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @isset($usuarios)
+                                @foreach ($usuarios as $datosUsuarios)
+                                    <tr class="text-dark">
+                                        <td><b>{{ $datosUsuarios->usuarioUsu}}</b></td>
+                                        <td>{{ $datosUsuarios->nombreUsu}}</td>
+                                        <td>{{ $datosUsuarios->apellidosUsu}}</td>
+                                        <td>{{ $datosUsuarios->emailUsu}}</td>
+                                        @if($proyecto->idcreador == Session::get('id'))
+                                            @if (!($datosUsuarios->idUsu == Session::get('id')))
+                                            <td>
+                                                <center><a href="/salirproyectoadmin/{{$datosUsuarios->idUsu}}">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                                             fill="red"
+                                                             class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                                        </svg>
+                                                    </a></center>
+                                            </td>
+                                            @else
+                                                <td></td>
+                                            @endif
+                                        @endif
+                                    </tr>
+                                @endforeach
+                            @endisset
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
+
 
                 @if(session()->get('id')==$proyecto->idcreador)
                 <div class="tab-pane fade  @if((session()->get('errores')!="") || (session()->get('green')!="")) show active @endif" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab">
@@ -145,35 +217,34 @@
                                 <div class="col-8">
                                     <input type="text" class="form-control text-dark"
                                            id="nombre" name="nombre" value="{{$proyecto->nombre}}" pattern="^[a-zA-ZÀ-ÿ_.0-9\s]{3,30}$" required>
+
                                 </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="descripcion" class="col-form-label">Descripción:</label>
-                                <textarea style="resize: none" rows="5" class="form-control" id="descripcion" name="descripcion" >{{$proyecto->descripcion}}</textarea>
-                            </div>
+
 
                             <input type="hidden" name="idproy" id="idproy" value="{{$proyecto->id}}">
                             <input type="hidden" name="currentName" id="currentName" value="{{$proyecto->nombre}}">
                             <input type="hidden" name="currentDes" id="currentDes" value="{{$proyecto->descripcion}}">
 
 
-                        </div>
-                    </form>
-                    <form class="user" method="POST" id="formularioCodigo" action="{{route('generarNuevoCodigo')}}">
-                        @csrf
-                        <div class="mt-4 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
-                            <div class="form-group row">
-                                <label for="codigo" class="col-3 col-sm-2 offset-sm-4 offset-md-5 offset-xl-6"> Codigo:</label>
-                                <div class="col-5 col-sm-4 col-md-3">
-                                    <input type="text" class="form-control text-muted"
-                                           id="codigo" name="codigo" value="{{$proyecto->codigo}}" disabled>
-                                </div>
-                                <input type="hidden" name="idproy" id="idproyecto" value="{{$proyecto->id}}">
-                                <div class="col-2 col-md-1">
-                                    <a class="btn btn-primary" id="botonGenerarCodigo"><i class="fas fa-sync-alt"></i></a>
+                            </div>
+                        </form>
+                        <form class="user" method="POST" id="formularioCodigo" action="{{route('generarNuevoCodigo')}}">
+                            @csrf
+                            <div class="mt-4 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
+                                <div class="form-group row">
+                                    <label for="codigo" class="col-3 col-sm-2 offset-sm-4 offset-md-5 offset-xl-6">
+                                        Codigo:</label>
+                                    <div class="col-5 col-sm-4 col-md-3">
+                                        <input type="text" class="form-control text-muted"
+                                               id="codigo" name="codigo" value="{{$proyecto->codigo}}" disabled>
+                                    </div>
+                                    <input type="hidden" name="idproy" id="idproyecto" value="{{$proyecto->id}}">
+                                    <div class="col-2 col-md-1">
+                                        <a class="btn btn-primary" id="botonGenerarCodigo"><i
+                                                class="fas fa-sync-alt"></i></a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
                     </form>
@@ -231,5 +302,165 @@
             <script src="/js/dark-mode-switch.min.js"></script>
             <script src="/js/chat.js"></script>
             <script src="/js/proyectos.js"></script>
+
+
+
+            <!-- tablas -->
+            <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
+                    crossorigin="anonymous"></script>
+            <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
+                    crossorigin="anonymous"></script>
+            <script type="text/javascript">
+                //var dt = require( 'datatables.net' )();
+                $(document).ready(function () {
+                    $('.table_of_users').DataTable();
+                });
+                $('.table_of_users').DataTable({
+                    language: {
+                        "processing": "Procesando...",
+                        "lengthMenu": "Mostrar _MENU_ registros",
+                        "zeroRecords": "No se encontraron resultados",
+                        "emptyTable": "Ningún dato disponible en esta tabla",
+                        "info": "_START_ al _END_ de un total de _TOTAL_ registros",
+                        "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "search": "Buscar:",
+                        "infoThousands": ",",
+                        "loadingRecords": "Cargando...",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        },
+                        "aria": {
+                            "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sortDescending": ": Activar para ordenar la columna de manera descendente"
+                        },
+                        "buttons": {
+                            "copy": "Copiar",
+                            "colvis": "Visibilidad",
+                            "collection": "Colección",
+                            "colvisRestore": "Restaurar visibilidad",
+                            "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
+                            "copySuccess": {
+                                "1": "Copiada 1 fila al portapapeles",
+                                "_": "Copiadas %d fila al portapapeles"
+                            },
+                            "copyTitle": "Copiar al portapapeles",
+                            "csv": "CSV",
+                            "excel": "Excel",
+                            "pageLength": {
+                                "-1": "Mostrar todas las filas",
+                                "1": "Mostrar 1 fila",
+                                "_": "Mostrar %d filas"
+                            },
+                            "pdf": "PDF",
+                            "print": "Imprimir"
+                        },
+                        "autoFill": {
+                            "cancel": "Cancelar",
+                            "fill": "Rellene todas las celdas con <i>%d<\/i>",
+                            "fillHorizontal": "Rellenar celdas horizontalmente",
+                            "fillVertical": "Rellenar celdas verticalmentemente"
+                        },
+                        "decimal": ",",
+                        "searchBuilder": {
+                            "add": "Añadir condición",
+                            "button": {
+                                "0": "Constructor de búsqueda",
+                                "_": "Constructor de búsqueda (%d)"
+                            },
+                            "clearAll": "Borrar todo",
+                            "condition": "Condición",
+                            "conditions": {
+                                "date": {
+                                    "after": "Despues",
+                                    "before": "Antes",
+                                    "between": "Entre",
+                                    "empty": "Vacío",
+                                    "equals": "Igual a",
+                                    "not": "No",
+                                    "notBetween": "No entre",
+                                    "notEmpty": "No Vacio"
+                                },
+                                "moment": {
+                                    "after": "Despues",
+                                    "before": "Antes",
+                                    "between": "Entre",
+                                    "empty": "Vacío",
+                                    "equals": "Igual a",
+                                    "not": "No",
+                                    "notBetween": "No entre",
+                                    "notEmpty": "No vacio"
+                                },
+                                "number": {
+                                    "between": "Entre",
+                                    "empty": "Vacio",
+                                    "equals": "Igual a",
+                                    "gt": "Mayor a",
+                                    "gte": "Mayor o igual a",
+                                    "lt": "Menor que",
+                                    "lte": "Menor o igual que",
+                                    "not": "No",
+                                    "notBetween": "No entre",
+                                    "notEmpty": "No vacío"
+                                },
+                                "string": {
+                                    "contains": "Contiene",
+                                    "empty": "Vacío",
+                                    "endsWith": "Termina en",
+                                    "equals": "Igual a",
+                                    "not": "No",
+                                    "notEmpty": "No Vacio",
+                                    "startsWith": "Empieza con"
+                                }
+                            },
+                            "data": "Data",
+                            "deleteTitle": "Eliminar regla de filtrado",
+                            "leftTitle": "Criterios anulados",
+                            "logicAnd": "Y",
+                            "logicOr": "O",
+                            "rightTitle": "Criterios de sangría",
+                            "title": {
+                                "0": "Constructor de búsqueda",
+                                "_": "Constructor de búsqueda (%d)"
+                            },
+                            "value": "Valor"
+                        },
+                        "searchPanes": {
+                            "clearMessage": "Borrar todo",
+                            "collapse": {
+                                "0": "Paneles de búsqueda",
+                                "_": "Paneles de búsqueda (%d)"
+                            },
+                            "count": "{total}",
+                            "countFiltered": "{shown} ({total})",
+                            "emptyPanes": "Sin paneles de búsqueda",
+                            "loadMessage": "Cargando paneles de búsqueda",
+                            "title": "Filtros Activos - %d"
+                        },
+                        "select": {
+                            "1": "%d fila seleccionada",
+                            "_": "%d filas seleccionadas",
+                            "cells": {
+                                "1": "1 celda seleccionada",
+                                "_": "$d celdas seleccionadas"
+                            },
+                            "columns": {
+                                "1": "1 columna seleccionada",
+                                "_": "%d columnas seleccionadas"
+                            }
+                        },
+                        "thousands": "."
+                    }
+                });
+                $('.tables').dataTable({
+                    scrollY: true
+                });
+                $('.tables').dataTable({
+                    scrollX: true
+                });
+            </script>
 
 @endsection
