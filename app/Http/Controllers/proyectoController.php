@@ -100,6 +100,7 @@ class proyectoController extends Controller
             $project = DB::select('select * from proyecto where id= ?', [$datosProyectos->idproy]);
             array_push($proyectos, $project);
         }
+
         Session::put('proyectos', $proyectos);
 
         return redirect()->route('index');
@@ -109,18 +110,30 @@ class proyectoController extends Controller
     {
         Session::put('proyectoid', $id);
         $mensajes = DB::select('SELECT * FROM chat WHERE idproy = ? ',[$id]);
-        
-        $proyecto = Proyecto::get()->where('id', $id)->first();
 
         foreach($mensajes as $datosMensajes){
             $datoUsuario = DB::select('SELECT nombre FROM usuario WHERE id = ?',[$datosMensajes->idusu]);
             $datosMensajes->nombre = $datoUsuario[0]->nombre;
         }
 
+        $proyecto = Proyecto::get()->where('id', $id)->first();
 
-        return view('proyects')->with(["mensajes" => $mensajes, "proyecto" => $proyecto,]);
+        $usuariosProyecto = DB::select('SELECT * FROM usupro WHERE idproy = ?',[$id]);
+        foreach($usuariosProyecto as $datosUsuariosProyectos){
+            $usuario = DB::select('SELECT * FROM usuario WHERE id = ?',[$datosUsuariosProyectos->idusu]);
+            $datosUsuariosProyectos->idUsu = $usuario[0]->id;
+            $datosUsuariosProyectos->usuarioUsu = $usuario[0]->usuario;
+            $datosUsuariosProyectos->nombreUsu = $usuario[0]->nombre;
+            $datosUsuariosProyectos->apellidosUsu = $usuario[0]->apellidos;
+            $datosUsuariosProyectos->emailUsu = $usuario[0]->email;
+        }
 
+        $usuarios = DB::select('SELECT * FROM usuario');
+
+
+        return view('proyects')->with(["mensajes" => $mensajes, "proyecto" => $proyecto, "usuarios" => $usuariosProyecto]);
     }
+
     //método para guardar los mensajes del chat
     public function chat(Request $request)
     {
@@ -233,6 +246,17 @@ class proyectoController extends Controller
         Session::put('proyectos', $proyectos);
 
         return redirect()->route('index');
+
+    }
+
+    public function salirProyectoAdmin($id)
+    {
+        $idproy = Session::get('proyectoid');
+        $idusu = $id;
+
+        DB::table('usupro')->where('idproy', '=', $idproy)->where('idusu', '=', $idusu)->delete();
+
+        return back();
 
     }
 

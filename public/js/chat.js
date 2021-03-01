@@ -1,24 +1,34 @@
-(function () {
-    $(function () {
-        var mensaje = $('.message_input').val('').val().toString();
-        envioDatosServidor(mensaje);
-    });
-}.call(this));
 $(document).ready(function () {
+    $("form").keypress(function (e) {
+        if (e.which == 13) {
+            return false;
+        }
+    });
     scroll();
 });
 function scroll() {
     //el texto para que cada vez que pongo el texto vaya para abajo
     $('.messages').scrollTop($('.messages').prop('scrollHeight'));
 }
-function envioDatosServidor(mensaje) {
+function envioDatosServidor() {
     $.ajax({
         url: "/proyecto/chat",
         method: "POST",
-        data: mensaje
-    }).done(function (res) {
-        console.log(res);
+        data: $('#formulario').serialize()
+    }).done(function () {
+        location.reload();
+        $('input[type="text"]').val('');
+        //console.log("todo bien")
     }).fail(function () {
-        console.log("todo mal, nada bien");
+        console.log("todo mal");
     });
 }
+$('.send_message').click(function () {
+    envioDatosServidor();
+});
+$('.message_input').keyup(function (e) {
+    if (e.keyCode == 13) {
+        envioDatosServidor();
+        e.preventDefault();
+    }
+});

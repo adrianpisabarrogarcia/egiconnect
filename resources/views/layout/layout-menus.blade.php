@@ -25,6 +25,7 @@
     <a class="navbar-brand" href="{{ route('index') }}"><img id="logo-principal" src="/img/logo-horizontal.png"></a>
     <!-- Navbar Dark-Mode-->
     <ul class="navbar-nav ml-auto ml-md-0">
+        <!--
         <li class="dark-mode nav-item dropdown mr-2">
             <label class="mb-0" for="darkSwitch"><i style="color: rgba(255,255,255,0.5);"
                                                     class="fas fa-fw fa-sun mr-2"></i></label>
@@ -34,6 +35,7 @@
                                                                         class="fas fa-fw fa-moon"></i></label>
             </div>
         </li>
+        -->
         <li class="nav-item dropdown ml-3">
             <a class="nav-link dropdown-toggle text-white" id="userDropdown" href="#" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
