@@ -118,10 +118,20 @@ class proyectoController extends Controller
 
         $proyecto = Proyecto::get()->where('id', $id)->first();
 
+        $usuariosProyecto = DB::select('SELECT * FROM usupro WHERE idproy = ?',[$id]);
+        foreach($usuariosProyecto as $datosUsuariosProyectos){
+            $usuario = DB::select('SELECT * FROM usuario WHERE id = ?',[$datosUsuariosProyectos->idusu]);
+            $datosUsuariosProyectos->idUsu = $usuario[0]->id;
+            $datosUsuariosProyectos->usuarioUsu = $usuario[0]->usuario;
+            $datosUsuariosProyectos->nombreUsu = $usuario[0]->nombre;
+            $datosUsuariosProyectos->apellidosUsu = $usuario[0]->apellidos;
+            $datosUsuariosProyectos->emailUsu = $usuario[0]->email;
+        }
+
         $usuarios = DB::select('SELECT * FROM usuario');
 
 
-        return view('proyects')->with(["mensajes" => $mensajes, "proyecto" => $proyecto, "usuarios" => $usuarios]);
+        return view('proyects')->with(["mensajes" => $mensajes, "proyecto" => $proyecto, "usuarios" => $usuariosProyecto]);
     }
 
     //método para guardar los mensajes del chat
@@ -239,23 +249,14 @@ class proyectoController extends Controller
 
     }
 
-    public function salirProyectoAdmin(Request $request)
+    public function salirProyectoAdmin($id)
     {
-        $idproy = request('idproy');
-        $idproy = request('idproy');
-        $idusu = Session::get('id');
+        $idproy = Session::get('proyectoid');
+        $idusu = $id;
 
-        $proyecto = Usupro::where('idproy', $idproy)->where('idusu',$idusu)->delete();
+        DB::table('usupro')->where('idproy', '=', $idproy)->where('idusu', '=', $idusu)->delete();
 
-        $proyectosIDs = Usupro::get()->where('idusu', $idusu);
-        $proyectos = [];
-        foreach ($proyectosIDs as $datosProyectos){
-            $project = DB::select('select * from proyecto where id= ?', [$datosProyectos->idproy]);
-            array_push($proyectos, $project);
-        }
-        Session::put('proyectos', $proyectos);
-
-        return redirect()->route('index');
+        return back();
 
     }
 

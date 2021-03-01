@@ -4,6 +4,15 @@
     <link href="/css/proyecto.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css"> <!-- css de las tablas -->
+    <style>
+        .page-link{
+            background-color: #682E88 !important;
+            color: white !important;
+        }
+        main{
+            overflow: auto;
+        }
+    </style>
 @endsection
 @section('content')
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -153,7 +162,7 @@
                 </div>
                 <div class="tab-pane fade" id="nav-users" role="tabpanel" aria-labelledby="nav-usuarios-tab">
                     <div class="tablatodos m-3">
-                        <table class="table_of_users display compact stripe bg-primary">
+                        <table class="table_of_users display compact stripe bg-primary" id="tables">
                             <thead>
                             <tr class="text-white">
                                 <th>Nickname</th>
@@ -169,15 +178,15 @@
                             @isset($usuarios)
                                 @foreach ($usuarios as $datosUsuarios)
                                     <tr class="text-dark">
-                                        <td><b>{{ $datosUsuarios->usuario}}</b></td>
-                                        <td>{{ $datosUsuarios->nombre}}</td>
-                                        <td>{{ $datosUsuarios->apellidos}}</td>
-                                        <td>{{ $datosUsuarios->email}}</td>
+                                        <td><b>{{ $datosUsuarios->usuarioUsu}}</b></td>
+                                        <td>{{ $datosUsuarios->nombreUsu}}</td>
+                                        <td>{{ $datosUsuarios->apellidosUsu}}</td>
+                                        <td>{{ $datosUsuarios->emailUsu}}</td>
                                         @if($proyecto->idcreador == Session::get('id'))
-                                            @if (!($datosUsuarios->id == Session::get('id')))
+                                            @if (!($datosUsuarios->idUsu == Session::get('id')))
                                             <td>
-                                                <center><a href="/eliminarproyecto/{{ $datosUsuarios->id }}"
-                                                           onclick="prueba(event)">
+                                                <center><a href="/salirproyectoadmin/{{$datosUsuarios->idUsu}}">
+
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                                              fill="red"
                                                              class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -288,7 +297,6 @@
                     crossorigin="anonymous"></script>
             <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
                     crossorigin="anonymous"></script>
-            <script src="assets/demo/datatables-demo.js"></script>-->
             <script type="text/javascript">
                 //var dt = require( 'datatables.net' )();
                 $(document).ready(function () {
@@ -434,11 +442,11 @@
                         "thousands": "."
                     }
                 });
-                $('#table_of_userss').DataTable({
-                    scrollY: true,
-                    scroller: {
-                        rowHeight: 3
-                    }
+                $('.tables').dataTable({
+                    scrollY: true
+                });
+                $('.tables').dataTable({
+                    scrollX: true
                 });
             </script>
 
