@@ -65,6 +65,9 @@
                         <a class="nav-link" href="/proyecto/{{$datosProyectos[0]->id}}">
                             <div class="sb-nav-link-icon"><i class="fas fa-hashtag"></i></div>
                             {{ $datosProyectos[0]->nombre }}
+                            @if($datosProyectos[0]->idcreador==$idusu = Session::get('id'))
+                                <i class="fas fa-crown ml-2"></i>
+                            @endif
                         </a>
                     @endforeach
 

@@ -18,12 +18,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <div id="layoutSidenav_content">
         <nav>
-            <div class="mt-2 nav nav-tabs nav-proyecto" id="nav-tab" role="tablist">
-                <div class="nav-menu">
-                    <button
-                        class="ml-2 nav-link  @if((session()->get('errores')=="") && (session()->get('green')=="")) active @endif"
-                        id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
-                        type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+
+            <div class="nav-menu">
+                <div class="mt-2 nav nav-tabs nav-proyecto" id="nav-tab" role="tablist">
+                    <button class="ml-2 nav-link  @if((session()->get('errores')=="") && (session()->get('green')=="")) active @endif" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                            type="button" role="tab" aria-controls="nav-home" aria-selected="true">
                         <div class="sb-nav-link-icon"><i class="fas fa-comment"></i></div>
                         Chat
                     </button>
@@ -52,10 +51,9 @@
                         </button>
                     @endif
                 </div>
-                <button style="border: none" type="button" data-bs-toggle="modal" data-bs-target="#info"
-                        data-bs-whatever="@getbootstrap">
-                    <div class="mas-info sb-nav-link-icon mr-2"><i class="fas text-primary fa-info-circle h4 mb-0"></i>
-                    </div>
+
+                <button style="border: none" type="button" data-bs-toggle="modal" data-bs-target="#info" data-bs-whatever="@getbootstrap">
+                    <div class="mas-info sb-nav-link-icon mr-3 mt-1"><i class="fas text-primary fa-info-circle h4 mb-0"></i></div>
                 </button>
                 <div style="width: 100vw" class="modal fade" id="info" tabindex="-1" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
@@ -208,32 +206,24 @@
 
                 </div>
 
+
                 @if(session()->get('id')==$proyecto->idcreador)
-                    <div
-                        class="tab-pane fade  @if((session()->get('errores')!="") || (session()->get('green')!="")) show active @endif"
-                        id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab">
-                        <form class="user" method="POST" id="formulario" action="{{route('actualizarProyecto')}}">
-                            @csrf
-                            <div class="mt-5 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
-                                <div class="form-group row">
-                                    <label for="nombreMostrar" class="col-4"> Nombre del proyecto:</label>
-                                    <div class="col-8">
-                                        <input type="text" class="form-control text-dark"
-                                               id="nombre" name="nombre" value="{{$proyecto->nombre}}" required>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="descripcion" class="col-form-label">Descripción:</label>
-                                    <textarea style="resize: none" rows="5" class="form-control" id="descripcion"
-                                              name="descripcion">{{$proyecto->descripcion}}</textarea>
+                <div class="tab-pane fade  @if((session()->get('errores')!="") || (session()->get('green')!="")) show active @endif" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab">
+                    <form class="user" method="POST" id="formulario" action="{{route('actualizarProyecto')}}">
+                        @csrf
+                        <div class="mt-5 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
+                            <div class="form-group row">
+                                <label for="nombreMostrar" class="col-4"> Nombre del proyecto:</label>
+                                <div class="col-8">
+                                    <input type="text" class="form-control text-dark"
+                                           id="nombre" name="nombre" value="{{$proyecto->nombre}}" pattern="^[a-zA-ZÀ-ÿ_.0-9\s]{3,30}$" required>
+
                                 </div>
 
-                                <input type="hidden" name="idproy" id="idproy" value="{{$proyecto->id}}">
-                                <input type="hidden" name="currentName" id="currentName" value="{{$proyecto->nombre}}">
 
-
-                                <div id="erroresTypescript">
-                                </div>
+                            <input type="hidden" name="idproy" id="idproy" value="{{$proyecto->id}}">
+                            <input type="hidden" name="currentName" id="currentName" value="{{$proyecto->nombre}}">
+                            <input type="hidden" name="currentDes" id="currentDes" value="{{$proyecto->descripcion}}">
 
 
                             </div>
@@ -255,27 +245,51 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                        @if((session()->get('errores')!=""))
-                            <div class='ml-3 mr-3 alert alert-danger text-center'
-                                 role='alert'>{!! session()->get('errores')  !!}</div>
-                        @endif
-                        @if((session()->get('green')!=""))
-                            <div class='ml-3 mr-3 alert alert-success text-center'
-                                 role='alert'>{!! session()->get('green')  !!}</div>
-                        @endif
-                        <div class="form-group text-center">
-                            <a class="btn btn-primary" id="botonActualizarProyecto">Actualizar</a>
-                        </div>
-                        <form class="user" method="POST" id="formularioBorrar" action="{{route('borrarProyecto')}}">
-                            @csrf
-                            <input type="hidden" name="idproy" id="idproyectoBorrar" value="{{$proyecto->id}}">
-                            <div class="form-group text-center">
-                                <a class="btn btn-danger" id="botonBorrarProyecto">Eliminar proyecto</a>
-                            </div>
-                        </form>
 
+
+                    </form>
+
+                    <div class="mt-4 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
+                        @if((session()->get('green')!=""))
+                            <div class='ml-3 mr-3 alert alert-success text-center' role='alert'>{!! session()->get('green')  !!}</div>
+                        @endif
+                        @if((session()->get('errores')!=""))
+                            <div class='ml-3 mr-3 alert alert-success text-center' role='alert'>{!! session()->get('errores')  !!}</div>
+                        @endif
+                            <div id="erroresTypescriptActualizar">
+                            </div>
                     </div>
+
+                    <div class="form-group text-center d-flex justify-content-center">
+                        <div class="form-group mt-1 mb-0"><input type="submit"
+                                                                 class="btn btn-primary btn-block"
+                                                                 onclick="actualizarProyecto()"
+                                                                 value="Actualizar"></div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#borrar" data-bs-whatever="@getbootstrap">
+                                Eliminar proyecto
+                        </button>
+                    </div>
+                    <div style="width: 100vw" class="modal fade" id="borrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <form class="user" method="POST" id="formularioBorrar" action="{{route('borrarProyecto')}}">
+                                @csrf
+                                    <div class="modal-body">
+                                            <input type="hidden" name="idproy" id="idproyectoBorrar" value="{{$proyecto->id}}">
+                                            <p class="mt-2">¿Estás seguro de que deseas eliminar el proyecto de <b>"{{$proyecto->nombre}}"</b>? </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" id="borrarProyecto" class="btn btn-primary">Borrar proyecto</button>
+                                    </div>
+                            </form>
+                            </div>
+                        </div>
+                </div>
+                </div>
                 @endif
             </div>
         </main>
@@ -288,7 +302,6 @@
             <script src="/js/dark-mode-switch.min.js"></script>
             <script src="/js/chat.js"></script>
             <script src="/js/proyectos.js"></script>
-            <!--<script src="/js/chat-screen.js"></script>-->
 
 
 

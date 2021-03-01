@@ -1,12 +1,13 @@
-.nav-proyecto {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .nav-menu {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--morado) !important;
+}
+
+.nav-tabs {
+  border-bottom: none !important;
 }
 
 /*# sourceMappingURL=proyecto.css.map */
