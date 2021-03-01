@@ -100,6 +100,7 @@ class proyectoController extends Controller
             $project = DB::select('select * from proyecto where id= ?', [$datosProyectos->idproy]);
             array_push($proyectos, $project);
         }
+
         Session::put('proyectos', $proyectos);
 
         return redirect()->route('index');
@@ -109,18 +110,20 @@ class proyectoController extends Controller
     {
         Session::put('proyectoid', $id);
         $mensajes = DB::select('SELECT * FROM chat WHERE idproy = ? ',[$id]);
-        
-        $proyecto = Proyecto::get()->where('id', $id)->first();
 
         foreach($mensajes as $datosMensajes){
             $datoUsuario = DB::select('SELECT nombre FROM usuario WHERE id = ?',[$datosMensajes->idusu]);
             $datosMensajes->nombre = $datoUsuario[0]->nombre;
         }
 
+        $proyecto = Proyecto::get()->where('id', $id)->first();
 
-        return view('proyects')->with(["mensajes" => $mensajes, "proyecto" => $proyecto,]);
+        $usuarios = DB::select('SELECT * FROM usuario');
 
+
+        return view('proyects')->with(["mensajes" => $mensajes, "proyecto" => $proyecto, "usuarios" => $usuarios]);
     }
+
     //método para guardar los mensajes del chat
     public function chat(Request $request)
     {
@@ -219,6 +222,26 @@ class proyectoController extends Controller
 
     public function salirProyecto()
     {
+        $idproy = request('idproy');
+        $idusu = Session::get('id');
+
+        $proyecto = Usupro::where('idproy', $idproy)->where('idusu',$idusu)->delete();
+
+        $proyectosIDs = Usupro::get()->where('idusu', $idusu);
+        $proyectos = [];
+        foreach ($proyectosIDs as $datosProyectos){
+            $project = DB::select('select * from proyecto where id= ?', [$datosProyectos->idproy]);
+            array_push($proyectos, $project);
+        }
+        Session::put('proyectos', $proyectos);
+
+        return redirect()->route('index');
+
+    }
+
+    public function salirProyectoAdmin(Request $request)
+    {
+        $idproy = request('idproy');
         $idproy = request('idproy');
         $idusu = Session::get('id');
 

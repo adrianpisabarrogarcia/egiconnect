@@ -20,7 +20,8 @@ function envioDatosServidor():void{
         data:$('#formulario').serialize()
     }).done(function(){
         location.reload();
-        console.log("todo bien")
+        $('input[type="text"]').val('');
+        //console.log("todo bien")
     }).fail(function(){
         console.log("todo mal")
     })
