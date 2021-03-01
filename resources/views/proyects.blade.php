@@ -1,7 +1,7 @@
 @extends('layout.layout-menus')
 @section('head')
-    <link href="/css/chat.css" rel="stylesheet"/>
     <link href="/css/proyecto.css" rel="stylesheet"/>
+    <link href="/css/chat.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css"> <!-- css de las tablas -->
     <style>
@@ -153,7 +153,61 @@
                         </li>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">...</div>
+                <div class="tab-pane fade" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
+                    <form class="proyecto" method="POST" id="formularioFile" action="{{route('subirArchivo')}}">
+                        @csrf
+                        <div class="file-upload input-group m2-3">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="archivo" name="archivo">
+                                <label class="custom-file-label" for="archivo">Selecciona un archivo</label>
+                            </div>
+
+                            <input type="hidden" name="idproy" id="idproyFile" value="{{$proyecto->id}}">
+                            <div class="input-group-append">
+                                <input type="button" class="input-group-text" id="botonSubirArchivo" value="Subir">
+                            </div>
+                        </div>
+                    </form>
+
+                    <div id="erroresTypescriptFile">
+                    </div>
+
+                    <div class="tablatodos m-3">
+                        <table class="table_of_users display compact stripe bg-primary" id="tablesFiles">
+                            <thead>
+                            <tr class="text-white">
+                                <th>Nombre</th>
+                                <th>Tamaño</th>
+                                <th>Fecha</th>
+                                <th>Eliminar del proyecto</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @isset($usuarios)
+                                @foreach ($usuarios as $datosUsuarios)
+                                    <tr class="text-dark">
+                                        <td><b>{{ $datosUsuarios->usuarioUsu}}</b></td>
+                                        <td>{{ $datosUsuarios->nombreUsu}}</td>
+                                        <td>{{ $datosUsuarios->apellidosUsu}}</td>
+                                        <td>
+                                            <center><a href="/salirproyectoadmin/{{$datosUsuarios->idUsu}}">
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                                         fill="red"
+                                                         class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                                    </svg>
+                                                </a></center>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endisset
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
                 <div class="tab-pane fade" id="nav-tareas" role="tabpanel" aria-labelledby="nav-tareas-tab">
                     <p>tareas</p>
 
@@ -182,17 +236,17 @@
                                         <td>{{ $datosUsuarios->emailUsu}}</td>
                                         @if($proyecto->idcreador == Session::get('id'))
                                             @if (!($datosUsuarios->idUsu == Session::get('id')))
-                                            <td>
-                                                <center><a href="/salirproyectoadmin/{{$datosUsuarios->idUsu}}">
+                                                <td>
+                                                    <center><a href="/salirproyectoadmin/{{$datosUsuarios->idUsu}}">
 
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-                                                             fill="red"
-                                                             class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                                        </svg>
-                                                    </a></center>
-                                            </td>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                                                 fill="red"
+                                                                 class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                                            </svg>
+                                                        </a></center>
+                                                </td>
                                             @else
                                                 <td></td>
                                             @endif
@@ -208,88 +262,87 @@
 
 
                 @if(session()->get('id')==$proyecto->idcreador)
-                <div class="tab-pane fade  @if((session()->get('errores')!="") || (session()->get('green')!="")) show active @endif" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab">
-                    <form class="user" method="POST" id="formulario" action="{{route('actualizarProyecto')}}">
-                        @csrf
-                        <div class="mt-5 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
-                            <div class="form-group row">
-                                <label for="nombreMostrar" class="col-4"> Nombre del proyecto:</label>
-                                <div class="col-8">
-                                    <input type="text" class="form-control text-dark"
-                                           id="nombre" name="nombre" value="{{$proyecto->nombre}}" pattern="^[a-zA-ZÀ-ÿ_.0-9\s]{3,30}$" required>
+                    <div class="tab-pane fade  @if((session()->get('errores')!="") || (session()->get('green')!="")) show active @endif" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab">
+                        <form class="user" method="POST" id="formulario" action="{{route('actualizarProyecto')}}">
+                            @csrf
+                            <div class="mt-5 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
+                                <div class="form-group row">
+                                    <label for="nombreMostrar" class="col-4"> Nombre del proyecto:</label>
+                                    <div class="col-8">
+                                        <input type="text" class="form-control text-dark"
+                                               id="nombre" name="nombre" value="{{$proyecto->nombre}}" pattern="^[a-zA-ZÀ-ÿ_.0-9\s]{3,30}$" required>
+
+                                    </div>
+
+
+                                    <input type="hidden" name="idproy" id="idproy" value="{{$proyecto->id}}">
+                                    <input type="hidden" name="currentName" id="currentName" value="{{$proyecto->nombre}}">
+                                    <input type="hidden" name="currentDes" id="currentDes" value="{{$proyecto->descripcion}}">
+
 
                                 </div>
-
-
-                            <input type="hidden" name="idproy" id="idproy" value="{{$proyecto->id}}">
-                            <input type="hidden" name="currentName" id="currentName" value="{{$proyecto->nombre}}">
-                            <input type="hidden" name="currentDes" id="currentDes" value="{{$proyecto->descripcion}}">
-
-
                             </div>
                         </form>
                         <form class="user" method="POST" id="formularioCodigo" action="{{route('generarNuevoCodigo')}}">
                             @csrf
                             <div class="mt-4 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
                                 <div class="form-group row">
-                                    <label for="codigo" class="col-3 col-sm-2 offset-sm-4 offset-md-5 offset-xl-6">
-                                        Codigo:</label>
+                                    <label for="codigo" class="col-3 col-sm-2 offset-sm-4 offset-md-5 offset-xl-6"> Codigo:</label>
                                     <div class="col-5 col-sm-4 col-md-3">
                                         <input type="text" class="form-control text-muted"
                                                id="codigo" name="codigo" value="{{$proyecto->codigo}}" disabled>
                                     </div>
                                     <input type="hidden" name="idproy" id="idproyecto" value="{{$proyecto->id}}">
                                     <div class="col-2 col-md-1">
-                                        <a class="btn btn-primary" id="botonGenerarCodigo"><i
-                                                class="fas fa-sync-alt"></i></a>
+                                        <a class="btn btn-primary" id="botonGenerarCodigo"><i class="fas fa-sync-alt"></i></a>
                                     </div>
                                 </div>
                             </div>
 
 
-                    </form>
+                        </form>
 
-                    <div class="mt-4 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
-                        @if((session()->get('green')!=""))
-                            <div class='ml-3 mr-3 alert alert-success text-center' role='alert'>{!! session()->get('green')  !!}</div>
-                        @endif
-                        @if((session()->get('errores')!=""))
-                            <div class='ml-3 mr-3 alert alert-success text-center' role='alert'>{!! session()->get('errores')  !!}</div>
-                        @endif
+                        <div class="mt-4 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
+                            @if((session()->get('green')!=""))
+                                <div class='ml-3 mr-3 alert alert-success text-center' role='alert'>{!! session()->get('green')  !!}</div>
+                            @endif
+                            @if((session()->get('errores')!=""))
+                                <div class='ml-3 mr-3 alert alert-success text-center' role='alert'>{!! session()->get('errores')  !!}</div>
+                            @endif
                             <div id="erroresTypescriptActualizar">
                             </div>
-                    </div>
+                        </div>
 
-                    <div class="form-group text-center d-flex justify-content-center">
-                        <div class="form-group mt-1 mb-0"><input type="submit"
-                                                                 class="btn btn-primary btn-block"
-                                                                 onclick="actualizarProyecto()"
-                                                                 value="Actualizar"></div>
-                    </div>
+                        <div class="form-group text-center d-flex justify-content-center">
+                            <div class="form-group mt-1 mb-0"><input type="submit"
+                                                                     class="btn btn-primary btn-block"
+                                                                     onclick="actualizarProyecto()"
+                                                                     value="Actualizar"></div>
+                        </div>
 
-                    <div class="form-group text-center">
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#borrar" data-bs-whatever="@getbootstrap">
+                        <div class="form-group text-center">
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#borrar" data-bs-whatever="@getbootstrap">
                                 Eliminar proyecto
-                        </button>
-                    </div>
-                    <div style="width: 100vw" class="modal fade" id="borrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <form class="user" method="POST" id="formularioBorrar" action="{{route('borrarProyecto')}}">
-                                @csrf
-                                    <div class="modal-body">
+                            </button>
+                        </div>
+                        <div style="width: 100vw" class="modal fade" id="borrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form class="user" method="POST" id="formularioBorrar" action="{{route('borrarProyecto')}}">
+                                        @csrf
+                                        <div class="modal-body">
                                             <input type="hidden" name="idproy" id="idproyectoBorrar" value="{{$proyecto->id}}">
                                             <p class="mt-2">¿Estás seguro de que deseas eliminar el proyecto de <b>"{{$proyecto->nombre}}"</b>? </p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" id="borrarProyecto" class="btn btn-primary">Borrar proyecto</button>
-                                    </div>
-                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="button" id="borrarProyecto" class="btn btn-primary">Borrar proyecto</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                </div>
-                </div>
+                    </div>
                 @endif
             </div>
         </main>

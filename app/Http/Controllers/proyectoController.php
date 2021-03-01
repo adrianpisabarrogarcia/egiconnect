@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Archivo;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 use App\Models\Proyecto;
 use App\Models\Usupro;
 use Illuminate\Http\Request;
@@ -259,6 +262,46 @@ class proyectoController extends Controller
         return back();
 
     }
+
+    function subirArchivo(Request $request){
+
+        $idusu = Session::get('id');
+        $idproy = request('idproy');
+
+        $nombreArchivo = request("archivo");
+        $archivo = $request->file("archivo");
+        return $archivo;
+        $nombreHash = $request->file("archivo")->hashName();
+        $archivo->move('/archivos/' , $nombreHash);
+        $tamaño = filesize($archivo);
+        return $tamaño;
+
+        date_default_timezone_set ('Europe/Madrid');
+        $now = new DateTime();
+
+        //Tratar los dates.
+        $archivo  = new Archivo(
+            [
+                "ruta" => "/archivos/" . $nombreHash,
+                "idproy" => $idproy,
+                "idusu" => $idusu,
+                "fecha" => $now,
+                "size" => $tamaño,
+            ]
+        );
+        $obra->save();
+
+        $solicitante = Solicitante::get()->where('ID', $_COOKIE['usuarioConectado'])->first();
+        $listaSolicitantes = DB::table("obras")->where('IDSOLICITANTE', $solicitante["ID"])->simplePaginate(10);
+
+        $listaUbicaciones = Ubicacion::get();
+
+        return view("listaObrasSolicitante", [
+            "listaSolicitantes"=>$listaSolicitantes,
+            'listaUbicaciones' => $listaUbicaciones
+        ]);
+    }
+
 
 }
 

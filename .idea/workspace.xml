@@ -23,16 +23,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd8903a9-0bc8-46bf-9ac1-2458e59d42ee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/scss/proyecto.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/egiconnect.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/egiconnect.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/proyectoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/proyectoController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/chat.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/chat.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/chat.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/portal.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/portal.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/proyecto.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/proyecto.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/proyecto.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/proyecto.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/proyectos.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/proyectos.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/proyectos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/proyectos.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/scss/proyecto.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/scss/proyecto.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layout/layout-menus.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layout/layout-menus.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/perfil.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/perfil.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/proyects.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/proyects.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,9 +48,7 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution>
-      <executable />
-    </execution>
+    <execution />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -185,7 +191,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/scss" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="configurable.stylesheets" />
@@ -193,6 +199,13 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\2gdaw08\Desktop\laravel\egiconnect\public\js" />
+      <recent name="C:\Users\2gdaw08\Desktop\laravel\egiconnect\public\html" />
+      <recent name="C:\Users\2gdaw08\Desktop\laravel\egiconnect\public" />
+      <recent name="C:\Users\2gdaw08\Desktop\laravel\egiconnect\resources\views" />
+      <recent name="$PROJECT_DIR$/resources/views/login" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\victo\Documents\laravel\egiconnect\public\scss" />
       <recent name="C:\Users\2gdaw08\Desktop\laravel\egiconnect\resources\views" />
@@ -200,24 +213,6 @@
       <recent name="C:\Users\2gdaw08\Desktop\laravel\egiconnect\public\js" />
       <recent name="C:\Users\2gdaw08\Desktop\laravel\egiconnect\resources\views\login" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\2gdaw08\Desktop\laravel\egiconnect\public\html" />
-      <recent name="C:\Users\2gdaw08\Desktop\laravel\egiconnect\public" />
-      <recent name="C:\Users\2gdaw08\Desktop\laravel\egiconnect\resources\views" />
-      <recent name="$PROJECT_DIR$/resources/views/login" />
-    </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -225,7 +220,7 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -243,19 +238,21 @@
       <workItem from="1614288169338" duration="4881000" />
       <workItem from="1614324682449" duration="1724000" />
       <workItem from="1614508181952" duration="5350000" />
+      <workItem from="1614595850879" duration="4287000" />
+      <workItem from="1614600231431" duration="3023000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
     <option name="exactExcludedFiles">
       <list>
-        <option value="$PROJECT_DIR$/public/js/registro.js" />
-        <option value="$PROJECT_DIR$/public/js/recuperarContrasena.js" />
         <option value="$PROJECT_DIR$/public/js/dark-mode-switch.min.js" />
+        <option value="$PROJECT_DIR$/public/js/recuperarContrasena.js" />
+        <option value="$PROJECT_DIR$/public/js/perfil.js" />
         <option value="$PROJECT_DIR$/public/js/chat.js" />
         <option value="$PROJECT_DIR$/public/js/proyectos.js" />
-        <option value="$PROJECT_DIR$/public/js/perfil.js" />
+        <option value="$PROJECT_DIR$/public/js/registro.js" />
       </list>
     </option>
   </component>
@@ -264,31 +261,34 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1267" y="314" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1614241772224">
+    <state x="1267" y="314" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1614601767014">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state x="1267" y="314" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.2048.1112@0.0.2048.1112" timestamp="1614241772224" />
-    <state x="1317" y="314" key="FileChooserDialogImpl" timestamp="1614254950259">
+    <state x="1267" y="314" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.2048.1112@0.0.2048.1112" timestamp="1614601767014" />
+    <state x="1317" y="314" key="FileChooserDialogImpl" timestamp="1614600215428">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state x="1317" y="314" key="FileChooserDialogImpl/0.0.2048.1112@0.0.2048.1112" timestamp="1614254950259" />
+    <state x="1317" y="314" key="FileChooserDialogImpl/0.0.2048.1112@0.0.2048.1112" timestamp="1614600215428" />
     <state x="1038" y="204" key="SettingsEditor" timestamp="1614168728053">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
     <state x="1038" y="204" key="SettingsEditor/0.0.2048.1112@0.0.2048.1112" timestamp="1614168728053" />
-    <state x="-6" y="0" width="1035" height="1117" key="dock-window-1" timestamp="1614247204940">
+    <state x="1143" y="170" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1614598893308">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state x="-6" y="0" width="1035" height="1117" key="dock-window-1/0.0.2048.1112@0.0.2048.1112" timestamp="1614247204940" />
+    <state x="1143" y="170" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.2048.1112@0.0.2048.1112" timestamp="1614598893308" />
+    <state x="-6" y="0" width="1035" height="1117" key="dock-window-1" timestamp="1614597197180">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="-6" y="0" width="1035" height="1117" key="dock-window-1/0.0.2048.1112@0.0.2048.1112" timestamp="1614597197180" />
     <state x="1247" y="275" width="577" height="566" key="find.popup" timestamp="1614249684961">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
@@ -297,17 +297,6 @@
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
     <state x="1204" y="247" width="672" height="678" key="search.everywhere.popup/0.0.2048.1112@0.0.2048.1112" timestamp="1614325302749" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/login/register.blade.php</url>
-          <line>57</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
