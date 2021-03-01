@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Archivo;
+use App\Models\Usuario;
+use DateTime;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 use App\Models\Proyecto;
 use App\Models\Usupro;
 use Illuminate\Http\Request;
@@ -131,7 +136,16 @@ class proyectoController extends Controller
         $usuarios = DB::select('SELECT * FROM usuario');
 
 
-        return view('proyects')->with(["mensajes" => $mensajes, "proyecto" => $proyecto, "usuarios" => $usuariosProyecto]);
+        $archivos = Archivo::get()->where('idproy', $id);
+        return view('proyects')->with([
+            "file" => "",
+            "usuarios" => $usuarios,
+            "mensajes" => $mensajes,
+            "proyecto" => $proyecto,
+            "usuariosPro" => $usuariosProyecto,
+            "archivos" => $archivos,
+
+        ]);
     }
 
     //método para guardar los mensajes del chat
@@ -259,6 +273,75 @@ class proyectoController extends Controller
         return back();
 
     }
+
+    function subirArchivo(Request $request){
+
+
+        $idusu = Session::get('id');
+        $idproy = request('idproy');
+
+        $nombreArchivo = $_FILES['archivo']['name'];
+        $archivo = $request->file("archivo");
+
+        $nombreHash = $request->file("archivo")->hashName();
+        $archivo->move('archivos/' , $nombreHash);
+        $now = now();
+
+        //Calcular tamaño del archivo
+        $size = filesize($archivo);
+
+        if ($size >= 1073741824)
+        { $size = number_format($size / 1073741824, 2) . ' GB';
+        } elseif ($size >= 1048576)
+        { $size = number_format($size / 1048576, 2) . ' MB'; }
+        elseif ($size >= 1024)
+        { $size = number_format($size / 1024, 2) . ' KB'; }
+
+        date_default_timezone_set ('Europe/Madrid');
+        $now = new DateTime();
+
+        //Tratar los dates.
+        $archivo  = new Archivo(
+            [
+                "nombre" => $nombreArchivo,
+                "ruta" => "archivos/" . $nombreHash,
+                "idproy" => $idproy,
+                "idusu" => $idusu,
+                "fecha" => $now,
+                "size" => $size,
+            ]
+        );
+        $archivo->save();
+
+        $usuariosProyecto = DB::select('SELECT * FROM usupro WHERE idproy = ?',[$idproy]);
+        foreach($usuariosProyecto as $datosUsuariosProyectos){
+            $usuario = DB::select('SELECT * FROM usuario WHERE id = ?',[$datosUsuariosProyectos->idusu]);
+            $datosUsuariosProyectos->idUsu = $usuario[0]->id;
+            $datosUsuariosProyectos->usuarioUsu = $usuario[0]->usuario;
+            $datosUsuariosProyectos->nombreUsu = $usuario[0]->nombre;
+            $datosUsuariosProyectos->apellidosUsu = $usuario[0]->apellidos;
+            $datosUsuariosProyectos->emailUsu = $usuario[0]->email;
+        }
+
+        $mensajes = DB::select('SELECT * FROM chat WHERE idproy = ? ',[$idproy]);
+        $proyecto = Proyecto::get()->where('id', $idproy)->first();
+        $archivos = Archivo::get()->where('idproy', $idproy);
+
+
+        $usuarios = DB::select('SELECT * FROM usuario');
+
+        return view('proyects')->with([
+            "file" => "archivo subido",
+            "usuarios" => $usuarios,
+            "mensajes" => $mensajes,
+            "proyecto" => $proyecto,
+            "usuariosPro" => $usuariosProyecto,
+            "archivos" => $archivos,
+
+        ]);
+    }
+
+
 
 }
 

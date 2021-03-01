@@ -5,6 +5,7 @@ $(document).ready(function () {
         $("#botonGenerarCodigo").click(generarNuevoCodigo);
         $("#borrarProyecto").click(borrarProyecto);
         $("#botonUnirseProyecto").click(validarCodigoProyecto);
+        $("#botonSubirArchivo").click(validarDatosObra);
     }
     catch (error) {
         console.log(error);
@@ -60,6 +61,13 @@ function validarCodigoProyecto() {
         event.preventDefault();
     }
 }
+$(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    if (fileName == "") {
+        $(this).siblings(".custom-file-label").addClass("selected").html("Selecciona un archivo");
+    }
+});
 function actualizarProyecto() {
     try {
         // @ts-ignore
@@ -96,6 +104,39 @@ function actualizarProyecto() {
     }
     catch (e) {
         $("#erroresTypescriptActualizar").html("<div class='alert alert-danger text-center' role='alert'>" + e + " </div>");
+        event.preventDefault();
+    }
+}
+function validarDatosObra() {
+    validarFichero();
+    $("#formularioFile").submit();
+}
+function validarFichero() {
+    var campo = "#archivo";
+    // @ts-ignore
+    var nombreArchivo = $(campo).val();
+    try {
+        if (nombreArchivo != "") {
+            var extension = nombreArchivo.substring(nombreArchivo.lastIndexOf('.'), nombreArchivo.length);
+            extension = extension.substring(1, extension.length);
+            if (extension == "jpg" || extension == "jpeg" || extension == "png" || extension == "pdf" || extension == "zip" || extension == "rar") {
+                // @ts-ignore
+                if (document.querySelector("#archivo").files[0].size <= 1024 * 1024) {
+                }
+                else {
+                    throw "El archivo ha excedido el peso máximo";
+                }
+            }
+            else {
+                throw "Ese formato de archivo no se admite";
+            }
+        }
+        else {
+            throw "Primero debes seleccionar un archivo.";
+        }
+    }
+    catch (e) {
+        $("#erroresTypescriptFile").html("<div class='mr-2 ml-2 alert alert-danger text-center' role='alert'>" + e + " </div>");
         event.preventDefault();
     }
 }
