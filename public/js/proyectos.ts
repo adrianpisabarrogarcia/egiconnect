@@ -127,7 +127,6 @@ function validarDatosObra():void {
 
     validarFichero();
 
-    $("#formularioFile").submit();
 }
 
 
@@ -147,6 +146,7 @@ function validarFichero(){
             if (extension == "jpg" || extension == "jpeg" || extension == "png" || extension == "pdf" || extension == "zip" || extension == "rar"){
                 // @ts-ignore
                 if(document.querySelector("#archivo").files[0].size <= 1024*1024){
+                    $("#formularioFile").submit();
                 }else{
                     throw "El archivo ha excedido el peso máximo";
                 }
@@ -159,8 +159,9 @@ function validarFichero(){
         }
 
     }catch(e){
-        $("#erroresTypescriptFile").html("<div class='mr-2 ml-2 alert alert-danger text-center' role='alert'>" + e + " </div>")
         event.preventDefault()
+        $("#erroresTypescriptFile").html("<div class='mr-2 ml-2 alert alert-danger text-center' role='alert'>" + e + " </div>")
+
     }
 
 }

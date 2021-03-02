@@ -49,7 +49,11 @@ Route::post("/generarNuevoCodigo", "proyectoController@generarNuevoCodigo")->nam
 Route::post("/borrarProyecto", "proyectoController@borrarProyecto")->name("borrarProyecto");
 Route::post("/salirProyecto", "proyectoController@salirProyecto")->name("salirProyecto");
 Route::get("/salirproyectoadmin/{id}", "proyectoController@salirProyectoAdmin")->name("salirProyectoAdmin");
-Route::post("/subirArchivo", "proyectoController@subirArchivo")->name("subirArchivo");
+
+//ARCHIVOS
+Route::post("/subirArchivo", "archivoController@subirArchivo")->name("subirArchivo");
+Route::get("/borrarArchivo/{id}", "archivoController@borrarArchivo")->name("borrarArchivo");
+Route::post("/cambiarNombre", "archivoController@cambiarNombre")->name("cambiarNombre");
 
 
 //PERFIL
