@@ -5,11 +5,17 @@
     <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css"> <!-- css de las tablas -->
     <style>
-        .page-link{
+        .page-link {
             background-color: #682E88 !important;
             color: white !important;
         }
-        main{
+
+        .paginate_button:hover {
+            border: 0px solid black !important;
+            background-color: white !important;
+        }
+
+        main {
             overflow: auto;
         }
     </style>
@@ -21,6 +27,7 @@
 
             <div class="nav-menu">
                 <div class="mt-2 nav nav-tabs nav-proyecto" id="nav-tab" role="tablist">
+
                     <button class="ml-2 nav-link  @if((session()->get('errores')=="") && (session()->get('green')=="") && ($file=="")) active @endif" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
                             type="button" role="tab" aria-controls="nav-home" aria-selected="true">
                         <div class="sb-nav-link-icon"><i class="fas fa-comment"></i></div>
@@ -36,7 +43,8 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tasks"></i></div>
                         Tareas
                     </button>
-                    <button class="nav-link" id="nav-usuarios-tab" data-bs-toggle="tab" data-bs-target="#nav-users"
+                    <button class="nav-link @if(session()->get('usuario-borrado')!="") active @endif"
+                            id="nav-usuarios-tab" data-bs-toggle="tab" data-bs-target="#nav-users"
                             type="button" role="tab" aria-controls="nav-users" aria-selected="false">
                         <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
                         Usuarios
@@ -52,8 +60,10 @@
                     @endif
                 </div>
 
-                <button style="border: none" type="button" data-bs-toggle="modal" data-bs-target="#info" data-bs-whatever="@getbootstrap">
-                    <div class="mas-info sb-nav-link-icon mr-3 mt-1"><i class="fas text-primary fa-info-circle h4 mb-0"></i></div>
+                <button style="border: none" type="button" data-bs-toggle="modal" data-bs-target="#info"
+                        data-bs-whatever="@getbootstrap">
+                    <div class="mas-info sb-nav-link-icon mr-3 mt-1"><i
+                            class="fas text-primary fa-info-circle h4 mb-0"></i></div>
                 </button>
                 <div style="width: 100vw" class="modal fade" id="info" tabindex="-1" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
@@ -101,7 +111,7 @@
         <main>
             <div class="tab-content" id="nav-tabContent">
                 <div
-                    class="tab-pane fade   @if((session()->get('errores')=="") && (session()->get('green')=="")  && ($file=="")) show active @endif"
+                    class="tab-pane fade   @if((session()->get('errores')=="") && (session()->get('green')=="") && (session()->get('usuario-borrado')=="") && ($file=="")) show active @endif"
                     id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div class="chat_window">
 
@@ -111,8 +121,8 @@
                                     @if($datosMensajes->idusu == session()->get('id'))
                                         <li>
                                             <div class="mensajeYo">
-                                                <p class="font-weight-bold">
-                                                    {{ $datosMensajes->fecha  }}</p>
+                                                <p class="font-weight-bold"> Yo -
+                                                    {{$datosMensajes->fecha}}</p>
                                                 <div>{{ $datosMensajes->descripcion }}</div>
                                             </div>
                                         </li>
@@ -258,10 +268,118 @@
 
                 </div>
                 <div class="tab-pane fade" id="nav-tareas" role="tabpanel" aria-labelledby="nav-tareas-tab">
-                    <p>tareas</p>
+
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button text-primary" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Pendientes
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body ml-5">
+                                    @if(isset($tareasPendientes))
+                                        @foreach($tareasPendientes as $datosTareasPendientes)
+                                            <form method="post" action="">
+                                                @csrf
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                       id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    <i class="fas fa-pencil-alt"></i><b>Tarea:</b> <u style="font-size:20px;" class="text-primary">{{$datosTareasPendientes->nombre}}</u>&nbsp;&nbsp;&nbsp;⏰ <b>Fecha
+                                                        vencimiento: </b>{{$datosTareasPendientes->nombre}}&nbsp;&nbsp;&nbsp;🙋 <b>Asignado
+                                                        a: </b>{{$datosTareasPendientes->nombre}}
+                                                </label>
+                                                <input type="hidden" name="idtarea"
+                                                       value="{{$datosTareasPendientes->id}}">
+                                            </form>
+                                            <br><br>
+                                        @endforeach
+
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed text-primary" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+                                        aria-controls="collapseTwo">
+                                    Realizadas
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>This is the second item's accordion body.</strong> It is hidden by default,
+                                    until the collapse plugin adds the appropriate classes that we use to style each
+                                    element. These classes control the overall appearance, as well as the showing and
+                                    hiding via CSS transitions. You can modify any of this with custom CSS or overriding
+                                    our default variables. It's also worth noting that just about any HTML can go within
+                                    the <code>.accordion-body</code>, though the transition does limit overflow.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed text-primary" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseTwo">
+                                    Crear tarea
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                 data-bs-parent="#accordionExample">
+                                <form action="{{route('annadirTarea')}}" method="post">
+                                    @csrf
+                                    <div class="d-sm-flex flex-wrap m-3">
+                                        <div class="mr-3 ml-3 mt-3 mb-0 input-group col-12 col-sm-5">
+                                            <span class="input-group-text" id="basic-addon1"
+                                                  pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,48}">Nombre tarea:</span>
+                                            <input type="text" class="form-control" name="nombre-tarea" placeholder=""
+                                                   aria-label=""
+                                                   aria-describedby="basic-addon1" required>
+                                        </div>
+                                        <div class="mr-3 ml-3 mt-3 mb-0 input-group col-12 col-sm-5">
+                                            <span class="input-group-text"
+                                                  id="basic-addon1">Fecha de vencimiento:</span>
+                                            <input type="date" id="fecha-vencimiento" class="form-control"
+                                                   placeholder="" aria-label=""
+                                                   aria-describedby="basic-addon1" name="fecha-vencimiento" required>
+                                        </div>
+                                        <div class="mr-3 ml-3 mt-3 mb-0 col-11">
+                                            Asigna la tarea a un participante:
+                                        </div>
+                                        <div class="mr-3 ml-3 mt-0 mb-0 col-11">
+                                            <select class="form-select" name="personatarea"
+                                                    aria-label="Default select example" required>
+                                                @isset($usuarios)
+                                                    @foreach($usuarios as $datosUsuarios)
+                                                        <option
+                                                            value="{{$datosUsuarios->idUsu}}">{{$datosUsuarios->nombreUsu}} {{ $datosUsuarios->apellidosUsu}}
+                                                            ({{ $datosUsuarios->usuarioUsu}})
+                                                        </option>
+                                                    @endforeach
+                                                @endisset
+                                            </select>
+                                        </div>
+                                        <div class="mr-3 ml-3 mt-3 mb-0 col-11">
+                                            <button type="submit" class="btn btn-primary" onclick="annadirTareas()">
+                                                Añadir tarea
+                                            </button>
+                                        </div>
+                                        <div id="erroresTypescript" class="w-100 mt-3"></div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
-                <div class="tab-pane fade" id="nav-users" role="tabpanel" aria-labelledby="nav-usuarios-tab">
+                <div class="tab-pane fade @if(session()->get('usuario-borrado')!="") show active @endif" id="nav-users"
+                     role="tabpanel" aria-labelledby="nav-usuarios-tab">
                     <div class="tablatodos m-3">
                         <table class="table_of_users display compact stripe bg-primary" id="tables">
                             <thead>
@@ -271,7 +389,9 @@
                                 <th>Apellidos</th>
                                 <th>Email</th>
                                 @if($proyecto->idcreador == Session::get('id'))
-                                    <th><center>Eliminar del proyecto</center></th>
+                                    <th>
+                                        <center>Eliminar del proyecto</center>
+                                    </th>
                                 @endif
                             </tr>
                             </thead>
@@ -284,11 +404,13 @@
                                         <td>{{ $datosUsuarios->apellidosUsu}}</td>
                                         <td>{{ $datosUsuarios->emailUsu}}</td>
                                         @if($proyecto->idcreador == Session::get('id'))
-                                            @if (!($datosUsuarios->id == Session::get('id')))
+                                            @if (!($datosUsuarios->idUsu == Session::get('id')))
                                                 <td>
                                                     <center><a href="/salirproyectoadmin/{{$datosUsuarios->idUsu}}">
 
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
+                                                                 height="25"
+
                                                                  fill="red"
                                                                  class="bi bi-trash-fill" viewBox="0 0 16 16">
                                                                 <path
@@ -311,6 +433,7 @@
 
 
                 @if(session()->get('id')==$proyecto->idcreador)
+
                     <div class="tab-pane fade  @if((session()->get('errores')!="") || (session()->get('green')!="")) show active @endif" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab">
                         <form class="user" method="POST" id="formulario" action="{{route('actualizarProyecto')}}">
                             @csrf
@@ -318,17 +441,13 @@
                                 <div class="form-group row">
                                     <label for="nombreMostrar" class="col-4"> Nombre del proyecto:</label>
                                     <div class="col-8">
-                                        <input type="text" class="form-control text-dark"
-                                               id="nombre" name="nombre" value="{{$proyecto->nombre}}" pattern="^[a-zA-ZÀ-ÿ_.0-9\s]{3,30}$" required>
-
+                                        <input type="text" class="form-control text-dark" id="nombre" name="nombre" value="{{$proyecto->nombre}}" pattern="^[a-zA-ZÀ-ÿ_.0-9\s]{3,30}$" required>
                                     </div>
 
 
                                     <input type="hidden" name="idproy" id="idproy" value="{{$proyecto->id}}">
                                     <input type="hidden" name="currentName" id="currentName" value="{{$proyecto->nombre}}">
                                     <input type="hidden" name="currentDes" id="currentDes" value="{{$proyecto->descripcion}}">
-
-
                                 </div>
                             </div>
                         </form>
@@ -404,6 +523,7 @@
             <script src="/js/dark-mode-switch.min.js"></script>
             <script src="/js/chat.js"></script>
             <script src="/js/proyectos.js"></script>
+            <script src="/js/tareas.js"></script>
 
 
 
