@@ -164,7 +164,7 @@
                         </li>
                     </div>
                 </div>
-                <div class="tab-pane fade @if($file!="")) show active @endif" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
+                <div class="tab-pane fade @if($file!="") show active @endif" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
                     <form class="proyecto" method="POST" enctype="multipart/form-data" id="formularioFile" action="{{route('subirArchivo')}}">
                         @csrf
                         <div class="file-upload input-group m2-3">
@@ -268,7 +268,7 @@
                     </div>
 
                 </div>
-                <div class="tab-pane fade" id="nav-tareas" role="tabpanel" aria-labelledby="nav-tareas-tab">
+                <div class="tab-pane fade @if(session()->get('tarea')!="") show active @endif" id="nav-tareas" role="tabpanel" aria-labelledby="nav-tareas-tab">
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
