@@ -22,7 +22,7 @@
 <nav class="sb-topnav navbar navbar-expand bg-primary">
     <button class="btn btn-link btn-sm d-lg-none ml-2 boton-menu" id="sidebarToggle" href="#"><i
             class="fas fa-bars"></i></button>
-    <a class="navbar-brand" href="{{ route('index') }}"><img id="logo-principal" src="/img/logo-horizontal.png"></a>
+    <a class="d-none d-sm-block navbar-brand" href="{{ route('index') }}"><img id="logo-principal" src="/img/logo-horizontal.png"></a>
     <!-- Navbar Dark-Mode-->
     <ul class="navbar-nav ml-auto ml-md-0">
         <!--
@@ -53,6 +53,7 @@
     <div id="layoutSidenav_nav">
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
+                <a class="d-block ml-2 mt-2 w-75 d-sm-none navbar-brand" href="{{ route('index') }}"><img id="logo-principal" src="/img/logo-horizontal.png"></a>
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">Principal</div>
                     <a class="nav-link" href="{{route('index')}}">

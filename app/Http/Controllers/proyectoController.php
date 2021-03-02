@@ -139,7 +139,6 @@ class proyectoController extends Controller
         $tareasPendientes = DB::select('SELECT * FROM tarea WHERE idproy = ? AND realizado = 0',[$id]);
 
         return view('proyects')->with([
-            "file" => "",
             "mensajes" => $mensajes,
             "usuarios" => $usuarios,
             "proyecto" => $proyecto,

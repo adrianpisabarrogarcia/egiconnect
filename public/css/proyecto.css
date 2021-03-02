@@ -1,34 +1,29 @@
 .nav-menu {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--morado) !important;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--morado) !important;
 }
 
 .nav-tabs {
-    border-bottom: none !important;
+  border-bottom: none !important;
 }
 
 .botones-tareas {
-    width: 50px !important;
-}
-
-.enlaces-tareas {
-    text-decoration: none !important;
+  width: 50px !important;
 }
 
 .file-upload {
-    padding: 10px;
+  padding: 10px;
 }
 
 .custom-file-label::after {
-    content: "Abrir";
+  content: "Abrir";
 }
 
-.custom-file-label::after {
-    content: "Abrir";
+.enlaces-tareas {
+  text-decoration: none !important;
 }
-
 
 /*# sourceMappingURL=proyecto.css.map */
