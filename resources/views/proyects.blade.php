@@ -396,6 +396,7 @@
                                         <div class="mr-3 ml-3 mt-0 mb-0 col-11">
                                             <select class="form-select" name="personatarea"
                                                     aria-label="Default select example" required>
+                                                <option selected="selected" value="Todos/as" >Todos/as</option>
                                                 @isset($usuariosPro)
                                                     @foreach($usuariosPro as $datosUsuarios)
                                                         <option
