@@ -1,4 +1,3 @@
-
 .nav-menu {
     display: flex;
     flex-direction: row;
@@ -13,6 +12,14 @@
 
 .botones-tareas {
     width: 50px !important;
+}
+
+.file-upload {
+    padding: 10px;
+}
+
+.custom-file-label::after {
+    content: "Abrir";
 }
 
 .enlaces-tareas {

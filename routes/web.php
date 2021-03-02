@@ -54,6 +54,12 @@ Route::get("/eliminartarea/{id}", "proyectoController@eliminarTarea")->name("eli
 Route::get("/marcartarearealizada/{id}", "proyectoController@marcarRealizada")->name("marcarRealizada");
 
 
+//ARCHIVOS
+Route::post("/subirArchivo", "archivoController@subirArchivo")->name("subirArchivo");
+Route::get("/borrarArchivo/{id}", "archivoController@borrarArchivo")->name("borrarArchivo");
+Route::post("/cambiarNombre", "archivoController@cambiarNombre")->name("cambiarNombre");
+
+
 //PERFIL
 Route::post("/actualizarPerfil", "perfilUsuarioController@actualizar")->name("actualizarPerfil");
 Route::post("/cambiarContrasena", "perfilUsuarioController@cambiarContrasena")->name("cambiarContrasena");
