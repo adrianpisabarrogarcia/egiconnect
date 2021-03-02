@@ -1,7 +1,7 @@
 @extends('layout.layout-menus')
 @section('head')
-    <link href="/css/proyecto.css" rel="stylesheet"/>
     <link href="/css/chat.css" rel="stylesheet"/>
+    <link href="/css/proyecto.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css"> <!-- css de las tablas -->
     <style>
@@ -122,8 +122,8 @@
                                     @if($datosMensajes->idusu == session()->get('id'))
                                         <li>
                                             <div class="mensajeYo">
-                                                <p class="font-weight-bold"> Yo -
-                                                    {{$datosMensajes->fecha}}</p>
+                                                <p class="font-weight-bold">
+                                                    {{ $datosMensajes->fecha  }}</p>
                                                 <div>{{ $datosMensajes->descripcion }}</div>
                                             </div>
                                         </li>
@@ -396,8 +396,8 @@
                                         <div class="mr-3 ml-3 mt-0 mb-0 col-11">
                                             <select class="form-select" name="personatarea"
                                                     aria-label="Default select example" required>
-                                                @isset($usuarios)
-                                                    @foreach($usuarios as $datosUsuarios)
+                                                @isset($usuariosPro)
+                                                    @foreach($usuariosPro as $datosUsuarios)
                                                         <option
                                                             value="{{$datosUsuarios->nombreUsu}} {{ $datosUsuarios->apellidosUsu}}">{{$datosUsuarios->nombreUsu}} {{ $datosUsuarios->apellidosUsu}}
                                                             ({{ $datosUsuarios->usuarioUsu}})
