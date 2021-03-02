@@ -10,4 +10,16 @@
   border-bottom: none !important;
 }
 
+.file-upload {
+  padding: 10px;
+}
+
+.custom-file-label::after {
+  content: "Abrir";
+}
+
+.custom-file-label::after {
+  content: "Abrir";
+}
+
 /*# sourceMappingURL=proyecto.css.map */

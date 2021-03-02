@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Archivo;
+use App\Models\Usuario;
+use DateTime;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 use App\Models\Proyecto;
 use App\Models\Usupro;
 use Illuminate\Http\Request;
@@ -128,15 +133,20 @@ class proyectoController extends Controller
             $datosUsuariosProyectos->emailUsu = $usuario[0]->email;
         }
 
+        $usuarios = DB::select('SELECT * FROM usuario');
+        $archivos = Archivo::get()->where('idproy', $id);
         $tareasRealizadas = DB::select('SELECT * FROM tarea WHERE idproy = ? AND realizado = 1',[$id]);
         $tareasPendientes = DB::select('SELECT * FROM tarea WHERE idproy = ? AND realizado = 0',[$id]);
 
         return view('proyects')->with([
+            "file" => "",
             "mensajes" => $mensajes,
+            "usuarios" => $usuarios,
             "proyecto" => $proyecto,
-            "usuarios" => $usuariosProyecto,
+            "usuariosPro" => $usuariosProyecto,
             "tareasRealizadas" => $tareasRealizadas,
-            "tareasPendientes" => $tareasPendientes
+            "tareasPendientes" => $tareasPendientes,
+            "archivos" => $archivos,
         ]);
     }
 
@@ -265,7 +275,6 @@ class proyectoController extends Controller
         return back()->with('usuario-borrado','usuario-borrado');
 
     }
-
 
     public function annadirTarea(Request $request)
     {

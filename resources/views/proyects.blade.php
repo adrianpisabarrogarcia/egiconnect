@@ -1,7 +1,7 @@
 @extends('layout.layout-menus')
 @section('head')
-    <link href="/css/chat.css" rel="stylesheet"/>
     <link href="/css/proyecto.css" rel="stylesheet"/>
+    <link href="/css/chat.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css"> <!-- css de las tablas -->
     <style>
@@ -27,14 +27,13 @@
 
             <div class="nav-menu">
                 <div class="mt-2 nav nav-tabs nav-proyecto" id="nav-tab" role="tablist">
-                    <button
-                        class="ml-2 nav-link  @if((session()->get('errores')=="") && (session()->get('green')=="") && (session()->get('usuario-borrado')=="") ) active @endif"
-                        id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
-                        type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+
+                    <button class="ml-2 nav-link  @if((session()->get('errores')=="") && (session()->get('green')=="") && ($file=="")) active @endif" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                            type="button" role="tab" aria-controls="nav-home" aria-selected="true">
                         <div class="sb-nav-link-icon"><i class="fas fa-comment"></i></div>
                         Chat
                     </button>
-                    <button class="nav-link" id="nav-files-tab" data-bs-toggle="tab" data-bs-target="#nav-files"
+                    <button class="nav-link @if($file!="")) active @endif" id="nav-files-tab" data-bs-toggle="tab" data-bs-target="#nav-files"
                             type="button" role="tab" aria-controls="nav-files" aria-selected="false">
                         <div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>
                         Archivos
@@ -112,7 +111,7 @@
         <main>
             <div class="tab-content" id="nav-tabContent">
                 <div
-                    class="tab-pane fade   @if((session()->get('errores')=="") && (session()->get('green')=="") && (session()->get('usuario-borrado')=="")) show active @endif"
+                    class="tab-pane fade   @if((session()->get('errores')=="") && (session()->get('green')=="") && (session()->get('usuario-borrado')=="") && ($file=="")) show active @endif"
                     id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div class="chat_window">
 
@@ -164,7 +163,110 @@
                         </li>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">...</div>
+                <div class="tab-pane fade @if($file!="")) show active @endif" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
+                    <form class="proyecto" method="POST" enctype="multipart/form-data" id="formularioFile" action="{{route('subirArchivo')}}">
+                        @csrf
+                        <div class="file-upload input-group m2-3">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="archivo" name="archivo">
+                                <label class="custom-file-label" for="archivo">Selecciona un archivo</label>
+                            </div>
+
+                            <input type="hidden" name="idproy" id="idproyFile" value="{{$proyecto->id}}">
+                            <div class="input-group-append">
+                                <input type="button" class="input-group-text" id="botonSubirArchivo" value="Subir">
+                            </div>
+                        </div>
+                    </form>
+
+                    <div id="erroresTypescriptFile">
+                    </div>
+
+                    <div class="tablatodos m-3">
+                        <table class="table_of_users display compact stripe bg-primary" id="tablesFiles">
+                            <thead>
+                            <tr class="text-white">
+                                <th>Nombre</th>
+                                <th>Tamaño</th>
+                                <th>Fecha</th>
+                                <th>Autor</th>
+                                <th>Descargar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @isset($archivos)
+                                @foreach ($archivos as $archivo)
+                                    <tr class="text-dark">
+                                        <td><b>{{ $archivo->nombre}}</b>
+                                        <button style="border: none; width: 30px; background: none" type="button" data-bs-toggle="modal" data-bs-target="#modal{{$archivo->id}}">
+                                            <div class="mas-info sb-nav-link-icon mr-3 mt-1"><i class="fas fa-edit mb-0"></i></div>
+                                        </button>
+
+                                        <div style="width: 100vw" class="modal fade" id="modal{{$archivo->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+
+                                                    <form class="proyecto" method="POST" id="formularioCambiarNombre" action="{{route('cambiarNombre')}}">
+                                                        @csrf
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">EDITAR NOMBRE DE FICHERO</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="mb-3">
+                                                                <label for="nombreArchivo" class="col-form-label">¿Que nombre deseas poner al archivo seleccionado?</label>
+                                                                <input type="text" class="form-control text-dark" id="nombreArchivo"
+                                                                       name="nombreArchivo" value="{{$archivo->nombre}}">
+                                                            </div>
+                                                            <input type="hidden" value="{{$archivo->id}}" name="id" id="idArchivo">
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                            <button type="submit" class="btn btn-primary">Cambiar</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </td>
+                                        <td>{{ $archivo->size}}</td>
+                                        <td>{{ $archivo->fecha}}</td>
+                                        @foreach ($usuarios as $usuario)
+                                            @if($usuario->id == $archivo->idusu)
+                                                <td>{{ $usuario->usuario }}</td>
+                                            @endif
+                                        @endforeach
+                                        <td>
+                                            <center><a href="{{asset($archivo->ruta)}}" download>
+
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                                                    </svg>
+                                                </a></center>
+                                        </td>
+                                        <td>
+                                            <center><a href="/borrarArchivo/{{$archivo->id}}">
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                                         fill="red"
+                                                         class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                                    </svg>
+                                                </a></center>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endisset
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
                 <div class="tab-pane fade" id="nav-tareas" role="tabpanel" aria-labelledby="nav-tareas-tab">
 
                     <div class="accordion" id="accordionExample">
@@ -294,8 +396,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @isset($usuarios)
-                                @foreach ($usuarios as $datosUsuarios)
+                            @isset($usuariosPro)
+                                @foreach ($usuariosPro as $datosUsuarios)
                                     <tr class="text-dark">
                                         <td><b>{{ $datosUsuarios->usuarioUsu}}</b></td>
                                         <td>{{ $datosUsuarios->nombreUsu}}</td>
@@ -308,6 +410,7 @@
 
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="25"
                                                                  height="25"
+
                                                                  fill="red"
                                                                  class="bi bi-trash-fill" viewBox="0 0 16 16">
                                                                 <path
@@ -330,27 +433,21 @@
 
 
                 @if(session()->get('id')==$proyecto->idcreador)
-                    <div
-                        class="tab-pane fade  @if((session()->get('errores')!="") || (session()->get('green')!="")) show active @endif"
-                        id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab">
+
+                    <div class="tab-pane fade  @if((session()->get('errores')!="") || (session()->get('green')!="")) show active @endif" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab">
                         <form class="user" method="POST" id="formulario" action="{{route('actualizarProyecto')}}">
                             @csrf
                             <div class="mt-5 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
                                 <div class="form-group row">
                                     <label for="nombreMostrar" class="col-4"> Nombre del proyecto:</label>
                                     <div class="col-8">
-                                        <input type="text" class="form-control text-dark"
-                                               id="nombre" name="nombre" value="{{$proyecto->nombre}}"
-                                               pattern="^[a-zA-ZÀ-ÿ_.0-9\s]{3,30}$" required>
-
+                                        <input type="text" class="form-control text-dark" id="nombre" name="nombre" value="{{$proyecto->nombre}}" pattern="^[a-zA-ZÀ-ÿ_.0-9\s]{3,30}$" required>
                                     </div>
 
 
                                     <input type="hidden" name="idproy" id="idproy" value="{{$proyecto->id}}">
-                                    <input type="hidden" name="currentName" id="currentName"
-                                           value="{{$proyecto->nombre}}">
-                                    <input type="hidden" name="currentDes" id="currentDes"
-                                           value="{{$proyecto->descripcion}}">
+                                    <input type="hidden" name="currentName" id="currentName" value="{{$proyecto->nombre}}">
+                                    <input type="hidden" name="currentDes" id="currentDes" value="{{$proyecto->descripcion}}">
                                 </div>
                             </div>
                         </form>
@@ -358,16 +455,14 @@
                             @csrf
                             <div class="mt-4 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
                                 <div class="form-group row">
-                                    <label for="codigo" class="col-3 col-sm-2 offset-sm-4 offset-md-5 offset-xl-6">
-                                        Codigo:</label>
+                                    <label for="codigo" class="col-3 col-sm-2 offset-sm-4 offset-md-5 offset-xl-6"> Codigo:</label>
                                     <div class="col-5 col-sm-4 col-md-3">
                                         <input type="text" class="form-control text-muted"
                                                id="codigo" name="codigo" value="{{$proyecto->codigo}}" disabled>
                                     </div>
                                     <input type="hidden" name="idproy" id="idproyecto" value="{{$proyecto->id}}">
                                     <div class="col-2 col-md-1">
-                                        <a class="btn btn-primary" id="botonGenerarCodigo"><i
-                                                class="fas fa-sync-alt"></i></a>
+                                        <a class="btn btn-primary" id="botonGenerarCodigo"><i class="fas fa-sync-alt"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -377,12 +472,10 @@
 
                         <div class="mt-4 col-10 offset-1 col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
                             @if((session()->get('green')!=""))
-                                <div class='ml-3 mr-3 alert alert-success text-center'
-                                     role='alert'>{!! session()->get('green')  !!}</div>
+                                <div class='ml-3 mr-3 alert alert-success text-center' role='alert'>{!! session()->get('green')  !!}</div>
                             @endif
                             @if((session()->get('errores')!=""))
-                                <div class='ml-3 mr-3 alert alert-success text-center'
-                                     role='alert'>{!! session()->get('errores')  !!}</div>
+                                <div class='ml-3 mr-3 alert alert-success text-center' role='alert'>{!! session()->get('errores')  !!}</div>
                             @endif
                             <div id="erroresTypescriptActualizar">
                             </div>
@@ -396,31 +489,22 @@
                         </div>
 
                         <div class="form-group text-center">
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#borrar"
-                                    data-bs-whatever="@getbootstrap">
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#borrar" data-bs-whatever="@getbootstrap">
                                 Eliminar proyecto
                             </button>
                         </div>
-                        <div style="width: 100vw" class="modal fade" id="borrar" tabindex="-1"
-                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div style="width: 100vw" class="modal fade" id="borrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form class="user" method="POST" id="formularioBorrar"
-                                          action="{{route('borrarProyecto')}}">
+                                    <form class="user" method="POST" id="formularioBorrar" action="{{route('borrarProyecto')}}">
                                         @csrf
                                         <div class="modal-body">
-                                            <input type="hidden" name="idproy" id="idproyectoBorrar"
-                                                   value="{{$proyecto->id}}">
-                                            <p class="mt-2">¿Estás seguro de que deseas eliminar el proyecto de
-                                                <b>"{{$proyecto->nombre}}"</b>? </p>
+                                            <input type="hidden" name="idproy" id="idproyectoBorrar" value="{{$proyecto->id}}">
+                                            <p class="mt-2">¿Estás seguro de que deseas eliminar el proyecto de <b>"{{$proyecto->nombre}}"</b>? </p>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Cancelar
-                                            </button>
-                                            <button type="button" id="borrarProyecto" class="btn btn-primary">Borrar
-                                                proyecto
-                                            </button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="button" id="borrarProyecto" class="btn btn-primary">Borrar proyecto</button>
                                         </div>
                                     </form>
                                 </div>

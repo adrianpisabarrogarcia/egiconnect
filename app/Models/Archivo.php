@@ -11,7 +11,7 @@ class Archivo extends Model
 
     public $timestamps = false;
     protected $table = 'archivo';
-    protected $fillable = ["id","ruta", "idproy", "idusu", "fecha"];
+    protected $fillable = ["id","nombre", "ruta", "idproy", "idusu", "fecha","size"];
 }
 
 
