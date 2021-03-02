@@ -48,7 +48,7 @@ class archivoController extends Controller
         $archivo->save();
 
 
-        return back();
+        return back()->with('file','file');
     }
 
 
@@ -58,7 +58,7 @@ class archivoController extends Controller
 
         $archivo = Archivo::where('id', $id)->where('idproy',$idproy)->delete();
 
-        return back();
+        return back()->with('file','file');
 
     }
 
@@ -78,7 +78,7 @@ class archivoController extends Controller
             "nombre" => $nombreFinal,
         ]);
 
-        return back();
+        return back()->with('file','file');
 
     }
 
