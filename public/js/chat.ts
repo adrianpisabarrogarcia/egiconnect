@@ -17,7 +17,7 @@ function envioDatosServidor():void{
     $.ajax({
         url: "/proyecto/chat",
         method: "POST",
-        data:$('#formulario').serialize()
+        data:$('#formularioChat').serialize()
     }).done(function(){
         location.reload();
         $('input[type="text"]').val('');

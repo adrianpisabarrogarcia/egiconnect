@@ -47,7 +47,7 @@ class archivoController extends Controller
         $archivo->save();
 
 
-        return back();
+        return back()->with('archivo', 'archivo');
     }
 
 
@@ -57,7 +57,7 @@ class archivoController extends Controller
 
         $archivo = Archivo::where('id', $id)->where('idproy',$idproy)->delete();
 
-        return back();
+        return back()->with('archivo', 'archivo');
 
     }
 
@@ -65,11 +65,14 @@ class archivoController extends Controller
     {
         $idproy = Session::get('proyectoid');
         $nombre = request('nombreArchivo');
+        $current = request('currentName');
+
         $id = request('id');
 
         $nombreArray = explode('.',$nombre);
+        $currentName = explode('.',$current);
 
-        $extension = ".". end($nombreArray);
+        $extension = ".". end($currentName);
 
         $nombreFinal = $nombreArray['0'] .$extension;
 
@@ -77,7 +80,7 @@ class archivoController extends Controller
             "nombre" => $nombreFinal,
         ]);
 
-        return back();
+        return back()->with('archivo', 'archivo');
 
     }
 
