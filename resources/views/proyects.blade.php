@@ -188,7 +188,39 @@
                             @isset($archivos)
                                 @foreach ($archivos as $archivo)
                                     <tr class="text-dark">
-                                        <td><b>{{ $archivo->nombre}}</b></td>
+                                        <td><b>{{ $archivo->nombre}}</b>
+                                        <button style="border: none; width: 30px; background: none" type="button" data-bs-toggle="modal" data-bs-target="#modal{{$archivo->id}}">
+                                            <div class="mas-info sb-nav-link-icon mr-3 mt-1"><i class="fas fa-edit mb-0"></i></div>
+                                        </button>
+
+                                        <div style="width: 100vw" class="modal fade" id="modal{{$archivo->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+
+                                                    <form class="proyecto" method="POST" id="formularioCambiarNombre" action="{{route('cambiarNombre')}}">
+                                                        @csrf
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">EDITAR NOMBRE DE FICHERO</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="mb-3">
+                                                                <label for="nombreArchivo" class="col-form-label">¿Que nombre deseas poner al archivo seleccionado?</label>
+                                                                <input type="text" class="form-control text-dark" id="nombreArchivo"
+                                                                       name="nombreArchivo" value="{{$archivo->nombre}}">
+                                                            </div>
+                                                            <input type="hidden" value="{{$archivo->id}}" name="id" id="idArchivo">
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                            <button type="submit" class="btn btn-primary">Cambiar</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </td>
                                         <td>{{ $archivo->size}}</td>
                                         <td>{{ $archivo->fecha}}</td>
                                         @foreach ($usuarios as $usuario)
@@ -197,18 +229,17 @@
                                             @endif
                                         @endforeach
                                         <td>
-                                            <center><a href="/salirproyectoadmin/{{$archivo->id}}">
+                                            <center><a href="{{asset($archivo->ruta)}}" download>
 
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-                                                         fill="red"
-                                                         class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
                                                     </svg>
                                                 </a></center>
                                         </td>
                                         <td>
-                                            <center><a href="/salirproyectoadmin/{{$archivo->id}}">
+                                            <center><a href="/borrarArchivo/{{$archivo->id}}">
 
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                                          fill="red"
