@@ -50,6 +50,8 @@ Route::post("/borrarProyecto", "proyectoController@borrarProyecto")->name("borra
 Route::post("/salirProyecto", "proyectoController@salirProyecto")->name("salirProyecto");
 Route::get("/salirproyectoadmin/{id}", "proyectoController@salirProyectoAdmin")->name("salirProyectoAdmin");
 Route::post("/annadirtarea", "proyectoController@annadirTarea")->name("annadirTarea");
+Route::get("/eliminartarea/{id}", "proyectoController@eliminarTarea")->name("eliminarTarea");
+Route::get("/marcartarearealizada/{id}", "proyectoController@marcarRealizada")->name("marcarRealizada");
 
 
 //ARCHIVOS

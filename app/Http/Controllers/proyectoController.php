@@ -153,6 +153,8 @@ class proyectoController extends Controller
     //método para guardar los mensajes del chat
     public function chat(Request $request)
     {
+        date_default_timezone_set ('Europe/Madrid');
+        $fecha = now();
         DB::table('chat')->insert([
             'descripcion' => $request->mensaje,
             'fecha' => now(),
@@ -198,6 +200,7 @@ class proyectoController extends Controller
         Session::put('proyectos', $proyectos);
 
         return back()->with('green', 'El proyecto ha sido actualizado correctamente.');
+
 
     }
 
@@ -280,7 +283,7 @@ class proyectoController extends Controller
     {
         $fechaVencimiento = $request->input('fecha-vencimiento');
         $idproy = session()->get('proyectoid');
-        $idusu = $request->input('personatarea');
+        $usuario = $request->input('personatarea');
         $nombre = $request->input('nombre-tarea');
         $realizado = 0;
 
@@ -288,9 +291,27 @@ class proyectoController extends Controller
             'fecha_vencimiento' => $fechaVencimiento,
             'realizado' => $realizado,
             'nombre' => $nombre,
-            'idusu' => $idusu,
+            'usuario' => $usuario,
             'idproy' => $idproy
         ]);
+
+        return back()->with('tarea','tarea');
+
+    }
+
+    public function eliminarTarea($id)
+    {
+        DB::table('tarea')->where('id', '=', $id)->delete();
+
+        return back()->with('tarea','tarea');
+
+    }
+
+    public function marcarRealizada($id)
+    {
+        DB::table('tarea')
+            ->where('id', $id)
+            ->update(['realizado' => 1]);
 
         return back()->with('tarea','tarea');
 
