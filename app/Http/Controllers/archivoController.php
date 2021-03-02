@@ -6,6 +6,7 @@ use App\Models\Archivo;
 use Illuminate\Http\Request;
 use DB;
 use Session;
+use DateTime;
 
 class archivoController extends Controller
 {
