@@ -128,10 +128,16 @@ class proyectoController extends Controller
             $datosUsuariosProyectos->emailUsu = $usuario[0]->email;
         }
 
-        $usuarios = DB::select('SELECT * FROM usuario');
+        $tareasRealizadas = DB::select('SELECT * FROM tarea WHERE idproy = ? AND realizado = 1',[$id]);
+        $tareasPendientes = DB::select('SELECT * FROM tarea WHERE idproy = ? AND realizado = 0',[$id]);
 
-
-        return view('proyects')->with(["mensajes" => $mensajes, "proyecto" => $proyecto, "usuarios" => $usuariosProyecto]);
+        return view('proyects')->with([
+            "mensajes" => $mensajes,
+            "proyecto" => $proyecto,
+            "usuarios" => $usuariosProyecto,
+            "tareasRealizadas" => $tareasRealizadas,
+            "tareasPendientes" => $tareasPendientes
+        ]);
     }
 
     //método para guardar los mensajes del chat
@@ -256,16 +262,31 @@ class proyectoController extends Controller
 
         DB::table('usupro')->where('idproy', '=', $idproy)->where('idusu', '=', $idusu)->delete();
 
-        return back();
+        return back()->with('usuario-borrado','usuario-borrado');
+
+    }
+
+
+    public function annadirTarea(Request $request)
+    {
+        $fechaVencimiento = $request->input('fecha-vencimiento');
+        $idproy = session()->get('proyectoid');
+        $idusu = $request->input('personatarea');
+        $nombre = $request->input('nombre-tarea');
+        $realizado = 0;
+
+        DB::table('tarea')->insert([
+            'fecha_vencimiento' => $fechaVencimiento,
+            'realizado' => $realizado,
+            'nombre' => $nombre,
+            'idusu' => $idusu,
+            'idproy' => $idproy
+        ]);
+
+        return back()->with('tarea','tarea');
 
     }
 
 }
-
-
-
-
-
-
 
 

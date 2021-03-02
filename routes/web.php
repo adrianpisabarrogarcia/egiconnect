@@ -49,6 +49,8 @@ Route::post("/generarNuevoCodigo", "proyectoController@generarNuevoCodigo")->nam
 Route::post("/borrarProyecto", "proyectoController@borrarProyecto")->name("borrarProyecto");
 Route::post("/salirProyecto", "proyectoController@salirProyecto")->name("salirProyecto");
 Route::get("/salirproyectoadmin/{id}", "proyectoController@salirProyectoAdmin")->name("salirProyectoAdmin");
+Route::post("/annadirtarea", "proyectoController@annadirTarea")->name("annadirTarea");
+
 
 //PERFIL
 Route::post("/actualizarPerfil", "perfilUsuarioController@actualizar")->name("actualizarPerfil");
