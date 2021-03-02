@@ -27,9 +27,10 @@
 
             <div class="nav-menu">
                 <div class="mt-2 nav nav-tabs nav-proyecto" id="nav-tab" role="tablist">
-
-                    <button class="ml-2 nav-link  @if((session()->get('errores')=="") && (session()->get('green')=="") && ($file=="")) active @endif" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
-                            type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+                    <button
+                        class="ml-2 nav-link  @if((session()->get('errores')=="") && (session()->get('green')=="") && (session()->get('usuario-borrado')=="") && (session()->get('tarea')=="") ) active @endif"
+                        id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                        type="button" role="tab" aria-controls="nav-home" aria-selected="true">
                         <div class="sb-nav-link-icon"><i class="fas fa-comment"></i></div>
                         Chat
                     </button>
@@ -38,7 +39,8 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>
                         Archivos
                     </button>
-                    <button class="nav-link" id="nav-tareas-tab" data-bs-toggle="tab" data-bs-target="#nav-tareas"
+                    <button class="nav-link @if(session()->get('tarea')!="") active @endif" id="nav-tareas-tab"
+                            data-bs-toggle="tab" data-bs-target="#nav-tareas"
                             type="button" role="tab" aria-controls="nav-tareas" aria-selected="false">
                         <div class="sb-nav-link-icon"><i class="fas fa-tasks"></i></div>
                         Tareas
@@ -110,8 +112,7 @@
 
         <main>
             <div class="tab-content" id="nav-tabContent">
-                <div
-                    class="tab-pane fade   @if((session()->get('errores')=="") && (session()->get('green')=="") && (session()->get('usuario-borrado')=="") && ($file=="")) show active @endif"
+                <div class="tab-pane fade   @if((session()->get('errores')=="") && (session()->get('green')=="") && (session()->get('usuario-borrado')=="") && (session()->get('tarea')=="")) show active @endif"
                     id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div class="chat_window">
 
@@ -268,7 +269,6 @@
 
                 </div>
                 <div class="tab-pane fade" id="nav-tareas" role="tabpanel" aria-labelledby="nav-tareas-tab">
-
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
@@ -281,22 +281,40 @@
                                  data-bs-parent="#accordionExample">
                                 <div class="accordion-body ml-5">
                                     @if(isset($tareasPendientes))
-                                        @foreach($tareasPendientes as $datosTareasPendientes)
-                                            <form method="post" action="">
-                                                @csrf
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="flexCheckDefault">
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    <i class="fas fa-pencil-alt"></i><b>Tarea:</b> <u style="font-size:20px;" class="text-primary">{{$datosTareasPendientes->nombre}}</u>&nbsp;&nbsp;&nbsp;⏰ <b>Fecha
-                                                        vencimiento: </b>{{$datosTareasPendientes->nombre}}&nbsp;&nbsp;&nbsp;🙋 <b>Asignado
-                                                        a: </b>{{$datosTareasPendientes->nombre}}
-                                                </label>
-                                                <input type="hidden" name="idtarea"
-                                                       value="{{$datosTareasPendientes->id}}">
-                                            </form>
-                                            <br><br>
-                                        @endforeach
-
+                                        <div class="d-flex flex-wrap">
+                                            @foreach($tareasPendientes as $datosTareasPendientes)
+                                                <div class="col-12 col-sm-4">
+                                                    <ul class="list-unstyled">
+                                                        <li>
+                                                            <b>Tarea:</b> <span style="font-size:20px;"
+                                                                                class="text-primary">{{$datosTareasPendientes->nombre}}</span>
+                                                        </li>
+                                                        <li>
+                                                            <i class="fas fa-calendar-week text-primary"></i>&nbsp;<b>Fecha
+                                                                vencimiento: </b>{{$datosTareasPendientes->fecha_vencimiento}}
+                                                        </li>
+                                                        <li>
+                                                            <i class="far fa-user text-primary"></i>&nbsp;<b>Asignado
+                                                                a: </b>{{$datosTareasPendientes->usuario}}
+                                                        </li>
+                                                        <li>
+                                                            <a href="/marcartarearealizada/{{$datosTareasPendientes->id}}"
+                                                               class="enlaces-tareas">
+                                                                <button type="button"
+                                                                        class="btn btn-success btn-sm botones-tareas"><i
+                                                                        class="fas fa-check text-white"></i></button>
+                                                            </a>
+                                                            <a href="/eliminartarea/{{$datosTareasPendientes->id}}"
+                                                               class="enlaces-tareas">
+                                                                <button type="button"
+                                                                        class="btn btn-danger btn-sm botones-tareas"><i
+                                                                        class="fas fa-times text-white"></i></button>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     @endif
                                 </div>
                             </div>
@@ -311,13 +329,37 @@
                             </h2>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                                  data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <strong>This is the second item's accordion body.</strong> It is hidden by default,
-                                    until the collapse plugin adds the appropriate classes that we use to style each
-                                    element. These classes control the overall appearance, as well as the showing and
-                                    hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                                    our default variables. It's also worth noting that just about any HTML can go within
-                                    the <code>.accordion-body</code>, though the transition does limit overflow.
+                                <div class="accordion-body ml-5">
+                                    @if(isset($tareasRealizadas))
+                                        <div class="d-flex flex-wrap">
+                                            @foreach($tareasRealizadas as $datosTareasRealizadas)
+                                                <div class="col-12 col-sm-4">
+                                                    <ul class="list-unstyled">
+                                                        <li>
+                                                            <b>Tarea:</b> <span style="font-size:20px;"
+                                                                                class="text-primary">{{$datosTareasRealizadas->nombre}}</span>
+                                                        </li>
+                                                        <li>
+                                                            <i class="fas fa-calendar-week text-primary"></i>&nbsp;<b>Fecha
+                                                                vencimiento: </b>{{$datosTareasRealizadas->fecha_vencimiento}}
+                                                        </li>
+                                                        <li>
+                                                            <i class="far fa-user text-primary"></i>&nbsp;<b>Asignado
+                                                                a: </b>{{$datosTareasRealizadas->usuario}}
+                                                        </li>
+                                                        <li>
+                                                            <a href="/eliminartarea/{{$datosTareasRealizadas->id}}"
+                                                               class="enlaces-tareas">
+                                                                <button type="button"
+                                                                        class="btn btn-danger btn-sm botones-tareas"><i
+                                                                        class="fas fa-times text-white"></i></button>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -357,7 +399,7 @@
                                                 @isset($usuariosPro)
                                                     @foreach($usuariosPro as $datosUsuarios)
                                                         <option
-                                                            value="{{$datosUsuarios->idUsu}}">{{$datosUsuarios->nombreUsu}} {{ $datosUsuarios->apellidosUsu}}
+                                                            value="{{$datosUsuarios->nombreUsu}} {{ $datosUsuarios->apellidosUsu}}">{{$datosUsuarios->nombreUsu}} {{ $datosUsuarios->apellidosUsu}}
                                                             ({{ $datosUsuarios->usuarioUsu}})
                                                         </option>
                                                     @endforeach
