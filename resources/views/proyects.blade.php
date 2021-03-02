@@ -4,21 +4,6 @@
     <link href="/css/proyecto.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css"> <!-- css de las tablas -->
-    <style>
-        .page-link {
-            background-color: #682E88 !important;
-            color: white !important;
-        }
-
-        .paginate_button:hover {
-            border: 0px solid black !important;
-            background-color: white !important;
-        }
-
-        main {
-            overflow: auto;
-        }
-    </style>
 @endsection
 @section('content')
     <meta name="csrf-token" content="{{ csrf_token() }}">
