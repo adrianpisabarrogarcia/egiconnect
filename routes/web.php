@@ -36,7 +36,7 @@ Route::post("/proyecto/chat", "proyectoController@chat")->name("insertarMensaje"
 
 
 //VISTAS
-Route::view("/index", "index")->name('index');
+Route::get("/index", "ControladorLogin@showIndex")->name('index');
 Route::get("/proyecto/{id}", "proyectoController@show")->name('proyecto');
 Route::get("/perfil", "perfilUsuarioController@listarUsuario")->name('perfil');
 
@@ -52,6 +52,7 @@ Route::get("/salirproyectoadmin/{id}", "proyectoController@salirProyectoAdmin")-
 Route::post("/annadirtarea", "proyectoController@annadirTarea")->name("annadirTarea");
 Route::get("/eliminartarea/{id}", "proyectoController@eliminarTarea")->name("eliminarTarea");
 Route::get("/marcartarearealizada/{id}", "proyectoController@marcarRealizada")->name("marcarRealizada");
+Route::get("/logout", "ControladorLogin@logOut")->name("logOut");
 
 
 //ARCHIVOS

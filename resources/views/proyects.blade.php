@@ -198,8 +198,8 @@
                                 <th>Tamaño</th>
                                 <th>Fecha</th>
                                 <th>Autor</th>
-                                <th>Descargar</th>
-                                <th>Eliminar</th>
+                                <th><center>Descargar</center></th>
+                                <th><center>Eliminar</center></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -574,6 +574,7 @@
                             <div id="erroresTypescriptActualizar">
                             </div>
                         </div>
+
 
                         <div class="form-group text-center d-flex justify-content-center">
                             <div class="form-group mt-1 mb-0"><input type="submit"

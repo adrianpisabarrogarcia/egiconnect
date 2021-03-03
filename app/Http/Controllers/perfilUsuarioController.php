@@ -23,34 +23,38 @@ class perfilUsuarioController extends Controller
         $encriptada = password_hash(request("pass"), PASSWORD_DEFAULT);
 
 
-        foreach ($solicitantes as $usuario){
-            if($email == $usuario->email ){
+        foreach ($solicitantes as $usuario) {
+            if ($email == $usuario->email) {
                 $usuario = DB::table("usuario")->where('id', $usuario->id)->update([
                     "password" => $encriptada,
                 ]);
 
                 $subject = "Recuperación de contraseña";
 
-                Mail::send('email.email', request()->all(), function($msj) use($subject,$email){
-                    $msj->from("developersweapp@gmail.com","EgiConnect");
+                Mail::send('email.email', request()->all(), function ($msj) use ($subject, $email) {
+                    $msj->from("developersweapp@gmail.com", "EgiConnect");
                     $msj->subject($subject);
                     $msj->to($email);
                 });
 
-              return redirect('/');
-           }
+                return redirect('/');
+            }
         }
-       return back()->with('error', 'El correo no existe.');
+        return back()->with('error', 'El correo no existe.');
     }
 
     public function listarUsuario()
     {
 
-        $id = session()->get('id');
-        $usuario = Usuario::get()->where('id', $id)->first();
-        return view("perfil", [
-            "usuario"=>$usuario
-        ]);
+        if (!Session::exists('id')) {
+            return redirect()->route("login.home");
+        } else {
+            $id = session()->get('id');
+            $usuario = Usuario::get()->where('id', $id)->first();
+            return view("perfil", [
+                "usuario" => $usuario
+            ]);
+        }
 
     }
 
@@ -69,22 +73,22 @@ class perfilUsuarioController extends Controller
         $datosUsuario = [];
         $datosEmail = [];
 
-        if( $currentUser != $usuario ){
+        if ($currentUser != $usuario) {
             $datosUsuario = Usuario::get()->where('usuario', $usuario)->first();
-            if ($datosUsuario!=""){
+            if ($datosUsuario != "") {
                 $errores = $errores . 'El usuario no es válido. Escribe otro.<br>';
             }
         }
 
-        if( $currentEmail != $email ){
+        if ($currentEmail != $email) {
             $datosEmail = Usuario::get()->where('email', $email)->first();
-            if ($datosEmail!=""){
+            if ($datosEmail != "") {
                 $errores = $errores . 'El correo no es válido. Escribe otro.';
             }
         }
 
-        if (empty($errores)){
-            $usu = DB::table('usuario')->where('id',$currentId)->update([
+        if (empty($errores)) {
+            $usu = DB::table('usuario')->where('id', $currentId)->update([
                 "usuario" => $usuario,
                 "nombre" => request("nombre"),
                 "apellidos" => request("apellidos"),
@@ -110,12 +114,12 @@ class perfilUsuarioController extends Controller
         $currentUser = Usuario::get()->where('id', $currentId)->first();
 
 
-        if(!password_verify ( request('currentPass') , $currentUser->password )){
+        if (!password_verify(request('currentPass'), $currentUser->password)) {
             $error = 'La contraseña actual es erronea.';
             return back()->with('errorPass', $error);
         }
 
-        if(request('pass')!=request('pass2')){
+        if (request('pass') != request('pass2')) {
             $error = 'Las contraseñas no coinciden.';
             return back()->with('errorPass', $error);
         }
