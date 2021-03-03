@@ -108,7 +108,7 @@ class ControladorLogin extends Controller
         if (!Session::exists('id')) {
             return redirect()->route("login.home");
         } else {
-            return redirect()->route('index');
+            return view('index');
         }
     }
 
