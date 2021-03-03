@@ -258,7 +258,7 @@
                                         <?php
                                         $fecha = DateTime::createFromFormat('Y-m-d H:i:s', $archivo->fecha);
                                         ?>
-                                        <td>{{ $fecha->format('d-m-Y H:i:s')}}</td>
+                                        <td>{{ $fecha->format('d-m-Y H:i')}}</td>
                                         @foreach ($usuarios as $usuario)
                                             @if($usuario->id == $archivo->idusu)
                                                 <td>{{ $usuario->usuario }}</td>
@@ -319,8 +319,11 @@
                                                             <li>
                                                                 <span style="font-size:20px;"  class="text-primary">{{$datosTareasPendientes->nombre}}</span>
                                                             </li>
+                                                            <?php
+                                                            $fecha = DateTime::createFromFormat('Y-m-d', $datosTareasPendientes->fecha_vencimiento);
+                                                            ?>
                                                             <li>
-                                                                <i class="fas fa-calendar-week text-primary"></i>&nbsp;<b>Hasta: </b>{{$datosTareasPendientes->fecha_vencimiento}}
+                                                                <i class="fas fa-calendar-week text-primary"></i>&nbsp;<b>Hasta: </b>{{$fecha->format('d-m-Y')}}
                                                             </li>
                                                             <li>
                                                                 <i class="far fa-user text-primary"></i>&nbsp;<b>Asignado
@@ -366,15 +369,18 @@
                                         <div class="d-flex flex-wrap">
                                             @if($tareasRealizadas!=[])
                                                 @foreach($tareasRealizadas as $datosTareasRealizadas)
-                                                <div class="col-12 col-sm-4">
+                                                <div class="col-12 col-sm-6 col-md-4 text-center">
                                                     <ul class="list-unstyled">
                                                         <li>
-                                                            <b>Tarea:</b> <span style="font-size:20px;"
+                                                            <span style="font-size:20px;"
                                                                                 class="text-primary">{{$datosTareasRealizadas->nombre}}</span>
                                                         </li>
+                                                        <?php
+                                                        $fecha = DateTime::createFromFormat('Y-m-d', $datosTareasRealizadas->fecha_vencimiento);
+                                                        ?>
                                                         <li>
                                                             <i class="fas fa-calendar-week text-primary"></i>&nbsp;<b>Fecha
-                                                                vencimiento: </b>{{$datosTareasRealizadas->fecha_vencimiento}}
+                                                                vencimiento: </b>{{$fecha->format('d-m-Y')}}
                                                         </li>
                                                         <li>
                                                             <i class="far fa-user text-primary"></i>&nbsp;<b>Asignado
