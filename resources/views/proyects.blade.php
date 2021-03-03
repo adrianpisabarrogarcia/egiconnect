@@ -144,7 +144,7 @@
                             @endif
                         </ul>
                         <div class="bottom_wrapper clearfix">
-                            <form method="POST" action="/proyecto/chat" enctype="multipart/form-data" id="formulario">
+                            <form method="POST" action="/proyecto/chat" enctype="multipart/form-data" id="formularioChat">
                                 @csrf
                                 <div class="message_input_wrapper">
 
@@ -172,6 +172,7 @@
                      aria-labelledby="nav-files-tab">
                     <form class="proyecto" method="POST" enctype="multipart/form-data" id="formularioFile"
                           action="{{route('subirArchivo')}}">
+
                         @csrf
                         <div class="file-upload input-group m2-3">
                             <div class="custom-file">
@@ -297,6 +298,7 @@
                 </div>
                 <div class="tab-pane fade @if(session()->get('tarea')!="") show active @endif" id="nav-tareas"
                      role="tabpanel" aria-labelledby="nav-tareas-tab">
+
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
@@ -307,41 +309,43 @@
                             </h2>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                                  data-bs-parent="#accordionExample">
-                                <div class="accordion-body ml-5">
+                                <div class="accordion-body">
                                     @if(isset($tareasPendientes))
                                         <div class="d-flex flex-wrap">
-                                            @foreach($tareasPendientes as $datosTareasPendientes)
-                                                <div class="col-12 col-sm-4">
-                                                    <ul class="list-unstyled">
-                                                        <li>
-                                                            <b>Tarea:</b> <span style="font-size:20px;"
-                                                                                class="text-primary">{{$datosTareasPendientes->nombre}}</span>
-                                                        </li>
-                                                        <li>
-                                                            <i class="fas fa-calendar-week text-primary"></i>&nbsp;<b>Fecha
-                                                                vencimiento: </b>{{$datosTareasPendientes->fecha_vencimiento}}
-                                                        </li>
-                                                        <li>
-                                                            <i class="far fa-user text-primary"></i>&nbsp;<b>Asignado
-                                                                a: </b>{{$datosTareasPendientes->usuario}}
-                                                        </li>
-                                                        <li>
-                                                            <a href="/marcartarearealizada/{{$datosTareasPendientes->id}}"
-                                                               class="enlaces-tareas">
-                                                                <button type="button"
-                                                                        class="btn btn-success btn-sm botones-tareas"><i
-                                                                        class="fas fa-check text-white"></i></button>
-                                                            </a>
-                                                            <a href="/eliminartarea/{{$datosTareasPendientes->id}}"
-                                                               class="enlaces-tareas">
-                                                                <button type="button"
-                                                                        class="btn btn-danger btn-sm botones-tareas"><i
-                                                                        class="fas fa-times text-white"></i></button>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            @endforeach
+                                            @if($tareasPendientes!=[])
+                                                @foreach($tareasPendientes as $datosTareasPendientes)
+                                                    <div class="col-12 col-sm-6 col-md-4 text-center">
+                                                        <ul class="list-unstyled">
+                                                            <li>
+                                                                <span style="font-size:20px;"  class="text-primary">{{$datosTareasPendientes->nombre}}</span>
+                                                            </li>
+                                                            <li>
+                                                                <i class="fas fa-calendar-week text-primary"></i>&nbsp;<b>Hasta: </b>{{$datosTareasPendientes->fecha_vencimiento}}
+                                                            </li>
+                                                            <li>
+                                                                <i class="far fa-user text-primary"></i>&nbsp;<b>Asignado
+                                                                    a: </b>{{$datosTareasPendientes->usuario}}
+                                                            </li>
+                                                            <li class="mt-2">
+                                                                <a href="/marcartarearealizada/{{$datosTareasPendientes->id}}"
+                                                                   class="enlaces-tareas">
+                                                                    <button type="button"
+                                                                            class="btn btn-success btn-sm botones-tareas"><i
+                                                                            class="fas fa-check text-white"></i></button>
+                                                                </a>
+                                                                <a href="/eliminartarea/{{$datosTareasPendientes->id}}"
+                                                                   class="enlaces-tareas">
+                                                                    <button type="button"
+                                                                            class="btn btn-danger btn-sm botones-tareas"><i
+                                                                            class="fas fa-times text-white"></i></button>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                                <span class="mr-5 w-100 text-center text-secondary">No hay tareas pendientes</span>
+                                            @endif
                                         </div>
                                     @endif
                                 </div>
@@ -360,7 +364,8 @@
                                 <div class="accordion-body ml-5">
                                     @if(isset($tareasRealizadas))
                                         <div class="d-flex flex-wrap">
-                                            @foreach($tareasRealizadas as $datosTareasRealizadas)
+                                            @if($tareasRealizadas!=[])
+                                                @foreach($tareasRealizadas as $datosTareasRealizadas)
                                                 <div class="col-12 col-sm-4">
                                                     <ul class="list-unstyled">
                                                         <li>
@@ -386,6 +391,10 @@
                                                     </ul>
                                                 </div>
                                             @endforeach
+
+                                            @else
+                                                <span class="mr-5 w-100 text-center text-secondary">No hay tareas realizadas</span>
+                                            @endif
                                         </div>
                                     @endif
                                 </div>
@@ -403,25 +412,25 @@
                                  data-bs-parent="#accordionExample">
                                 <form action="{{route('annadirTarea')}}" method="post">
                                     @csrf
-                                    <div class="d-sm-flex flex-wrap m-3">
-                                        <div class="mr-3 ml-3 mt-3 mb-0 input-group col-12 col-sm-5">
+                                    <div class="d-flex flex-wrap m-3 justify-content-lg-around">
+                                        <div class="mr-3 mt-3 mb-0 input-group col-12 col-sm-8 col-lg-5 ">
                                             <span class="input-group-text" id="basic-addon1"
                                                   pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,48}">Nombre tarea:</span>
                                             <input type="text" class="form-control" name="nombre-tarea" placeholder=""
                                                    aria-label=""
                                                    aria-describedby="basic-addon1" required>
                                         </div>
-                                        <div class="mr-3 ml-3 mt-3 mb-0 input-group col-12 col-sm-5">
+                                        <div class="mr-3 mt-3 mb-0 input-group col-12 col-sm-8 col-lg-5">
                                             <span class="input-group-text"
                                                   id="basic-addon1">Fecha de vencimiento:</span>
                                             <input type="date" id="fecha-vencimiento" class="form-control"
                                                    placeholder="" aria-label=""
                                                    aria-describedby="basic-addon1" name="fecha-vencimiento" required>
                                         </div>
-                                        <div class="mr-3 ml-3 mt-3 mb-0 col-11">
+                                        <div class="mr-3 mt-3 mb-0 col-11">
                                             Asigna la tarea a un participante:
                                         </div>
-                                        <div class="mr-3 ml-3 mt-0 mb-0 col-11">
+                                        <div class="mr-3 mt-0 mb-0 col-11">
                                             <select class="form-select" name="personatarea"
                                                     aria-label="Default select example" required>
                                                 <option selected="selected" value="Todos/as">Todos/as</option>
@@ -435,7 +444,7 @@
                                                 @endisset
                                             </select>
                                         </div>
-                                        <div class="mr-3 ml-3 mt-3 mb-0 col-11">
+                                        <div class="mr-3 text-center mt-3 mb-0 col-11">
                                             <button type="submit" class="btn btn-primary" onclick="annadirTareas()">
                                                 Añadir tarea
                                             </button>
@@ -519,6 +528,10 @@
                                                required>
                                     </div>
 
+                                    <div class="mb-3">
+                                        <label for="descripcion" class="col-form-label">Descripción:</label>
+                                        <textarea style="resize: none" rows="5" class="form-control" id="descripcion" name="descripcion" >{{$proyecto->descripcion}}</textarea>
+                                    </div>
 
                                     <input type="hidden" name="idproy" id="idproy" value="{{$proyecto->id}}">
                                     <input type="hidden" name="currentName" id="currentName"

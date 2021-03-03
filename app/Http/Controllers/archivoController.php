@@ -49,6 +49,7 @@ class archivoController extends Controller
 
 
         return back()->with('file','file');
+
     }
 
 
@@ -66,11 +67,14 @@ class archivoController extends Controller
     {
         $idproy = Session::get('proyectoid');
         $nombre = request('nombreArchivo');
+        $current = request('currentName');
+
         $id = request('id');
 
         $nombreArray = explode('.',$nombre);
+        $currentName = explode('.',$current);
 
-        $extension = ".". end($nombreArray);
+        $extension = ".". end($currentName);
 
         $nombreFinal = $nombreArray['0'] .$extension;
 
