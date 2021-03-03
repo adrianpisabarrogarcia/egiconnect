@@ -6,6 +6,7 @@ use App\Models\Archivo;
 use Illuminate\Http\Request;
 use DB;
 use Session;
+use DateTime;
 
 class archivoController extends Controller
 {
@@ -47,7 +48,8 @@ class archivoController extends Controller
         $archivo->save();
 
 
-        return back()->with('archivo', 'archivo');
+        return back()->with('file','file');
+
     }
 
 
@@ -57,7 +59,7 @@ class archivoController extends Controller
 
         $archivo = Archivo::where('id', $id)->where('idproy',$idproy)->delete();
 
-        return back()->with('archivo', 'archivo');
+        return back()->with('file','file');
 
     }
 
@@ -80,7 +82,7 @@ class archivoController extends Controller
             "nombre" => $nombreFinal,
         ]);
 
-        return back()->with('archivo', 'archivo');
+        return back()->with('file','file');
 
     }
 
