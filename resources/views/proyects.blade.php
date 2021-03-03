@@ -241,6 +241,8 @@
                                                                 </div>
                                                                 <input type="hidden" value="{{$archivo->id}}" name="id"
                                                                        id="idArchivo">
+                                                                       
+                                                                <input type="hidden" value="{{$archivo->nombre}}" name="currentName" id="currentName">
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
