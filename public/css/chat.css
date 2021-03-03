@@ -5,11 +5,12 @@
 body {
   background-color: #edeff2;
   font-family: "Calibri", "Roboto", sans-serif;
+  overflow: hidden;
 }
 
 .chat_window {
   position: relative;
-  height: 100% !important;
+  height: 100%;
   background-color: #fff;
   overflow: hidden;
 }
@@ -19,7 +20,6 @@ body {
   list-style: none;
   padding: 20px 10px 0 10px;
   margin: 0;
-  height: 347px;
   overflow: scroll;
 }
 
@@ -34,6 +34,31 @@ body {
 .messages .message.left .text_wrapper {
   background-color: rgba(104, 46, 136, 0.6);
   margin-left: 20px;
+}
+
+.mensajeEllos {
+  background-color: rgba(104, 46, 136, 0.6);
+  float: left;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 20px;
+  padding-left: 20px;
+  border-radius: 10px;
+  width: 80%;
+}
+
+.mensajeYo {
+  background-color: rgba(191, 191, 191, 0.8);
+  text-align: right;
+  float: right;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 20px;
+  padding-left: 20px;
+  border-radius: 10px;
+  width: 80%;
 }
 
 .messages .message.left .text_wrapper::after, .messages .message.left .text_wrapper::before {
@@ -168,7 +193,6 @@ body {
 }
 
 .messages {
-  height: 100%;
   overflow-x: hidden;
 }
 
@@ -176,6 +200,14 @@ body {
   margin: 0;
 }
 
-/*# sourceMappingURL=chat.css.map */
+.messages {
+  height: calc(100% - 16%) !important;
+  width: 100% !important;
+  position: absolute !important;
+}
+
+.bottom_wrapper {
+  position: absolute !important;
+}
 
 /*# sourceMappingURL=chat.css.map */
