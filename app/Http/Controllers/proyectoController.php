@@ -64,7 +64,7 @@ class proyectoController extends Controller
 
         $proyectosIDs = Usupro::get()->where('idusu', request("idcreador"));
         $proyectos = [];
-        foreach ($proyectosIDs as $datosProyectos){
+        foreach ($proyectosIDs as $datosProyectos) {
             $project = DB::select('select * from proyecto where id= ?', [$datosProyectos->idproy]);
             array_push($proyectos, $project);
         }
@@ -78,12 +78,12 @@ class proyectoController extends Controller
 
         //Verificamos si el codigo existe.
         $idproy = Proyecto::get()->where('codigo', request("codigoProyecto"));
-        if(count($idproy)==0){
+        if (count($idproy) == 0) {
             return back()->with('error', 'El codigo del proyecto no existe.');
         }
 
         $idproy = Proyecto::get()->where('codigo', request("codigoProyecto"))->first();
-        $usuPro  = new Usupro(
+        $usuPro = new Usupro(
             [
                 "idproy" => $idproy->id,
                 "idusu" => request("idusu"),
@@ -92,7 +92,7 @@ class proyectoController extends Controller
 
         $proyectoExistente = Usupro::get()->where('idusu', request("idusu"))->where('idproy', $idproy->id)->first();
 
-        if($proyectoExistente!=""){
+        if ($proyectoExistente != "") {
             return back()->with('error', 'Ya estás unido a ese proyecto.');
         }
 
@@ -101,7 +101,7 @@ class proyectoController extends Controller
 
         $proyectosIDs = Usupro::get()->where('idusu', request("idusu"));
         $proyectos = [];
-        foreach ($proyectosIDs as $datosProyectos){
+        foreach ($proyectosIDs as $datosProyectos) {
             $project = DB::select('select * from proyecto where id= ?', [$datosProyectos->idproy]);
             array_push($proyectos, $project);
         }
@@ -113,46 +113,52 @@ class proyectoController extends Controller
 
     public function show($id)
     {
-        Session::put('proyectoid', $id);
-        $mensajes = DB::select('SELECT * FROM chat WHERE idproy = ? ',[$id]);
+        if (!Session::exists('id')) {
+            return redirect()->route("login.home");
+        } else {
 
-        foreach($mensajes as $datosMensajes){
-            $datoUsuario = DB::select('SELECT nombre FROM usuario WHERE id = ?',[$datosMensajes->idusu]);
-            $datosMensajes->nombre = $datoUsuario[0]->nombre;
+
+            Session::put('proyectoid', $id);
+            $mensajes = DB::select('SELECT * FROM chat WHERE idproy = ? ', [$id]);
+
+            foreach ($mensajes as $datosMensajes) {
+                $datoUsuario = DB::select('SELECT nombre FROM usuario WHERE id = ?', [$datosMensajes->idusu]);
+                $datosMensajes->nombre = $datoUsuario[0]->nombre;
+            }
+
+            $proyecto = Proyecto::get()->where('id', $id)->first();
+
+            $usuariosProyecto = DB::select('SELECT * FROM usupro WHERE idproy = ?', [$id]);
+            foreach ($usuariosProyecto as $datosUsuariosProyectos) {
+                $usuario = DB::select('SELECT * FROM usuario WHERE id = ?', [$datosUsuariosProyectos->idusu]);
+                $datosUsuariosProyectos->idUsu = $usuario[0]->id;
+                $datosUsuariosProyectos->usuarioUsu = $usuario[0]->usuario;
+                $datosUsuariosProyectos->nombreUsu = $usuario[0]->nombre;
+                $datosUsuariosProyectos->apellidosUsu = $usuario[0]->apellidos;
+                $datosUsuariosProyectos->emailUsu = $usuario[0]->email;
+            }
+
+            $usuarios = DB::select('SELECT * FROM usuario');
+            $archivos = Archivo::get()->where('idproy', $id);
+            $tareasRealizadas = DB::select('SELECT * FROM tarea WHERE idproy = ? AND realizado = 1', [$id]);
+            $tareasPendientes = DB::select('SELECT * FROM tarea WHERE idproy = ? AND realizado = 0', [$id]);
+
+            return view('proyects')->with([
+                "mensajes" => $mensajes,
+                "usuarios" => $usuarios,
+                "proyecto" => $proyecto,
+                "usuariosPro" => $usuariosProyecto,
+                "tareasRealizadas" => $tareasRealizadas,
+                "tareasPendientes" => $tareasPendientes,
+                "archivos" => $archivos,
+            ]);
         }
-
-        $proyecto = Proyecto::get()->where('id', $id)->first();
-
-        $usuariosProyecto = DB::select('SELECT * FROM usupro WHERE idproy = ?',[$id]);
-        foreach($usuariosProyecto as $datosUsuariosProyectos){
-            $usuario = DB::select('SELECT * FROM usuario WHERE id = ?',[$datosUsuariosProyectos->idusu]);
-            $datosUsuariosProyectos->idUsu = $usuario[0]->id;
-            $datosUsuariosProyectos->usuarioUsu = $usuario[0]->usuario;
-            $datosUsuariosProyectos->nombreUsu = $usuario[0]->nombre;
-            $datosUsuariosProyectos->apellidosUsu = $usuario[0]->apellidos;
-            $datosUsuariosProyectos->emailUsu = $usuario[0]->email;
-        }
-
-        $usuarios = DB::select('SELECT * FROM usuario');
-        $archivos = Archivo::get()->where('idproy', $id);
-        $tareasRealizadas = DB::select('SELECT * FROM tarea WHERE idproy = ? AND realizado = 1',[$id]);
-        $tareasPendientes = DB::select('SELECT * FROM tarea WHERE idproy = ? AND realizado = 0',[$id]);
-
-        return view('proyects')->with([
-            "mensajes" => $mensajes,
-            "usuarios" => $usuarios,
-            "proyecto" => $proyecto,
-            "usuariosPro" => $usuariosProyecto,
-            "tareasRealizadas" => $tareasRealizadas,
-            "tareasPendientes" => $tareasPendientes,
-            "archivos" => $archivos,
-        ]);
     }
 
     //método para guardar los mensajes del chat
     public function chat(Request $request)
     {
-        date_default_timezone_set ('Europe/Madrid');
+        date_default_timezone_set('Europe/Madrid');
         $fecha = now();
         DB::table('chat')->insert([
             'descripcion' => $request->mensaje,
@@ -177,22 +183,21 @@ class proyectoController extends Controller
 
         $nombreExistente = Proyecto::get()->where('nombre', $nombreProyecto)->first();
 
-        if( $nombreProyecto != request('currentName') ){
-            if( $nombreExistente!=''){
-            return back()->with('errores', 'El nombre del proyecto no está disponible.');
+        if ($nombreProyecto != request('currentName')) {
+            if ($nombreExistente != '') {
+                return back()->with('errores', 'El nombre del proyecto no está disponible.');
             }
         }
 
-        $pro = DB::table('proyecto')->where('id',$idproy)->update([
+        $pro = DB::table('proyecto')->where('id', $idproy)->update([
             "nombre" => $nombreProyecto,
             "descripcion" => $descripcion
         ]);
 
 
-
         $proyectosIDs = Usupro::get()->where('idusu', $idusu);
         $proyectos = [];
-        foreach ($proyectosIDs as $datosProyectos){
+        foreach ($proyectosIDs as $datosProyectos) {
             $project = DB::select('select * from proyecto where id= ?', [$datosProyectos->idproy]);
             array_push($proyectos, $project);
         }
@@ -220,7 +225,7 @@ class proyectoController extends Controller
             }
         } while ($codigoRepetido == 1);
 
-        $proyecto = DB::table('proyecto')->where('id',$idproy)->update([
+        $proyecto = DB::table('proyecto')->where('id', $idproy)->update([
             "codigo" => $codigo,
         ]);
 
@@ -247,17 +252,16 @@ class proyectoController extends Controller
     }
 
 
-
     public function salirProyecto()
     {
         $idproy = request('idproy');
         $idusu = Session::get('id');
 
-        $proyecto = Usupro::where('idproy', $idproy)->where('idusu',$idusu)->delete();
+        $proyecto = Usupro::where('idproy', $idproy)->where('idusu', $idusu)->delete();
 
         $proyectosIDs = Usupro::get()->where('idusu', $idusu);
         $proyectos = [];
-        foreach ($proyectosIDs as $datosProyectos){
+        foreach ($proyectosIDs as $datosProyectos) {
             $project = DB::select('select * from proyecto where id= ?', [$datosProyectos->idproy]);
             array_push($proyectos, $project);
         }
@@ -274,7 +278,7 @@ class proyectoController extends Controller
 
         DB::table('usupro')->where('idproy', '=', $idproy)->where('idusu', '=', $idusu)->delete();
 
-        return back()->with('usuario-borrado','usuario-borrado');
+        return back()->with('usuario-borrado', 'usuario-borrado');
 
     }
 
@@ -294,7 +298,7 @@ class proyectoController extends Controller
             'idproy' => $idproy
         ]);
 
-        return back()->with('tarea','tarea');
+        return back()->with('tarea', 'tarea');
 
     }
 
@@ -302,7 +306,7 @@ class proyectoController extends Controller
     {
         DB::table('tarea')->where('id', '=', $id)->delete();
 
-        return back()->with('tarea','tarea');
+        return back()->with('tarea', 'tarea');
 
     }
 
@@ -312,7 +316,7 @@ class proyectoController extends Controller
             ->where('id', $id)
             ->update(['realizado' => 1]);
 
-        return back()->with('tarea','tarea');
+        return back()->with('tarea', 'tarea');
 
     }
 
