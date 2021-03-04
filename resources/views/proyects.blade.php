@@ -67,12 +67,16 @@
                                             aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <h1 class="text-center bg-primary text-white rounded">{{$proyecto->codigo}}</h1>
+                                    <h1 class="text-center bg-primary text-white rounded pt-1 pb-1">{{$proyecto->codigo}}</h1>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" id="texto-copiar" value="http://egiconnect.herokuapp.com/{{$proyecto->codigo}}"disabled>
+                                    </div>
                                     <div class="mb-3">
                                         <label for="nombreProyecto" class="col-form-label">Nombre del proyecto:</label>
                                         <input type="text" class="form-control text-dark" id="nombreProyecto"
                                                name="codigoProyecto" value="{{$proyecto->nombre}}" disabled>
                                     </div>
+
                                     <div class="mb-3">
                                         <label for="descripcion" class="col-form-label">Descripción:</label>
                                         <textarea disabled style="resize: none" rows="5" class="form-control text-dark"

@@ -5,7 +5,7 @@ $(document).ready(function () {
         $("#botonGenerarCodigo").click(generarNuevoCodigo);
         $("#borrarProyecto").click(borrarProyecto);
         $("#botonUnirseProyecto").click(validarCodigoProyecto);
-        $("#botonSubirArchivo").click(validarDatosObra);
+        $("#botonSubirArchivo").click(validarSubirArchivo);
     }
     catch (error) {
         console.log(error);
@@ -107,7 +107,7 @@ function actualizarProyecto() {
         event.preventDefault();
     }
 }
-function validarDatosObra() {
+function validarSubirArchivo() {
     validarFichero();
 }
 function validarFichero() {
