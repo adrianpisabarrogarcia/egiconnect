@@ -12,7 +12,7 @@ $(document).ready(function (){
 
 });
 
-
+//validaciones de los datos de los proyectos
 function validarProyecto():void {
 
     try {
@@ -46,6 +46,7 @@ function validarProyecto():void {
 
 }
 
+//validación del código
 function validarCodigoProyecto():void {
 
     try {
@@ -71,16 +72,16 @@ function validarCodigoProyecto():void {
 }
 
 
-
+//placeholder del input al subir archivos
 $(".custom-file-input").on("change", function() {
-
-var fileName = $(this).val().split("\\").pop();
-$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-if(fileName=="") {
-    $(this).siblings(".custom-file-label").addClass("selected").html("Selecciona un archivo");
-}
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    if(fileName=="") {
+        $(this).siblings(".custom-file-label").addClass("selected").html("Selecciona un archivo");
+    }
 });
 
+//comprueba valores al modificar el proyecto
 function actualizarProyecto():void {
 
     try {
