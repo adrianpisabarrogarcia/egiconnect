@@ -320,6 +320,48 @@ class proyectoController extends Controller
 
     }
 
+    public function codigoProyectoUnirse($id)
+    {
+        if (!Session::exists('id')) {
+            return redirect()->route("login.home");
+        } else {
+
+            //Verificamos si el codigo existe.
+            $idproy = Proyecto::get()->where('codigo', $id);
+            if (count($idproy) == 0) {
+                return view('index')->with('errorunirse', 'El codigo del proyecto no existe.');
+            }
+
+            $idproy = Proyecto::get()->where('codigo', $id)->first();
+            $usuPro = new Usupro(
+                [
+                    "idproy" => $idproy->id,
+                    "idusu" => Session::get('id'),
+                ]
+            );
+
+            $proyectoExistente = Usupro::get()->where('idusu', Session::get('id'))->where('idproy', $idproy->id)->first();
+
+            if ($proyectoExistente != "") {
+                return view('index')->with('errorunirse', 'Ya estás unido a ese proyecto.');
+            }
+
+            $usuPro->save();
+
+
+            $proyectosIDs = Usupro::get()->where('idusu', Session::get('id'));
+            $proyectos = [];
+            foreach ($proyectosIDs as $datosProyectos) {
+                $project = DB::select('select * from proyecto where id= ?', [$datosProyectos->idproy]);
+                array_push($proyectos, $project);
+            }
+
+            Session::put('proyectos', $proyectos);
+
+            return redirect()->route('index');
+        }
+    }
+
 }
 
 

@@ -534,6 +534,7 @@
                                     </div>
 
                                     <div class="mb-3">
+
                                         <label for="descripcion2" class="col-form-label">Descripción:</label>
                                         <textarea style="resize: none" rows="5" class="form-control" id="descripcion2"
                                                   name="descripcion">{{$proyecto->descripcion}}</textarea>
