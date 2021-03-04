@@ -1,3 +1,6 @@
+//programado por los autores de la plantilla
+//sirve para expandir el menú cuando se pulsa en el
+
 const darkSwitch = document.getElementById("darkSwitch");
 
 function initTheme() {
