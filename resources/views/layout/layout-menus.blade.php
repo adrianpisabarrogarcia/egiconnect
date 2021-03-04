@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="/css/style.css">
     @yield('head')
 </head>
-<body class="sb-nav-fixed">
+<body class="sb-nav-fixed over">
 <nav class="sb-topnav navbar navbar-expand bg-primary">
     <button class="btn btn-link btn-sm d-lg-none ml-2 boton-menu" id="sidebarToggle" href="#"><i
             class="fas fa-bars"></i></button>

@@ -379,14 +379,14 @@
                                                         $fecha = DateTime::createFromFormat('Y-m-d', $datosTareasRealizadas->fecha_vencimiento);
                                                         ?>
                                                         <li>
-                                                            <i class="fas fa-calendar-week text-primary"></i>&nbsp;<b>Fecha
-                                                                vencimiento: </b>{{$fecha->format('d-m-Y')}}
+                                                            <i class="fas fa-calendar-week text-primary"></i>&nbsp;<b>Hasta:
+                                                            </b>{{$fecha->format('d-m-Y')}}
                                                         </li>
                                                         <li>
                                                             <i class="far fa-user text-primary"></i>&nbsp;<b>Asignado
                                                                 a: </b>{{$datosTareasRealizadas->usuario}}
                                                         </li>
-                                                        <li>
+                                                        <li class="mt-2">
                                                             <a href="/eliminartarea/{{$datosTareasRealizadas->id}}"
                                                                class="enlaces-tareas">
                                                                 <button type="button"
@@ -534,8 +534,8 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="descripcion" class="col-form-label">Descripción:</label>
-                                        <textarea style="resize: none" rows="5" class="form-control" id="descripcion"
+                                        <label for="descripcion2" class="col-form-label">Descripción:</label>
+                                        <textarea style="resize: none" rows="5" class="form-control" id="descripcion2"
                                                   name="descripcion">{{$proyecto->descripcion}}</textarea>
                                     </div>
 
@@ -650,7 +650,7 @@
                 $('.table_of_users').DataTable({
                     language: {
                         "processing": "Procesando...",
-                        "lengthMenu": "Mostrar _MENU_ registros",
+                        "lengthMenu": "Mostrar _MENU_",
                         "zeroRecords": "No se encontraron resultados",
                         "emptyTable": "Ningún dato disponible en esta tabla",
                         "info": "_START_ al _END_ de un total de _TOTAL_ registros",
