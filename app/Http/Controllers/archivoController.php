@@ -30,7 +30,8 @@ class archivoController extends Controller
         { $size = number_format($size / 1048576, 2) . ' MB'; }
         elseif ($size >= 1024)
         { $size = number_format($size / 1024, 2) . ' KB'; }
-
+        
+        //Obtener fecha actual
         date_default_timezone_set ('Europe/Madrid');
         $now = new DateTime();
 
@@ -47,12 +48,12 @@ class archivoController extends Controller
         );
         $archivo->save();
 
-
+        //Returnear la vista con la pestaña de archivos
         return back()->with('file','file');
 
     }
 
-
+    //función para borrar los archivos
     public function borrarArchivo($id)
     {
         $idproy = Session::get('proyectoid');
@@ -63,6 +64,7 @@ class archivoController extends Controller
 
     }
 
+    //función para cambiar el nombre, evita que se cambie la extensión del archivo
     public function cambiarNombre()
     {
         $idproy = Session::get('proyectoid');
