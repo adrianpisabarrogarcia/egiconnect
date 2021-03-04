@@ -1,4 +1,4 @@
-
+//comprobar los campos
 function actualizar():void {
 
     let currentUser: string = $("#userMostrar").val().toString();
@@ -33,6 +33,7 @@ function actualizar():void {
     }
 }
 
+//comprobar campos de contraseñas y repetición
 function actualizarPass():void {
 
     let pass: string = $("#pass").val().toString();
