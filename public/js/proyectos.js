@@ -75,7 +75,7 @@ function actualizarProyecto() {
         // @ts-ignore
         var nombre = $("#nombre").val();
         // @ts-ignore
-        var des = $("#descripcion").val();
+        var des = $("#descripcion2").val();
         // @ts-ignore
         var currentDes = $("#currentDes").val();
         // @ts-ignore

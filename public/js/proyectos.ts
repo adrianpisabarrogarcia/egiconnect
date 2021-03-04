@@ -87,13 +87,13 @@ function actualizarProyecto():void {
         // @ts-ignore
         let textoErrores:Array<string> = ["No has modificado ningún campo","Debes añadir un nombre al proyecto", "Debes añadir una descripción al proyecto"];
         // @ts-ignore
-        var nombre: string = $("#nombre").val();
+        let nombre: string = $("#nombre").val();
         // @ts-ignore
-        var des: string = $("#descripcion").val();
+        let des: string = $("#descripcion2").val();
         // @ts-ignore
-        var currentDes: string = $("#currentDes").val();
+        let currentDes: string = $("#currentDes").val();
         // @ts-ignore
-        var currentName: string = $("#currentName").val();
+        let currentName: string = $("#currentName").val();
 
         if(nombre==currentName && des==currentDes){
             throw textoErrores[0];
