@@ -19,7 +19,8 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-comment"></i></div>
                         Chat
                     </button>
-                    <button class="nav-link @if(session()->get('file')!="") active @endif" id="nav-files-tab" data-bs-toggle="tab"
+                    <button class="nav-link @if(session()->get('file')!="") active @endif" id="nav-files-tab"
+                            data-bs-toggle="tab"
                             data-bs-target="#nav-files"
                             type="button" role="tab" aria-controls="nav-files" aria-selected="false">
                         <div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>
@@ -144,7 +145,8 @@
                             @endif
                         </ul>
                         <div class="bottom_wrapper clearfix">
-                            <form method="POST" action="/proyecto/chat" enctype="multipart/form-data" id="formularioChat">
+                            <form method="POST" action="/proyecto/chat" enctype="multipart/form-data"
+                                  id="formularioChat">
                                 @csrf
                                 <div class="message_input_wrapper">
 
@@ -168,7 +170,8 @@
                         </li>
                     </div>
                 </div>
-                <div class="tab-pane fade @if(session()->get('file')!="") show active @endif" id="nav-files" role="tabpanel"
+                <div class="tab-pane fade @if(session()->get('file')!="") show active @endif" id="nav-files"
+                     role="tabpanel"
                      aria-labelledby="nav-files-tab">
                     <form class="proyecto" method="POST" enctype="multipart/form-data" id="formularioFile"
                           action="{{route('subirArchivo')}}">
@@ -218,30 +221,20 @@
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
 
-                                                        <form class="proyecto" method="POST"
-                                                              id="formularioCambiarNombre"
-                                                              action="{{route('cambiarNombre')}}">
+                                                        <form class="proyecto" method="POST" id="formularioCambiarNombre" action="{{route('cambiarNombre')}}">
                                                             @csrf
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="exampleModalLabel">EDITAR
                                                                     NOMBRE DE FICHERO</h5>
-                                                                <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="mb-3">
-                                                                    <label for="nombreArchivo" class="col-form-label">¿Que
-                                                                        nombre deseas poner al archivo
-                                                                        seleccionado?</label>
-                                                                    <input type="text" class="form-control text-dark"
-                                                                           id="nombreArchivo"
-                                                                           name="nombreArchivo"
-                                                                           value="{{$archivo->nombre}}">
+                                                                    <label for="nombreArchivo" class="col-form-label">¿Que nombre deseas poner al archivo seleccionado?</label>
+                                                                    <input type="text" class="form-control text-dark" id="nombreArchivo" name="nombreArchivo" value="{{$archivo->nombre}}">
                                                                 </div>
                                                                 <input type="hidden" value="{{$archivo->id}}" name="id"
                                                                        id="idArchivo">
-                                                                       
                                                                 <input type="hidden" value="{{$archivo->nombre}}" name="currentName" id="currentName">
                                                             </div>
                                                             <div class="modal-footer">
@@ -319,7 +312,8 @@
                                                     <div class="col-12 col-sm-6 col-md-4 text-center">
                                                         <ul class="list-unstyled">
                                                             <li>
-                                                                <span style="font-size:20px;"  class="text-primary">{{$datosTareasPendientes->nombre}}</span>
+                                                                <span style="font-size:20px;"
+                                                                      class="text-primary">{{$datosTareasPendientes->nombre}}</span>
                                                             </li>
                                                             <?php
                                                             $fecha = DateTime::createFromFormat('Y-m-d', $datosTareasPendientes->fecha_vencimiento);
@@ -335,14 +329,18 @@
                                                                 <a href="/marcartarearealizada/{{$datosTareasPendientes->id}}"
                                                                    class="enlaces-tareas">
                                                                     <button type="button"
-                                                                            class="btn btn-success btn-sm botones-tareas"><i
-                                                                            class="fas fa-check text-white"></i></button>
+                                                                            class="btn btn-success btn-sm botones-tareas">
+                                                                        <i
+                                                                            class="fas fa-check text-white"></i>
+                                                                    </button>
                                                                 </a>
                                                                 <a href="/eliminartarea/{{$datosTareasPendientes->id}}"
                                                                    class="enlaces-tareas">
                                                                     <button type="button"
-                                                                            class="btn btn-danger btn-sm botones-tareas"><i
-                                                                            class="fas fa-times text-white"></i></button>
+                                                                            class="btn btn-danger btn-sm botones-tareas">
+                                                                        <i
+                                                                            class="fas fa-times text-white"></i>
+                                                                    </button>
                                                                 </a>
                                                             </li>
                                                         </ul>
@@ -399,7 +397,6 @@
                                                     </ul>
                                                 </div>
                                             @endforeach
-
                                             @else
                                                 <span class="mr-5 w-100 text-center text-secondary">No hay tareas realizadas</span>
                                             @endif
@@ -538,7 +535,8 @@
 
                                     <div class="mb-3">
                                         <label for="descripcion" class="col-form-label">Descripción:</label>
-                                        <textarea style="resize: none" rows="5" class="form-control" id="descripcion" name="descripcion" >{{$proyecto->descripcion}}</textarea>
+                                        <textarea style="resize: none" rows="5" class="form-control" id="descripcion"
+                                                  name="descripcion">{{$proyecto->descripcion}}</textarea>
                                     </div>
 
                                     <input type="hidden" name="idproy" id="idproy" value="{{$proyecto->id}}">
