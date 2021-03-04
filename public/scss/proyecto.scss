@@ -1,0 +1,48 @@
+.nav-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--morado) !important;
+}
+
+.nav-tabs {
+    border-bottom: none !important;
+}
+
+.botones-tareas {
+    width: 50px !important;
+}
+
+.file-upload {
+    padding: 10px;
+}
+
+.custom-file-label::after {
+    content: "Abrir";
+}
+
+.enlaces-tareas {
+    text-decoration: none !important;
+}
+
+.page-link {
+    background-color: #682E88 !important;
+    color: #ECEFF2 !important;
+}
+
+.paginate_button:hover {
+    border: 0px solid black !important;
+    background-color: #ECEFF2 !important;
+}
+.paginate_button:hover, .page-item:hover .active:hover{
+    background-color: #ECEFF2 !important;
+    color: #ECEFF2 !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+    background: none !important;
+}
+
+main {
+    overflow: auto;
+}

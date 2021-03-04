@@ -1,0 +1,20 @@
+$color-principal: #682E88 !important;
+#logo-login{
+    width: 300px;
+}
+
+.bg-primary{
+    background-color: $color-principal;
+}
+.btn-primary{
+    background-color: $color-principal;
+    border: 2px solid black;
+    color: white !important;
+}
+a, .text-primary{
+    color: $color-principal;
+}
+
+.btn-primary:active:focus {
+    box-shadow: none !important;
+}

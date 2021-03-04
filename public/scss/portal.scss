@@ -1,0 +1,62 @@
+$color-principal: #682E88 !important;
+
+.bg-primary {
+    background-color: $color-principal;
+}
+
+.btn-primary{
+    background-color: $color-principal;
+    border: 2px solid black;
+    color: white !important;
+}
+
+.btn-outline-primary{
+    color: $color-principal;
+    border: 2px solid $color-principal;
+}
+
+.btn-outline-primary:hover{
+    color: white !important;
+    background-color: $color-principal;
+}
+
+.text-primary{
+    color: $color-principal;
+}
+.sb-sidenav-menu-heading{
+    color: white !important;
+}
+
+.sb-sidenav{
+    border-right: 3px solid $color-principal;
+}
+
+footer{
+    border-top: 1px solid $color-principal;
+}
+#logo-principal{
+    width: 100%;
+}
+.bg-dark{
+    background-color: $color-principal !important;
+}
+.card-header{
+    background-color: rgba(104,46,136, 0.4);
+}
+
+.card-title{
+    font-size: 13px !important;
+}
+
+.btn-link{
+    color: white !important;
+    background-color: rgba(255,255,255,0.2) !important;
+}
+
+.tarjetasinicio > a{
+    text-decoration: none !important;
+}
+
+body{
+    overflow-y: scroll !important;
+}

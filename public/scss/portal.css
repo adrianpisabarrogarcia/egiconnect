@@ -1,0 +1,53 @@
+.bg-primary {
+  background-color: #682E88 !important;
+}
+
+.btn-primary {
+  background-color: #682E88 !important;
+  border: 2px solid black;
+  color: white !important;
+}
+
+.btn-outline-primary {
+  color: #682E88 !important;
+  border: 2px solid #682E88 !important;
+}
+
+.btn-outline-primary:hover {
+  color: white !important;
+  background-color: #682E88 !important;
+}
+
+.text-primary {
+  color: #682E88 !important;
+}
+
+.sb-sidenav-menu-heading {
+  color: white !important;
+}
+
+.sb-sidenav {
+  border-right: 3px solid #682E88 !important;
+}
+
+footer {
+  border-top: 1px solid #682E88 !important;
+}
+
+#logo-principal {
+  width: 100%;
+}
+
+.bg-dark {
+  background-color: #682E88 !important !important;
+}
+
+.card-header {
+  background-color: rgba(104, 46, 136, 0.4);
+}
+
+.card-title {
+  font-size: 13px !important;
+}
+
+/*# sourceMappingURL=portal.css.map */
