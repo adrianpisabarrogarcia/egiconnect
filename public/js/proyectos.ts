@@ -1,3 +1,5 @@
+import htmlString = JQuery.htmlString;
+
 $(document).ready(function (){
     //Asignamos la función correspondiente al formulario.
     try {
@@ -5,7 +7,7 @@ $(document).ready(function (){
         $("#botonGenerarCodigo").click(generarNuevoCodigo);
         $("#borrarProyecto").click(borrarProyecto);
         $("#botonUnirseProyecto").click(validarCodigoProyecto);
-        $("#botonSubirArchivo").click(validarDatosObra);
+        $("#botonSubirArchivo").click(validarSubirArchivo);
     }catch (error){
         console.log(error)
     }
@@ -124,7 +126,7 @@ function actualizarProyecto():void {
 }
 
 
-function validarDatosObra():void {
+function validarSubirArchivo():void {
 
     validarFichero();
 
