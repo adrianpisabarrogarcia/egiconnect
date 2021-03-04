@@ -241,6 +241,7 @@
                                                                 </div>
                                                                 <input type="hidden" value="{{$archivo->id}}" name="id"
                                                                        id="idArchivo">
+                                                                <input type="hidden" value="{{$archivo->nombre}}" name="currentName" id="currentName">
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
@@ -536,7 +537,7 @@
 
                                     <div class="mb-3">
                                         <label for="descripcion" class="col-form-label">Descripción:</label>
-                                        <textarea style="resize: none" rows="5" class="form-control" id="descripcion" name="descripcion" >{{$proyecto->descripcion}}</textarea>
+                                        <textarea style="resize: none" rows="5" class="form-control" id="descripcion" name="descripcion" required>{{$proyecto->descripcion}}</textarea>
                                     </div>
 
                                     <input type="hidden" name="idproy" id="idproy" value="{{$proyecto->id}}">
