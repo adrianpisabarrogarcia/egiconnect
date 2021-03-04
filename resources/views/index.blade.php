@@ -9,6 +9,16 @@
     </head>
     <div id="layoutSidenav_content">
         <main class="p-2">
+            @isset($errorunirse)
+                @if($errorunirse!="")
+                    <div class=" ml-4 mr-4 alert alert-danger alert-dismissible fade show text-center" role="alert">
+                        {!! $errorunirse  !!}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+            @endisset
             <h3 class="mt-3 ms-4 p-2"><i class="fas fa-tools"></i>&nbsp;Gestión de proyectos:</h3>
             <div class="row d-flex justify-content-center align-center">
                 <div class="col-12 col-sm-6 d-flex justify-content-center p-2 p-sm-5">

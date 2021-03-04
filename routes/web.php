@@ -53,6 +53,7 @@ Route::post("/annadirtarea", "proyectoController@annadirTarea")->name("annadirTa
 Route::get("/eliminartarea/{id}", "proyectoController@eliminarTarea")->name("eliminarTarea");
 Route::get("/marcartarearealizada/{id}", "proyectoController@marcarRealizada")->name("marcarRealizada");
 Route::get("/logout", "ControladorLogin@logOut")->name("logOut");
+Route::get("/{id}", "proyectoController@codigoProyectoUnirse")->name("codigoProyectoUnirse");
 
 
 //ARCHIVOS

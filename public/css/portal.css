@@ -59,4 +59,8 @@ footer {
   text-decoration: none !important;
 }
 
+body {
+  overflow-y: scroll !important;
+}
+
 /*# sourceMappingURL=portal.css.map */
