@@ -201,8 +201,8 @@
                                 <th>Tamaño</th>
                                 <th>Fecha</th>
                                 <th>Autor</th>
-                                <th>Descargar</th>
-                                <th>Eliminar</th>
+                                <th><center>Descargar</center></th>
+                                <th><center>Eliminar</center></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -233,7 +233,8 @@
                                                                     <label for="nombreArchivo" class="col-form-label">¿Que nombre deseas poner al archivo seleccionado?</label>
                                                                     <input type="text" class="form-control text-dark" id="nombreArchivo" name="nombreArchivo" value="{{$archivo->nombre}}">
                                                                 </div>
-                                                                <input type="hidden" value="{{$archivo->id}}" name="id" id="idArchivo">
+                                                                <input type="hidden" value="{{$archivo->id}}" name="id"
+                                                                       id="idArchivo">
                                                                 <input type="hidden" value="{{$archivo->nombre}}" name="currentName" id="currentName">
                                                             </div>
                                                             <div class="modal-footer">
@@ -252,7 +253,7 @@
                                         <?php
                                         $fecha = DateTime::createFromFormat('Y-m-d H:i:s', $archivo->fecha);
                                         ?>
-                                        <td>{{ $fecha->format('d-m-Y H:i:s')}}</td>
+                                        <td>{{ $fecha->format('d-m-Y H:i')}}</td>
                                         @foreach ($usuarios as $usuario)
                                             @if($usuario->id == $archivo->idusu)
                                                 <td>{{ $usuario->usuario }}</td>
@@ -314,8 +315,11 @@
                                                                 <span style="font-size:20px;"
                                                                       class="text-primary">{{$datosTareasPendientes->nombre}}</span>
                                                             </li>
+                                                            <?php
+                                                            $fecha = DateTime::createFromFormat('Y-m-d', $datosTareasPendientes->fecha_vencimiento);
+                                                            ?>
                                                             <li>
-                                                                <i class="fas fa-calendar-week text-primary"></i>&nbsp;<b>Hasta: </b>{{$datosTareasPendientes->fecha_vencimiento}}
+                                                                <i class="fas fa-calendar-week text-primary"></i>&nbsp;<b>Hasta: </b>{{$fecha->format('d-m-Y')}}
                                                             </li>
                                                             <li>
                                                                 <i class="far fa-user text-primary"></i>&nbsp;<b>Asignado
@@ -365,32 +369,34 @@
                                         <div class="d-flex flex-wrap">
                                             @if($tareasRealizadas!=[])
                                                 @foreach($tareasRealizadas as $datosTareasRealizadas)
-                                                    <div class="col-12 col-sm-6 col-md-4 text-center">
-                                                        <ul class="list-unstyled">
-                                                            <li>
-                                                                <span style="font-size:20px;"
-                                                                      class="text-primary">{{$datosTareasRealizadas->nombre}}</span>
-                                                            </li>
-                                                            <li>
-                                                                <i class="fas fa-calendar-week text-primary"></i>&nbsp;<b>Hasta: </b>{{$datosTareasRealizadas->fecha_vencimiento}}
-                                                            </li>
-                                                            <li>
-                                                                <i class="far fa-user text-primary"></i>&nbsp;<b>Asignado
-                                                                    a: </b>{{$datosTareasRealizadas->usuario}}
-                                                            </li>
-                                                            <li>
-                                                                <a href="/eliminartarea/{{$datosTareasRealizadas->id}}"
-                                                                   class="enlaces-tareas">
-                                                                    <button type="button"
-                                                                            class="btn btn-danger btn-sm botones-tareas">
-                                                                        <i
-                                                                            class="fas fa-times text-white"></i>
-                                                                    </button>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                @endforeach
+                                                <div class="col-12 col-sm-6 col-md-4 text-center">
+                                                    <ul class="list-unstyled">
+                                                        <li>
+                                                            <span style="font-size:20px;"
+                                                                                class="text-primary">{{$datosTareasRealizadas->nombre}}</span>
+                                                        </li>
+                                                        <?php
+                                                        $fecha = DateTime::createFromFormat('Y-m-d', $datosTareasRealizadas->fecha_vencimiento);
+                                                        ?>
+                                                        <li>
+                                                            <i class="fas fa-calendar-week text-primary"></i>&nbsp;<b>Fecha
+                                                                vencimiento: </b>{{$fecha->format('d-m-Y')}}
+                                                        </li>
+                                                        <li>
+                                                            <i class="far fa-user text-primary"></i>&nbsp;<b>Asignado
+                                                                a: </b>{{$datosTareasRealizadas->usuario}}
+                                                        </li>
+                                                        <li>
+                                                            <a href="/eliminartarea/{{$datosTareasRealizadas->id}}"
+                                                               class="enlaces-tareas">
+                                                                <button type="button"
+                                                                        class="btn btn-danger btn-sm botones-tareas"><i
+                                                                        class="fas fa-times text-white"></i></button>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            @endforeach
                                             @else
                                                 <span class="mr-5 w-100 text-center text-secondary">No hay tareas realizadas</span>
                                             @endif
@@ -574,6 +580,7 @@
                             <div id="erroresTypescriptActualizar">
                             </div>
                         </div>
+
 
                         <div class="form-group text-center d-flex justify-content-center">
                             <div class="form-group mt-1 mb-0"><input type="submit"
