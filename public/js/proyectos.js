@@ -46,7 +46,7 @@ function validarCodigoProyecto() {
         // @ts-ignore
         var textoErrores = "El codígo debe tener 5 carácteres";
         // @ts-ignore
-        var cod = $("#codigoProyecto").val();
+        var cod = $("#codigoProyecto").val().toString();
         var codUpper = cod.toUpperCase();
         $("#codigoProyecto").val(codUpper);
         if (cod.length == 5) {
